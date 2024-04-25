@@ -14,18 +14,18 @@ public class Customer {
     private String email;
     private String customerId;
     private String password;
-    private String adress;
+    private String address;
     private String gender;
     private LocalDate regDate; // 회원가입일자
 
     // 사용자가 제공하는 데이터: 이메일, 패스워드, 이름, 성별, 나이
-    public Customer(String memberName, String email, String customerId, String password, String adress, String gender, int age) {
+    public Customer(String memberName, String email, String customerId, String password, String address, String gender, int age) {
         this.id = 1;
         this.regDate = LocalDate.now(); // 현재 시간을 읽어서 처리
         this.email = email;
         this.customerId = customerId;
         this.password = password;
-        this.adress = adress;
+        this.address = address;
         this.customerName = memberName;
         this.gender = gender;
         this.age = age;
@@ -55,8 +55,8 @@ public class Customer {
         return password;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     public String getGender() {
@@ -66,7 +66,6 @@ public class Customer {
     public LocalDate getRegDate() {
         return regDate;
     }
-
 
     public void setId(int id) {
         this.id = id;
@@ -92,8 +91,8 @@ public class Customer {
         this.password = password;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setGender(String gender) {
@@ -113,7 +112,7 @@ public class Customer {
                 ", email='" + email + '\'' +
                 ", customerId='" + customerId + '\'' +
                 ", password='" + password + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 ", gender='" + gender + '\'' +
                 ", regDate=" + regDate +
                 '}';
