@@ -14,13 +14,10 @@ public class CustomerTestController {
                     cv.logIn();
                     break;
                 case "2":
-                    cv.inputNewCustomer();
+                    cv.makeNewCustomer();
                     break;
                 case "3":
 //                    cv.showMembers();
-                    break;
-                case "4":
-                    cv.myPage();
                     break;
                 case "9":
                     System.out.println("프로그램을 종료 합니다.");

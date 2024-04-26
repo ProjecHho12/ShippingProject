@@ -24,11 +24,18 @@ public class CustomerRepository {
     }
 
     public boolean checkId(String id) {
-        // 포문 돌려서 찾기
-        return false;
+        boolean idExists = customers.stream()
+                .anyMatch(customer -> customer.getCustomerId().equals(id));
+        if (!idExists) {
+            return false;
+        }
+        return idExists;
     }
 
-    public void checkPassword(String password) {
-
+    public boolean checkPassword(String id, String password) {
+        return customers.stream()
+                .filter(customer -> customer.getCustomerId().equals(id))
+                .anyMatch(customer -> customer.getPassword().equals(password));
     }
+
 }
