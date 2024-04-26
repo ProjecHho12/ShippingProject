@@ -15,6 +15,7 @@ public class parcelView {
 
 //    void showParcels() {
 //        System.out.println("========= 현재 회원 목록 (총 %d명) ==========\n");
+//        for (repository.getParcelList())
 //        for (Parcel p : repository.getParcelList()) {
 //            System.out.println(p);
 //        }
