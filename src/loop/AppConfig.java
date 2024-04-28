@@ -1,15 +1,22 @@
 package loop;
 
+import customer.CustomerRepository;
+
 public class AppConfig {
 	public View view() {
-		return new MainViewImpl(customerRepository(), employeeRepository());
+		return new MainViewImpl(customerController(), employeeController());
 	}
 
-	private CustomerRepository customerRepository() {
+	private Controller employeeController() {
+		return new EmployeeController(employeeRepository());
+	}
+	private Controller customerController() {
+		return new CustomerController(customerRepository());
+	}
+	private Repository customerRepository() {
 		return new CustomerRepositoryImpl();
 	}
-
-	private EmployeeRepository employeeRepository() {
+	private Repository employeeRepository() {
 		return new EmployeeRepositoryImpl();
 	}
 }

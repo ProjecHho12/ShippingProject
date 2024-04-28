@@ -1,5 +1,5 @@
 package loop;
 
-public class CustomerRepositoryImpl implements CustomerRepository{
+public class CustomerRepositoryImpl implements Repository {
 
 }
