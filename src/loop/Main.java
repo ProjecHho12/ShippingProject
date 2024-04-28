@@ -6,4 +6,9 @@ package loop;
  */
 public class Main {
 
+	public static void main(String[] args) {
+		AppConfig appConfig = new AppConfig();
+		View mainView = appConfig.view();
+		mainView.run();
+	}
 }
