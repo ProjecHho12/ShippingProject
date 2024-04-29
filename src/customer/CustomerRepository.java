@@ -2,8 +2,9 @@ package customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import loop.Repository;
 
-public class CustomerRepository {
+public class CustomerRepository implements Repository {
 
     private List<Customer> customers;
 
