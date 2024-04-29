@@ -6,8 +6,9 @@ import util.SimpleInput;
 public class CustomerTestView {
 
     SimpleInput si = new SimpleInput();
-    static CustomerTestController ct = new CustomerTestController();
+    static CustomerTestController cc = new CustomerTestController();
     CustomerRepository cr = new CustomerRepository();
+
 
     String showProgramMenu() {
         System.out.println("\n##### 배송 시스템 #####");
@@ -46,8 +47,8 @@ public class CustomerTestView {
         while (true) {
             id = SimpleInput.input("- 아이디: ");
             if (id.equals("0")) break;
-            back();
-            if (id.length() <= 4) {
+//            back();
+            if (id.length() < 4) {
                 System.out.println("아이디는 4글자 이상으로 작성해주세요.");
             } else {
                 break;
@@ -62,7 +63,7 @@ public class CustomerTestView {
         while (true) {
             gender = SimpleInput.input("- 성별(M/F): ").toUpperCase();
             if (gender.equals("0")) break;
-            back();
+//            back();
             if (gender.equals("M")) {
                 gender = String.valueOf(Gender.MALE);
                 break;
@@ -79,13 +80,14 @@ public class CustomerTestView {
 
             try {
                 age = Integer.parseInt(SimpleInput.input("- 나이: "));
-                back();
+//                back();
                 if (age == 0) break;
                 break;
             } catch (Exception e) {
                 System.out.println("나이는 숫자로만 입력해주세요");
             }
         }
+        System.out.println("회원 가입 완료!!");
 
         Customer newCustomer = new Customer(name, email, id, password, address, gender, age);
 
@@ -97,13 +99,14 @@ public class CustomerTestView {
         while (true) {
             String inputId = SimpleInput.input("- 아이디: ");
             if (inputId.equals("0")) break;
-            back();
+//            back();
             if (cr.checkId(inputId)) {
                 String inputPassword = SimpleInput.input("- 비밀번호: ");
-                back();
+//                back();
                 if (inputPassword.equals("0")) break;
                 if (cr.checkPassword(inputId, inputPassword)) {
-                    showCustomerMenu();
+
+                    cc.customerRun();
                 }
                 break;
             } else {
