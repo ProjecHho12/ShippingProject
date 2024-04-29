@@ -105,7 +105,6 @@ public class CustomerTestView {
 //                back();
                 if (inputPassword.equals("0")) break;
                 if (cr.checkPassword(inputId, inputPassword)) {
-
                     cc.customerRun();
                 }
                 break;
@@ -119,4 +118,7 @@ public class CustomerTestView {
         System.out.println("\n====================================");
         System.out.println("뒤로가기 >> 0");
     }
+
+//    public void showCustomers() {
+//    }
 }

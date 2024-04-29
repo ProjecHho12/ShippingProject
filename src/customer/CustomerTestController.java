@@ -20,7 +20,7 @@ public class CustomerTestController {
                     cv.makeNewCustomer();
                     break;
                 case "3":
-//                    cv.showMembers();
+//                    cv.showCustomers();
                     break;
                 case "9":
                     System.out.println("프로그램을 종료 합니다.");
@@ -36,7 +36,7 @@ public class CustomerTestController {
 
         switch (CustomerMenuNum) {
             case "1":
-                pv.run();
+                pv.inputUser();
                 break;
             case "2":
                 cv.makeNewCustomer();
