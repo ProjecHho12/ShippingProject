@@ -22,7 +22,7 @@ public class parcelView {
 //    }
     // 1. 택배 등록하기
 
-    static boolean inputUser() {
+    public static boolean inputUser() {
 
         System.out.println("보내는 분 - 보내시는 고객님의 정보를 정확히 입력해 주세요.");
         System.out.println("이름을 입력해주세요.");
@@ -87,7 +87,7 @@ public class parcelView {
     }
 
     // 3. 프로그램 종료 메서드
-    static Boolean exitProgram(){
+    public static Boolean exitProgram(){
         System.out.println("프로그램을 종료하시겠습니까? True / False");
         String selectExit = sc.next();
 
@@ -101,7 +101,7 @@ public class parcelView {
     }
 
     // 0. 메뉴조회 및 사용할 메뉴 선택
-    static String showMenu(){
+    public static String showMenu(){
         System.out.println(" ===== 택배 등록 =====");
         System.out.println("1. 택배 등록");
         System.out.println("3. 프로그램 종료");
@@ -111,7 +111,7 @@ public class parcelView {
     }
 
     // 0-1. 메뉴 선택에 따른 메서드 연결
-    static void run(){
+    public static void run(){
         while (true) {
             String selectNumber = showMenu();
 
@@ -133,7 +133,7 @@ public class parcelView {
 
 
 
-    static void input2(){
+    public static void input2(){
         //System.out.printf("# %s님이 %s일 선불택배를 접수하셨습니다.",
                // PC.Sender.senderName,
                 //PC.regDate);
