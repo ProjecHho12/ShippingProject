@@ -1,5 +1,6 @@
 package employee;
 
+
 import loop.Repository;
 import parcel.Parcel;
 
@@ -42,6 +43,7 @@ public class EmployeeRepository implements Repository {
      */
     public void resister(String name, String email, String password,String gender, String address, int age, int employeePhone, Job job) {
         Employee newEmployee = new Employee(name, email, password, gender, address, age, employeePhone,  job);
+
         if (!isContains(newEmployee)) {
             employeeList.addEmployee(newEmployee);
         }

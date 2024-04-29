@@ -58,6 +58,7 @@ public class Employee {
         return job;
     }
 
+
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
@@ -69,6 +70,7 @@ public class Employee {
     public void setEmployeePW(String employeePW) {
         this.employeePW = employeePW;
     }
+
 
     public void setEmployeeGender(String employeeGender) {
         this.employeeGender = employeeGender;
