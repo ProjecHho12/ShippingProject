@@ -1,6 +1,8 @@
 package employee;
 
+
 import customer.Gender;
+
 import loop.Repository;
 import parcel.Parcel;
 
@@ -84,8 +86,10 @@ public class EmployeeRepository implements Repository {
      * @param employeePhone
      * @param job
      */
+
     public void resister(String name, String email, String password, String gender, String address, int age, int employeePhone, Job job) {
         Employee newEmployee = new Employee(name, email, password, gender, address, age, employeePhone, job);
+
         if (!isContains(newEmployee)) {
             employeeList.add(newEmployee);
 
@@ -114,7 +118,7 @@ public class EmployeeRepository implements Repository {
         Employee matechedEmployee = employeeList.stream().filter(e -> e.getEmployeeEmail().equals(email)).collect(Collectors.toList()).get(0);
 
         if (matechedEmployee != null) {
-            if (matechedEmployee.getEmployeePW() == password) {
+            if (matechedEmployee.getEmployeePW().equals(password) ) {
 
                 return matechedEmployee;
             }
@@ -134,7 +138,9 @@ public class EmployeeRepository implements Repository {
         }
     }
 
+
     public void incomeParcel() {
+
 
     }
 
