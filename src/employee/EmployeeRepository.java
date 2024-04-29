@@ -73,7 +73,7 @@ public class EmployeeRepository implements Repository {
         Employee matechedEmployee = employeeList.getEmployeeList().stream().filter(e->e.getEmployeeEmail().equals(email)).collect(Collectors.toList()).get(0);
 
        if (matechedEmployee != null){
-           if (matechedEmployee.getEmployeePW() == password){
+           if (matechedEmployee.getEmployeePW().equals(password)){
 
                return matechedEmployee;
            }
