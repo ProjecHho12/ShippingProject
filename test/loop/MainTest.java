@@ -1,17 +1,13 @@
 package loop;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
-/**
- * packageName    : loop fileName       : MainTest author         : hoho date           : 4/25/24
- * description    :
- */
+import static org.junit.jupiter.api.Assertions.*;
+
 class MainTest {
-	@Test
-	void test() {
-		System.out.println("test");
-	}
+    @Test
+    void 할일() {
+        System.out.println("hoho");
+    }
 
 }
