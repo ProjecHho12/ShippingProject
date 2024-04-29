@@ -1,2 +1,0 @@
-Employee{employeeName='mmm', employeeID='mmm', employeePW='mmm', job=INCOMING}
-Employee{employeeName='mmm', employeeID='mmm', employeePW='mmm', job=INCOMING}
