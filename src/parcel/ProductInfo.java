@@ -24,13 +24,9 @@ public class ProductInfo {
         return productSize;
     }
 
-
     @Override
     public String toString() {
-        return "ProductInfo{" +
-                "productName='" + productName + '\'' +
-                ", productValue=" + productValue +
-                ", productSize=" + productSize +
-                '}';
+        return String.format("상품명: %s | 상품가격: %s원 | 상품크기: %s",
+                this.productName, this.productValue, this.productSize);
     }
 }

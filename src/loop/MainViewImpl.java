@@ -1,12 +1,15 @@
 package loop;
 
+import customer.Customer;
+import customer.CustomerControllerImpl;
 import customer.Gender;
+import customer.LoginStatus;
 import util.SimpleInput;
 
 public class MainViewImpl implements View{
-	private Controller customerController;
-	private Controller employeeController;
-	public MainViewImpl(Controller customerController, Controller employeeController) {
+	private final CustomerControllerImpl customerController;
+	private final Controller employeeController;
+	public MainViewImpl(CustomerControllerImpl customerController, Controller employeeController) {
 		this.customerController = customerController;
 		this.employeeController = employeeController;
 	}
@@ -52,7 +55,11 @@ public class MainViewImpl implements View{
 		String email = SimpleInput.input("이메일: ");
 		String password = SimpleInput.input("비밀번호: ");
 		switch (customerController.login(email, password)) {
-			case 1:
+			case LoginStatus.IDFAIL:
+				System.out.println("아이디를 확인해주세요");
+				break;
+			case LoginStatus.PASSSFAIL:
+				System.out.println("비밀번호를 확인해주세요");
 				break;
 			default:
 				selectCustomerMenu();
@@ -72,7 +79,15 @@ public class MainViewImpl implements View{
 		String password = SimpleInput.input("비밀번호: ");
 		String gender = SimpleInput.input("성별(M/F): ");
 		String address = SimpleInput.input("주소: ");
-		String age = SimpleInput.input("나이: ");
+		int age;
+		while (true) {
+			try {
+				age = Integer.parseInt(SimpleInput.input("나이: "));
+				break;
+			} catch (Exception e){
+				System.out.println("나이는 숫자로만 입력해주세요");
+			}
+		}
 		switch (customerController.register(name, email, password, gender, address, age)) {
 			case 1:
 				break;
