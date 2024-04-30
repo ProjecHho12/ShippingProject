@@ -6,6 +6,8 @@ import customer.Gender;
 import customer.LoginStatus;
 import util.SimpleInput;
 
+import static customer.LoginStatus.IDFAIL;
+
 public class MainViewImpl implements View{
 	private final CustomerControllerImpl customerController;
 	private final Controller employeeController;
@@ -55,10 +57,10 @@ public class MainViewImpl implements View{
 		String email = SimpleInput.input("이메일: ");
 		String password = SimpleInput.input("비밀번호: ");
 		switch (customerController.login(email, password)) {
-			case IDFAIL:
+			case null:
 				System.out.println("아이디를 확인해주세요");
 				break;
-			case PASSSFAIL:
+			case null:
 				System.out.println("비밀번호를 확인해주세요");
 				break;
 			default:
@@ -90,6 +92,7 @@ public class MainViewImpl implements View{
 		}
 		switch (customerController.register(name, email, password, gender, address, age)) {
 			case 1:
+				System.out.println("\n등록에 실패했습니다.\n");
 				break;
 			default:
 				System.out.println("\n등록에 성공했습니다.\n");

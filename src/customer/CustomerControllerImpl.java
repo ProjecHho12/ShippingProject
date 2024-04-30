@@ -3,6 +3,9 @@ package customer;
 import loop.Controller;
 import loop.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CustomerControllerImpl implements Controller {
 
     private final Repository cr;
@@ -25,16 +28,18 @@ public class CustomerControllerImpl implements Controller {
     }
 
     @Override
-    public LoginStatus login(String email, String password) {
+    public Customer login(String email, String password) {
         if (cr.checkId(email)) {
             if (password.equals("0"))
-                return LoginStatus.PASSSFAIL;
+                return null;
             if (cr.checkPassword(email, password)) {
-                return LoginStatus.SUCCESS;
+                return ccr.getCustomers().stream()
+                        .filter(customer -> customer.getEmail().equals(email))
+                        .collect(Collectors.toList()).get(0);
             } else {
-                return LoginStatus.PASSSFAIL;
+                return null;
             }
         }
-        return LoginStatus.IDFAIL;
+        return null;
     }
 }

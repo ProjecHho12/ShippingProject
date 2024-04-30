@@ -26,7 +26,7 @@ public class CustomerRepository implements Repository {
 
     public boolean checkId(String id) {
         boolean idExists = customers.stream()
-                .anyMatch(customer -> customer.getCustomerId().equals(id));
+                .anyMatch(customer -> customer.getEmail().equals(id));
         if (!idExists) {
             return false;
         }
@@ -35,7 +35,7 @@ public class CustomerRepository implements Repository {
 
     public boolean checkPassword(String id, String password) {
         return customers.stream()
-                .filter(customer -> customer.getCustomerId().equals(id))
+                .filter(customer -> customer.getEmail().equals(id))
                 .anyMatch(customer -> customer.getPassword().equals(password));
     }
 

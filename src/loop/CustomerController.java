@@ -1,6 +1,9 @@
 package loop;
 
+import customer.Customer;
 import customer.LoginStatus;
+
+import java.util.List;
 
 public class CustomerController implements Controller {
     private Repository customerRepository;
@@ -15,7 +18,7 @@ public class CustomerController implements Controller {
     }
 
     @Override
-    public LoginStatus login(String email, String password) {
-        return LoginStatus.PASSSFAIL;
+    public Customer login(String email, String password) {
+        return null;
     }
 }
