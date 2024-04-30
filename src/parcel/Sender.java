@@ -26,6 +26,14 @@ public class Sender {
 
     @Override
     public String toString() {
+        return "Sender{" +
+                "SenderName='" + SenderName + '\'' +
+                ", SenderAddress=" + SenderAddress +
+                ", SenderNumber='" + SenderNumber + '\'' +
+                '}';
+    }
+
+    public String newtoString() {
         return String.format("이름: %s\n주소 - %s | 전화번호: %s",
                 this.SenderName, this.SenderAddress, this.SenderNumber);
     }

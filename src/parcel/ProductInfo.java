@@ -26,7 +26,15 @@ public class ProductInfo {
 
     @Override
     public String toString() {
-        return String.format("상품명: %s | 상품가격: %s원 | 상품크기: %s",
-                this.productName, this.productValue, this.productSize);
+        return "ProductInfo{" +
+                "productName='" + productName + '\'' +
+                ", productValue=" + productValue +
+                ", productSize='" + productSize + '\'' +
+                '}';
     }
+
+//    public static String newtoString() {
+//        return String.format("상품명: %s | 상품가격: %s원 | 상품크기: %s",
+//                this.productName, this.productValue, this.productSize);
+//    }
 }
