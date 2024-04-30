@@ -14,10 +14,10 @@ public class AppConfig {
 	private CustomerControllerImpl customerController() {
 		return new CustomerControllerImpl(customerRepository());
 	}
-	private CustomerRepository customerRepository() {
+	private CustomerRepositoryInter customerRepository() {
 		return new CustomerRepository();
 	}
-	private Repository employeeRepository() {
+	private EmployeeRepositoryImpl employeeRepository() {
 		return new EmployeeRepositoryImpl();
 	}
 }

@@ -6,6 +6,8 @@ import customer.Gender;
 import customer.LoginStatus;
 import util.SimpleInput;
 
+import static customer.LoginStatus.IDFAIL;
+
 public class MainViewImpl implements View{
 	private final CustomerControllerImpl customerController;
 	private final Controller employeeController;
@@ -54,23 +56,29 @@ public class MainViewImpl implements View{
 		System.out.println("\n***** 로그인 *****");
 		String email = SimpleInput.input("이메일: ");
 		String password = SimpleInput.input("비밀번호: ");
-		switch (customerController.login(email, password)) {
-			case LoginStatus.IDFAIL:
-				System.out.println("아이디를 확인해주세요");
-				break;
-			case LoginStatus.PASSSFAIL:
-				System.out.println("비밀번호를 확인해주세요");
-				break;
-			default:
-				selectCustomerMenu();
+		Customer target = customerController.login(email, password);
+		if (target != null) {
+			System.out.println("로그인 성공");
+			selectCustomerMenu();
+		} else {
+			System.out.println("입력값을 확인해주세요");
 		}
-		switch (employeeController.login(email, password)) {
-			case 1:
-				System.out.println("\n입력한 이메일, 비밀번호를 다시 확인해주세요.\n");
-				break;
-			default:
-				selectEmployeeMenu();
-		}
+//		switch () {
+//			case null:
+//				System.out.println("아이디를 확인해주세요");
+//				break;
+//			case null:
+//				System.out.println("비밀번호를 확인해주세요");
+//				break;
+//			default:
+//		}
+//		switch (employeeController.login(email, password)) {
+//			case 1:
+//				System.out.println("\n입력한 이메일, 비밀번호를 다시 확인해주세요.\n");
+//				break;
+//			default:
+//				selectEmployeeMenu();
+//		}
 	}
 	private void registerCustomer() {
 		System.out.println("\n***** 고객 등록 하기 *****");
@@ -90,6 +98,7 @@ public class MainViewImpl implements View{
 		}
 		switch (customerController.register(name, email, password, gender, address, age)) {
 			case 1:
+				System.out.println("\n등록에 실패했습니다.\n");
 				break;
 			default:
 				System.out.println("\n등록에 성공했습니다.\n");
@@ -102,7 +111,7 @@ public class MainViewImpl implements View{
 		String password = SimpleInput.input("비밀번호: ");
 		String gender = SimpleInput.input("성별(M/F): ");
 		String address = SimpleInput.input("주소: ");
-		String age = SimpleInput.input("나이: ");
+		int age = Integer.parseInt(SimpleInput.input("나이: "));
 		switch (employeeController.register(name, email, password, gender, address, age)) {
 			case 1:
 				System.out.println("\n이미 등록된 이메일입니다.\n");

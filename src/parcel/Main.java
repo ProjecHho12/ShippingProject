@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Main {
     // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
     public static final String ROOT_PATH = "D://ShippingProject";
-
+    
     public static void main(String[] args) {
 
         ParcelView parcelView = new ParcelView();
