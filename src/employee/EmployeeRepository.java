@@ -159,8 +159,9 @@ public class EmployeeRepository implements Repository, Serializable {
         String status = "";
         if (parcel.getStatus().equals("입고")) status = "입고";
         if (parcel.getStatus().equals("출고")) status = "출고";
-        String memo = String.format( "운송장 번호"+ "택배를 "+ status + "했습니다. 직원: "+ employee.getEmployeeName());
+        String col = String.format( "운송장 번호"+ "택배를 "+ status + "했습니다. 직원: "+ employee.getEmployeeName());
 
+        employee.addJournal(col);
 
     }
 

@@ -101,14 +101,15 @@ public class Employee implements Serializable {
         this.job = job;
     }
 
-//    public void addJournal() {
-//        this.journal = journal;
-//        int i = 0;
-//        for (String j:journal){
-//            i++;
-//
-//        }
-//    }
+    public void addJournal(String col) {
+        this.journal.add(col);
+
+    }
+
+    public void printJournal(){
+
+
+    }
 
     @Override
     public String toString() {
