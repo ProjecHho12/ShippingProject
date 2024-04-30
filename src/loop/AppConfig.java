@@ -2,13 +2,14 @@ package loop;
 
 import customer.CustomerControllerImpl;
 import customer.CustomerRepository;
+import employee.EmployeeRepository;
 
 public class AppConfig {
 	public View view() {
 		return new MainViewImpl(customerController(), employeeController());
 	}
 
-	private Controller employeeController() {
+	private EmployeeController employeeController() {
 		return new EmployeeController(employeeRepository());
 	}
 	private CustomerControllerImpl customerController() {
@@ -17,7 +18,7 @@ public class AppConfig {
 	private CustomerRepository customerRepository() {
 		return new CustomerRepository();
 	}
-	private Repository employeeRepository() {
-		return new EmployeeRepositoryImpl();
+	private EmployeeRepository employeeRepository() {
+		return new EmployeeRepository();
 	}
 }
