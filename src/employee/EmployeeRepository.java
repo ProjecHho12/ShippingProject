@@ -92,29 +92,26 @@ public class EmployeeRepository implements Repository, Serializable {
     }
 
 
-
-
-    List<Parcel> parcelList = new ArrayList<>();
-
-    public void readParcel() {
-        int i = 0;
-        for (Parcel parcel : parcelList) {
-            i++;
-            System.out.println(i + ". " + parcel);
-        }
-    }
-
-
-    public void incomeParcel() {
-    }
-
-    public void outcomeParcel() {
-    }
+//    List<Parcel> parcelList = new ArrayList<>();
+//
+//    public void readParcel() {
+//        int i = 0;
+//        for (Parcel parcel : parcelList) {
+//            i++;
+//            System.out.println(i + ". " + parcel);
+//        }
+//    }
+//
+//
+//    public void incomeParcel(Parcel parcel) {
+//        parcel.
+//    }
+//
+//    public void outcomeParcel() {
+//    }
 
 
     //////////// 업무 일지 /////////////
-
-
     public void addJournal(Employee employee, Parcel parcel) {
         Journal newJournal = new Journal(parcel.getTrackingNumber(), parcel.getStatus(), employee.getEmployeeName());
         employee.addJournal(newJournal);
