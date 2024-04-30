@@ -12,11 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EmployeeRepository implements Repository {
+public class EmployeeRepository implements Repository, Serializable {
 
     public List<Employee> employeeList;
 
-    String targetPath = "/Users/jieun/Desktop/teamProject/javaProject/Shipping/src/employee/employees.txt";
+    String targetPath = "/Users/jieun/Desktop/teamProject/javaProject/Shipping/src/employee/employees.sav";
 
     public EmployeeRepository() {
 
@@ -26,41 +26,18 @@ public class EmployeeRepository implements Repository {
         File file = new File(targetPath);
         if (!file.exists()) return;
 
-        try (FileReader fr = new FileReader(targetPath)) {
-            BufferedReader br = new BufferedReader(fr);
+        // 세이브 파일 로딩하기
+        try (FileInputStream fis = new FileInputStream(targetPath)) {
 
+            // 객체를 로딩할 보조 스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            List<Employee> employeeList = (List<Employee>) ois.readObject();
 
-            while (true) {
-                String s = br.readLine();
+            System.out.println("employeeList = " + employeeList);
 
-
-                if (s == null) break;
-
-                String[] split = s.split(",");
-                System.out.println(Arrays.toString(split));
-
-                Job job = null;
-                if (split[7].equals(Job.OUTCOMING.name())) job = Job.OUTCOMING;
-                else if (split[7].equals(Job.INCOMING.name())) job = Job.INCOMING;
-                // 읽어들인 회원정보로 회원 객체 생성
-                Employee employee = new Employee(
-                        split[0],
-                        split[1],
-                        split[2],
-                        split[3],
-                        split[4],
-                        Integer.parseInt(split[5]),
-                        Integer.parseInt(split[6]),
-                        job
-                );
-
-                this.employeeList.add(employee);
-            }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -91,34 +68,34 @@ public class EmployeeRepository implements Repository {
         Employee newEmployee = new Employee(name, email, password, gender, address, age, employeePhone, job);
 
         if (!isContains(newEmployee)) {
-            employeeList.add(newEmployee);
 
+            try (FileOutputStream fos = new FileOutputStream(targetPath)) {
 
-            try (FileWriter fw = new FileWriter(targetPath, true)) {
-
-                String column = String.format(newEmployee.getEmployeeName() + ',' + newEmployee.getEmployeeEmail() + ',' + newEmployee.getEmployeePW() + ',' + newEmployee.getEmployeeGender() + ',' + newEmployee.getEmployeeAddress() + ',' + newEmployee.getAge() + ',' + newEmployee.getEmployeePhone() + ',' + newEmployee.getJob());
-                fw.write(column + "\n");
+                // 객체를 통째로 저장할 수 있는 보조 스트림
+                // serialize: 직렬화 - 데이터를 일렬로 늘여뜨려 놓는 것
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                employeeList.add(newEmployee);
+                oos.writeObject(employeeList);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
         }
     }
 
 
     public void printEmployee() {
-
+        System.out.println("employeeList = " + employeeList);
     }
 
 
     public Employee login(String email, String password) {
-//        System.out.println(employeeList.getEmployeeList());
+
         Employee matechedEmployee = employeeList.stream().filter(e -> e.getEmployeeEmail().equals(email)).collect(Collectors.toList()).get(0);
 
         if (matechedEmployee != null) {
-            if (matechedEmployee.getEmployeePW().equals(password) ) {
+            if (matechedEmployee.getEmployeePW().equals(password)) {
 
                 return matechedEmployee;
             }

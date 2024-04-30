@@ -1,10 +1,12 @@
 package employee;
 
+import java.io.Serializable;
+
 /**
  * packageName    : employee fileName       : Employee author         : hoho date           :
  * 4/25/24 description    :
  */
-public class Employee {
+public class Employee implements Serializable {
     private String employeeName;
     private String employeeEmail;
     private String employeePW;
