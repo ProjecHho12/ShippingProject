@@ -7,9 +7,11 @@ public class Main {
         EmployeeRepository repository = new EmployeeRepository();
         String ROOT_PATH = "./src/employee/";
         try {
-            repository.resister("mmm",90789098,"mmm","mmm", Job.INCOMING);
-            repository.resister("mmm",90789098,"mmm","mmm", Job.INCOMING);
+            repository.resister("mmm","mmm@mmm.mmm","mmm","f", "mmm", 10,01012341234,Job.INCOMING);
+//            repository.resister("mmm",90789098,"mmm","mmm", Job.INCOMING);
             repository.printEmployee();
+            repository.login("mmm","mmm");
+
         } catch (Exception e) {
             e.printStackTrace();
         };

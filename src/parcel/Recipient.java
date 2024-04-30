@@ -2,34 +2,31 @@ package parcel;
 
 // Parcel 필드 2. Recipient(받는 분)에 들어가는 내용
 public class Recipient {
-    private String recipientName; // 받는 분 이름
-    private String recipientAddress; // 받는 분 주소
-    private String recipientNumber; // 받는 분 번호
+    private String RecipientName; // 받는 분 이름
+    private RecipientAddress RecipientAddress; // 받는 분 주소
+    private String RecipientNumber; // 받는 분 번호
 
-    public Recipient(String recipientName, String recipientAddress, String recipientNumber) {
-        this.recipientName = recipientName;
-        this.recipientAddress = recipientAddress;
-        this.recipientNumber = recipientNumber;
+    public Recipient(String recipientName, parcel.RecipientAddress recipientAddress, String recipientNumber) {
+        RecipientName = recipientName;
+        RecipientAddress = recipientAddress;
+        RecipientNumber = recipientNumber;
     }
 
     public String getRecipientName() {
-        return recipientName;
+        return RecipientName;
     }
 
-    public String getRecipientAddress() {
-        return recipientAddress;
+    public parcel.RecipientAddress getRecipientAddress() {
+        return RecipientAddress;
     }
 
     public String getRecipientNumber() {
-        return recipientNumber;
+        return RecipientNumber;
     }
 
     @Override
     public String toString() {
-        return "Recipient{" +
-                "recipientName='" + recipientName + '\'' +
-                ", recipientAddress='" + recipientAddress + '\'' +
-                ", recipientNumber='" + recipientNumber + '\'' +
-                '}';
+        return String.format("이름: %s\n주소 - %s | 전화번호: %s",
+                this.RecipientName, this.RecipientAddress, this.RecipientNumber);
     }
 }
