@@ -33,8 +33,8 @@ public class Recipient {
                 '}';
     }
 
-    public String newtoString() {
-        return String.format("이름: %s\n주소 - %s | 전화번호: %s",
-                this.RecipientName, this.RecipientAddress, this.RecipientNumber);
-    }
+//    public String newtoString() {
+//        return String.format("이름: %s\n주소 - %s | 전화번호: %s",
+//                this.RecipientName, this.RecipientAddress, this.RecipientNumber);
+//    }
 }

@@ -206,8 +206,6 @@ public class ParcelView {
         for (Parcel parcel : repository.getParcelArray()) {
             System.out.println(parcel);
         }
-        System.out.println("안녕");
-
     }
 
     // 2-1. 메모장에 저장한 배열 불러오기

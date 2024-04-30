@@ -57,32 +57,32 @@ public class ParcelRepository {
     // 택배 배열 넣을 폴더 & 파일 생성
     void makeDirectory() {
 
-        // 폴더 생성 명령
-        // 파일 정보 객체 생성 (ParcelRepository 라는 폴더 생성)
-        File directory = new File(ROOT_PATH + "/ParcelRepository");
-        // 만약 폴더 directory 가 존재하지 않는다면 폴더를 만들기
-        if (!directory.exists()) {
-            if (!directory.mkdirs()) {
-                System.out.println("폴더 생성에 실패했습니다.");
-                return;
-            }
-
-            // 파일 생성 (ParcelRepository 폴더 안에 parcelrepository.txt 생성)
-            File newfile = new File(ROOT_PATH + "/ParcelRepository/parcelrepository.txt");
-            // 만약 파일 newfile 이 존재하지 않는다면 폴더를 만들기
-            if (!newfile.exists()) {
-                try { // alt + enter
-                    if (newfile.createNewFile())
-                        System.out.println("파일 생성에 실패했습니다.");// 예외사항 처리해주기
-                } catch (IOException e) {
-                    System.out.println("파일생성에 실패했습니다.");
-                }
+        // 파일 생성 (ParcelRepository 폴더 안에 parcelrepository.txt 생성)
+        File newfile = new File(ROOT_PATH + "/ParcelRepository/parcelrepository.txt");
+        // 만약 파일 newfile 이 존재하지 않는다면 폴더를 만들기
+        if (!newfile.exists()) {
+            try { // alt + enter
+                if (newfile.createNewFile())
+                    System.out.println("파일 생성에 실패했습니다.");// 예외사항 처리해주기
+            } catch (IOException e) {
+                System.out.println("파일생성에 실패했습니다.");
             }
         }
+
+//        // 폴더 생성 명령
+//        // 파일 정보 객체 생성 (ParcelRepository 라는 폴더 생성)
+//        File directory = new File(ROOT_PATH + "/ParcelRepository");
+//        // 만약 폴더 directory 가 존재하지 않는다면 폴더를 만들기
+//        if (!directory.exists()) {
+//            if (!directory.mkdirs()) {
+//                System.out.println("폴더 생성에 실패했습니다.");
+//                return;
+//            }
+//        }
     }
 
     void saveParcelArrayFile(Parcel newParcel) {
-        try (FileWriter  fw = new FileWriter(ROOT_PATH + "/ParcelRepository/parcelrepository.txt", true)) {
+        try (FileWriter  fw = new FileWriter(ROOT_PATH + "/parcelrepository.txt", true)) {
 
             String newParcelArrayInfo = String.format("%s,%s,%s,%s,%s,%s", newParcel.getTrackingNumber(),newParcel.getSender(),newParcel.getRecipient(),newParcel.getProductInfo(),newParcel.getStatus(),newParcel.getShippingFee());
             fw.write(newParcelArrayInfo);
@@ -92,7 +92,7 @@ public class ParcelRepository {
     }
 
     void ParcelArrayFile (){
-        String targetPath = ROOT_PATH + "/ParcelRepository/parcelrepository.txt";
+        String targetPath = ROOT_PATH + "/parcelrepository.txt";
 
         try(FileReader fr = new FileReader(targetPath)) {
 

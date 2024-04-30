@@ -70,10 +70,10 @@ public class Parcel {
                 '}';
     }
 
-    public String newtoString() {
-        return String.format("운송장번호: %s\n보내는 분\n%s\n받는 분\n%s\n상품정보\n%s\n택배상태: %s | 접수일: %s | 택배가격: %d원",
-                this.TrackingNumber, this.Sender, this.Recipient, this.ProductInfo, this.Status, this.regDate, this.ShippingFee);
-    }
+//    public String newtoString() {
+//        return String.format("운송장번호: %s\n보내는 분\n%s\n받는 분\n%s\n상품정보\n%s\n택배상태: %s | 접수일: %s | 택배가격: %d원",
+//                this.TrackingNumber, this.Sender, this.Recipient, this.ProductInfo, this.Status, this.regDate, this.ShippingFee);
+//    }
 }
 
 

@@ -41,8 +41,8 @@ public class RecipientAddress {
                 '}';
     }
 
-    public String newtoString() {
-        return String.format("광역시/도: %s, 시/군/구: %s, 세부주소: %s, 우편번호: %s",
-                this.RecipientAddressStateProvinceRegion, this.RecipientAddressCity, this.RecipientAddressStreetAddress, this.RecipientAddressZipPostalCode);
-    }
+//    public String newtoString() {
+//        return String.format("광역시/도: %s, 시/군/구: %s, 세부주소: %s, 우편번호: %s",
+//                this.RecipientAddressStateProvinceRegion, this.RecipientAddressCity, this.RecipientAddressStreetAddress, this.RecipientAddressZipPostalCode);
+//    }
 }
