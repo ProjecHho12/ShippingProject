@@ -1,1 +1,2 @@
-zz
+mmm,mmm@mmm.mmm,mmm,f,mmm,10,136954524,INCOMING
+fff,fff@fff.fff,fff,f,mmm,10,136954524,INCOMING
