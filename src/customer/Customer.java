@@ -1,12 +1,13 @@
 package customer;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * packageName    : customer fileName       : Customer author         : hoho date           :
  * 4/25/24 description    :
  */
-public class Customer {
+public class Customer implements Serializable {
 
     private int age;
     private String customerName;
@@ -85,16 +86,17 @@ public class Customer {
         this.regDate = regDate;
     }
 
+
     @Override
     public String toString() {
         return "Customer{" +
-                ", age=" + age +
-                ", customerName='" + customerName + '\'' +
+                "customerName='" + customerName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", gender='" + gender + '\'' +
                 ", regDate=" + regDate +
+                ", age=" + age +
                 '}';
     }
 }

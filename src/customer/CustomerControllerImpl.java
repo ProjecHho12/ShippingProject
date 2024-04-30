@@ -3,7 +3,6 @@ package customer;
 import loop.Controller;
 import loop.Repository;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomerControllerImpl implements Controller {
@@ -21,6 +20,8 @@ public class CustomerControllerImpl implements Controller {
         if (!ccr.getCustomers().stream()
                 .anyMatch(customer -> customer.getEmail().equals(email))) {
             ccr.addNewCustomer(new Customer(name, email, password, gender, address, age));
+            ccr.saveCustomers();
+            ccr.loadCustomers();
             return 0;
         } else {
             return 1;

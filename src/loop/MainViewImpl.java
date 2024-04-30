@@ -56,16 +56,22 @@ public class MainViewImpl implements View{
 		System.out.println("\n***** 로그인 *****");
 		String email = SimpleInput.input("이메일: ");
 		String password = SimpleInput.input("비밀번호: ");
-		switch (customerController.login(email, password)) {
-			case null:
-				System.out.println("아이디를 확인해주세요");
-				break;
-			case null:
-				System.out.println("비밀번호를 확인해주세요");
-				break;
-			default:
-				selectCustomerMenu();
+		Customer target = customerController.login(email, password);
+		if (target != null) {
+			System.out.println("로그인 성공");
+			selectCustomerMenu();
+		} else {
+			System.out.println("입력값을 확인해주세요");
 		}
+//		switch () {
+//			case null:
+//				System.out.println("아이디를 확인해주세요");
+//				break;
+//			case null:
+//				System.out.println("비밀번호를 확인해주세요");
+//				break;
+//			default:
+//		}
 //		switch (employeeController.login(email, password)) {
 //			case 1:
 //				System.out.println("\n입력한 이메일, 비밀번호를 다시 확인해주세요.\n");
