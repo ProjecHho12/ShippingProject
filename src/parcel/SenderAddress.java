@@ -33,7 +33,16 @@ public class SenderAddress {
 
     @Override
     public String toString() {
-        return String.format("광역시/도: %s, 시/군/구: %s, 세부주소: %s, 우편번호: %s",
-                this.SenderAddressStateProvinceRegion, this.SenderAddressCity, this.SenderAddressStreetAddress, this.SenderAddressZipPostalCode);
+        return "SenderAddress{" +
+                "SenderAddressStateProvinceRegion=" + SenderAddressStateProvinceRegion +
+                ", SenderAddressCity='" + SenderAddressCity + '\'' +
+                ", SenderAddressStreetAddress='" + SenderAddressStreetAddress + '\'' +
+                ", SenderAddressZipPostalCode='" + SenderAddressZipPostalCode + '\'' +
+                '}';
     }
+
+//    public String newtoString() {
+//        return String.format("광역시/도: %s, 시/군/구: %s, 세부주소: %s, 우편번호: %s",
+//                this.SenderAddressStateProvinceRegion, this.SenderAddressCity, this.SenderAddressStreetAddress, this.SenderAddressZipPostalCode);
+//    }
 }
