@@ -9,7 +9,7 @@ import java.util.List;
  * 4/26/24 description    :
  */
 
-public interface Repository {
+public interface CustomerRepositoryInter {
 
     boolean checkId(String email);
 

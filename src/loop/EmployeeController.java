@@ -5,8 +5,8 @@ import customer.Customer;
 import java.util.List;
 
 public class EmployeeController implements Controller{
-    private Repository employeeRepository;
-    public EmployeeController(Repository employeeRepository) {
+    private EmployeeRepositoryImpl employeeRepository;
+    public EmployeeController(EmployeeRepositoryImpl employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 

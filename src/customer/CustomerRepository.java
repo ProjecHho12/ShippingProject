@@ -4,11 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import loop.CustomerRepositoryInter;
 import loop.Repository;
 
-public class CustomerRepository implements Repository, Serializable {
+public class CustomerRepository implements CustomerRepositoryInter, Serializable {
 
-    private List<Customer> customers;
+    private static List<Customer> customers;
 
     public CustomerRepository() {
         this.customers = new ArrayList<>();
