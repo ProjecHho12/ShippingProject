@@ -1,1 +1,3 @@
-Employee{employeeName='mmm', employeeEmail='mmm@mmm.mmm', employeePW='mmm', employeeGender='f', employeeAddress='mmm', age=10, employeePhone=136954524, job=INCOMING}
+mmm,mmm@mmm.mmm,mmm,f,mmm,10,136954524,INCOMING
+fff,fff@fff.fff,fff,f,mmm,10,136954524,INCOMING
+zz,zz@fff.fff,zz,f,mmm,10,136954524,OUTCOMING

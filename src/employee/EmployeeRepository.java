@@ -1,23 +1,43 @@
 package employee;
 
 
+import customer.Gender;
+
 import loop.Repository;
 import parcel.Parcel;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EmployeeRepository {
+public class EmployeeRepository implements Repository, Serializable {
+    public List<Employee> employeeList;
 
-    EmployeeList employeeList;
-
+    String targetPath = "/Users/jieun/Desktop/teamProject/javaProject/Shipping/src/employee/employees.sav";
 
     public EmployeeRepository() {
-        this.employeeList = new EmployeeList();
+
+        this.employeeList = new ArrayList<>();
+
+
+        File file = new File(targetPath);
+        if (!file.exists()) return;
+
+        // 세이브 파일 로딩하기
+        try (FileInputStream fis = new FileInputStream(targetPath)) {
+
+            // 객체를 로딩할 보조 스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            List<Employee> employeeList = (List<Employee>) ois.readObject();
+
+            System.out.println("employeeList = " + employeeList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -27,70 +47,73 @@ public class EmployeeRepository {
      * @return 입력받은 정보를 가진 직원이 있으면 true
      */
     public boolean isContains(Employee target) {
-        return employeeList.employeeList.contains(target);
+        return employeeList.contains(target);
     }
 
     /**
-     * 입력 받은 정보로 새 직원 생성
-     * @param name 새 직원 이름
-     * @param email
-     * @param password
-     * @param gender
-     * @param address
-     * @param age
-     * @param employeePhone
-     * @param job
+     * @param newEmployee
      */
-    public void resister(String name, String email, String password,String gender, String address, int age, int employeePhone, Job job) {
-        Employee newEmployee = new Employee(name, email, password, gender, address, age, employeePhone,  job);
 
-        if (!isContains(newEmployee)) {
-            employeeList.addEmployee(newEmployee);
+    public void resister(Employee newEmployee) {
+
+        try (FileOutputStream fos = new FileOutputStream(targetPath)) {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            employeeList.add(newEmployee);
+            oos.writeObject(employeeList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
 
     public void printEmployee() {
-        int i = 0;
-        for (Employee em : employeeList.getEmployeeList()) {
-            i++;
-            System.out.println(i + ". " + em);
-        }
+        System.out.println("employeeList = " + employeeList);
     }
 
 
-    List<Parcel> parcelList = new ArrayList<>();
+    public Employee login(Employee matechedEmployee, String password) {
 
-    public void readParcel() {
-        int i = 0;
-        for (Parcel parcel : parcelList) {
-            i++;
-            System.out.println(i + ". " + parcel);
-        }
+        if (matechedEmployee.getEmployeePW().equals(password)) return matechedEmployee;
+
+        return null;
     }
 
-    public Employee login (String email, String password){
-        Employee matechedEmployee = employeeList.getEmployeeList().stream().filter(e->e.getEmployeeEmail().equals(email)).collect(Collectors.toList()).get(0);
-
-       if (matechedEmployee != null){
-           if (matechedEmployee.getEmployeePW().equals(password)){
-
-               return matechedEmployee;
-           }
-       }
-       return null;
-
-
-    }
-
-    public void incomeParcel(){
-
-    }
-    public void outcomeParcel(){
-
+    /**
+     * 비밀 번호로 본인 확인
+     * @param employee - 사용자
+     * @param password - 사용자가 입력할 비밀번호 값
+     * @return 일치하면 true
+     */
+    public boolean identificationByPw(Employee employee, String password) {
+        return employee.getEmployeePW().equals(password);
     }
 
 
+//    List<Parcel> parcelList = new ArrayList<>();
+//
+//    public void readParcel() {
+//        int i = 0;
+//        for (Parcel parcel : parcelList) {
+//            i++;
+//            System.out.println(i + ". " + parcel);
+//        }
+//    }
+//
+//
+//    public void incomeParcel(Parcel parcel) {
+//        parcel.
+//    }
+//
+//    public void outcomeParcel() {
+//    }
 
+
+    //////////// 업무 일지 /////////////
+    public void addJournal(Employee employee, Parcel parcel) {
+        Journal newJournal = new Journal(parcel.getTrackingNumber(), parcel.getStatus(), employee.getEmployeeName());
+        employee.addJournal(newJournal);
+    }
 
 }

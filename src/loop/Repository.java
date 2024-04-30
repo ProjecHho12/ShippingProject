@@ -10,17 +10,4 @@ import java.util.List;
  */
 
 public interface Repository {
-
-    boolean checkId(String email);
-
-    boolean checkPassword(String email, String password);
-
-    void addNewCustomer(Customer customer);
-
-    List<Customer> getCustomers();
-
-    void saveCustomers();
-
-    List<Customer> loadCustomers();
-
 }
