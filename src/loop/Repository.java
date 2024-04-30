@@ -5,5 +5,4 @@ package loop;
  * 4/26/24 description    :
  */
 public interface  Repository {
-
 }

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmployeeRepository implements Repository, Serializable {
-
     public List<Employee> employeeList;
 
     String targetPath = "/Users/jieun/Desktop/teamProject/javaProject/Shipping/src/employee/employees.sav";
