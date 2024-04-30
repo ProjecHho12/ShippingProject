@@ -52,39 +52,21 @@ public class EmployeeRepository implements Repository, Serializable {
     }
 
     /**
-     * 입력 받은 정보로 새 직원 생성
-     *
-     * @param name          새 직원 이름
-     * @param email
-     * @param password
-     * @param gender
-     * @param address
-     * @param age
-     * @param employeePhone
-     * @param job
+     * @param newEmployee
      */
 
-    public void resister(String name, String email, String password, String gender, String address, int age, int employeePhone, Job job) {
-        Employee newEmployee = new Employee(name, email, password, gender, address, age, employeePhone, job);
+    public void resister(Employee newEmployee) {
 
-        if (!isContains(newEmployee)) {
+        try (FileOutputStream fos = new FileOutputStream(targetPath)) {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            employeeList.add(newEmployee);
+            oos.writeObject(employeeList);
 
-            try (FileOutputStream fos = new FileOutputStream(targetPath)) {
-
-                // 객체를 통째로 저장할 수 있는 보조 스트림
-                // serialize: 직렬화 - 데이터를 일렬로 늘여뜨려 놓는 것
-                ObjectOutputStream oos = new ObjectOutputStream(fos);
-                employeeList.add(newEmployee);
-                oos.writeObject(employeeList);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
-
-
 
 
     public void printEmployee() {
@@ -92,19 +74,11 @@ public class EmployeeRepository implements Repository, Serializable {
     }
 
 
-    public Employee login(String email, String password) {
+    public Employee login(Employee matechedEmployee, String password) {
 
-        Employee matechedEmployee = employeeList.stream().filter(e -> e.getEmployeeEmail().equals(email)).collect(Collectors.toList()).get(0);
+        if (matechedEmployee.getEmployeePW().equals(password)) return matechedEmployee;
 
-        if (matechedEmployee != null) {
-            if (matechedEmployee.getEmployeePW().equals(password)) {
-
-                return matechedEmployee;
-            }
-        }
         return null;
-
-
     }
 
     /**
@@ -113,22 +87,9 @@ public class EmployeeRepository implements Repository, Serializable {
      * @param password - 사용자가 입력할 비밀번호 값
      * @return 일치하면 true
      */
-    public boolean identificationByPw (Employee employee, String password){
+    public boolean identificationByPw(Employee employee, String password) {
         return employee.getEmployeePW().equals(password);
     }
-
-    /**
-     * 비밀번호 수정
-     * @param employee - 수정할 직원 정보
-     * @param oldPassword - 이전 비밀번호
-     * @param newPassword - 새 비밀번호
-     */
-    public void modifyPw (Employee employee, String oldPassword, String newPassword){
-        if(identificationByPw(employee,oldPassword)){
-            employee.setEmployeePW(newPassword);
-        }
-    }
-
 
 
 
@@ -153,16 +114,10 @@ public class EmployeeRepository implements Repository, Serializable {
 
     //////////// 업무 일지 /////////////
 
-    // 택배 아이디를 입고했습니다
-    // 택배 아이디를 출고했습니다
-    public void addJournal(Employee employee,Parcel parcel){
-        String status = "";
-        if (parcel.getStatus().equals("입고")) status = "입고";
-        if (parcel.getStatus().equals("출고")) status = "출고";
-        String col = String.format( "운송장 번호"+ "택배를 "+ status + "했습니다. 직원: "+ employee.getEmployeeName());
 
-        employee.addJournal(col);
-
+    public void addJournal(Employee employee, Parcel parcel) {
+        Journal newJournal = new Journal(parcel.getTrackingNumber(), parcel.getStatus(), employee.getEmployeeName());
+        employee.addJournal(newJournal);
     }
 
 }

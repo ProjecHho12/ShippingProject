@@ -17,7 +17,7 @@ public class Employee implements Serializable {
     private int age;
     private int employeePhone;
     private Job job;
-    private List<String> journal;
+    private List<Journal> journalList;
 
 
     public Employee(String employeeName, String employeeEmail, String employeePW, String employeeGender, String employeeAddress, int age, int employeePhone, Job job) {
@@ -29,7 +29,7 @@ public class Employee implements Serializable {
         this.age = age;
         this.employeePhone = employeePhone;
         this.job = job;
-        this.journal = new ArrayList<>();
+        this.journalList = new ArrayList<>();
     }
 
     public String getEmployeeName() {
@@ -64,8 +64,8 @@ public class Employee implements Serializable {
         return job;
     }
 
-    public List<String> getJournal() {
-        return journal;
+    public List<Journal> getJournal() {
+        return journalList;
     }
 
     public void setEmployeeName(String employeeName) {
@@ -101,13 +101,12 @@ public class Employee implements Serializable {
         this.job = job;
     }
 
-    public void addJournal(String col) {
-        this.journal.add(col);
+    public void addJournal(Journal newJournal) {
+        this.journalList.add(newJournal);
 
     }
 
     public void printJournal(){
-
 
     }
 
