@@ -1,10 +1,14 @@
 package employee;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * packageName    : employee fileName       : Employee author         : hoho date           :
  * 4/25/24 description    :
  */
-public class Employee {
+public class Employee implements Serializable {
     private String employeeName;
     private String employeeEmail;
     private String employeePW;
@@ -13,6 +17,7 @@ public class Employee {
     private int age;
     private int employeePhone;
     private Job job;
+    private List<Journal> journalList;
 
 
     public Employee(String employeeName, String employeeEmail, String employeePW, String employeeGender, String employeeAddress, int age, int employeePhone, Job job) {
@@ -24,6 +29,7 @@ public class Employee {
         this.age = age;
         this.employeePhone = employeePhone;
         this.job = job;
+        this.journalList = new ArrayList<>();
     }
 
     public String getEmployeeName() {
@@ -58,6 +64,9 @@ public class Employee {
         return job;
     }
 
+    public List<Journal> getJournal() {
+        return journalList;
+    }
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
@@ -90,6 +99,15 @@ public class Employee {
 
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    public void addJournal(Journal newJournal) {
+        this.journalList.add(newJournal);
+
+    }
+
+    public void printJournal(){
+
     }
 
     @Override
