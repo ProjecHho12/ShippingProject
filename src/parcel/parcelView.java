@@ -21,6 +21,7 @@ public class ParcelView {
     }
 
 
+
     static boolean inputParcelInformation() {
 
         // 보내는 분 정보 입력
