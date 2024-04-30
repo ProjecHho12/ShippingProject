@@ -1,6 +1,8 @@
 package employee;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName    : employee fileName       : Employee author         : hoho date           :
@@ -15,6 +17,7 @@ public class Employee implements Serializable {
     private int age;
     private int employeePhone;
     private Job job;
+    private List<String> journal;
 
 
     public Employee(String employeeName, String employeeEmail, String employeePW, String employeeGender, String employeeAddress, int age, int employeePhone, Job job) {
@@ -26,6 +29,7 @@ public class Employee implements Serializable {
         this.age = age;
         this.employeePhone = employeePhone;
         this.job = job;
+        this.journal = new ArrayList<>();
     }
 
     public String getEmployeeName() {
@@ -60,6 +64,9 @@ public class Employee implements Serializable {
         return job;
     }
 
+    public List<String> getJournal() {
+        return journal;
+    }
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
@@ -93,6 +100,15 @@ public class Employee implements Serializable {
     public void setJob(Job job) {
         this.job = job;
     }
+
+//    public void addJournal() {
+//        this.journal = journal;
+//        int i = 0;
+//        for (String j:journal){
+//            i++;
+//
+//        }
+//    }
 
     @Override
     public String toString() {

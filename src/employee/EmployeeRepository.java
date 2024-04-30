@@ -85,6 +85,8 @@ public class EmployeeRepository implements Repository, Serializable {
     }
 
 
+
+
     public void printEmployee() {
         System.out.println("employeeList = " + employeeList);
     }
@@ -105,6 +107,32 @@ public class EmployeeRepository implements Repository, Serializable {
 
     }
 
+    /**
+     * 비밀 번호로 본인 확인
+     * @param employee - 사용자
+     * @param password - 사용자가 입력할 비밀번호 값
+     * @return 일치하면 true
+     */
+    public boolean identificationByPw (Employee employee, String password){
+        return employee.getEmployeePW().equals(password);
+    }
+
+    /**
+     * 비밀번호 수정
+     * @param employee - 수정할 직원 정보
+     * @param oldPassword - 이전 비밀번호
+     * @param newPassword - 새 비밀번호
+     */
+    public void modifyPw (Employee employee, String oldPassword, String newPassword){
+        if(identificationByPw(employee,oldPassword)){
+            employee.setEmployeePW(newPassword);
+        }
+    }
+
+
+
+
+
     List<Parcel> parcelList = new ArrayList<>();
 
     public void readParcel() {
@@ -117,13 +145,23 @@ public class EmployeeRepository implements Repository, Serializable {
 
 
     public void incomeParcel() {
-
-
     }
 
     public void outcomeParcel() {
-
     }
 
+
+    //////////// 업무 일지 /////////////
+
+    // 택배 아이디를 입고했습니다
+    // 택배 아이디를 출고했습니다
+    public void addJournal(Employee employee,Parcel parcel){
+        String status = "";
+        if (parcel.getStatus().equals("입고")) status = "입고";
+        if (parcel.getStatus().equals("출고")) status = "출고";
+        String memo = String.format( "운송장 번호"+ "택배를 "+ status + "했습니다. 직원: "+ employee.getEmployeeName());
+
+
+    }
 
 }
