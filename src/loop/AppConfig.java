@@ -1,5 +1,6 @@
 package loop;
 
+import customer.CustomerControllerImpl;
 import customer.CustomerRepository;
 
 public class AppConfig {
@@ -10,11 +11,11 @@ public class AppConfig {
 	private Controller employeeController() {
 		return new EmployeeController(employeeRepository());
 	}
-	private Controller customerController() {
-		return new CustomerController(customerRepository());
+	private CustomerControllerImpl customerController() {
+		return new CustomerControllerImpl(customerRepository());
 	}
-	private Repository customerRepository() {
-		return new CustomerRepositoryImpl();
+	private CustomerRepository customerRepository() {
+		return new CustomerRepository();
 	}
 	private Repository employeeRepository() {
 		return new EmployeeRepositoryImpl();
