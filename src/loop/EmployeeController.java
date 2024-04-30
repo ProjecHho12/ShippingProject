@@ -1,5 +1,7 @@
 package loop;
 
+import customer.LoginStatus;
+
 public class EmployeeController implements Controller {
     private Repository employeeRepository;
     public EmployeeController(Repository employeeRepository) {
@@ -12,7 +14,7 @@ public class EmployeeController implements Controller {
     }
 
     @Override
-    public int login(String email, String password) {
+    public LoginStatus login(String email, String password) {
         return 0;
     }
 }

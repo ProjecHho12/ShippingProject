@@ -55,22 +55,22 @@ public class MainViewImpl implements View{
 		String email = SimpleInput.input("이메일: ");
 		String password = SimpleInput.input("비밀번호: ");
 		switch (customerController.login(email, password)) {
-			case LoginStatus.IDFAIL:
+			case IDFAIL:
 				System.out.println("아이디를 확인해주세요");
 				break;
-			case LoginStatus.PASSSFAIL:
+			case PASSSFAIL:
 				System.out.println("비밀번호를 확인해주세요");
 				break;
 			default:
 				selectCustomerMenu();
 		}
-		switch (employeeController.login(email, password)) {
-			case 1:
-				System.out.println("\n입력한 이메일, 비밀번호를 다시 확인해주세요.\n");
-				break;
-			default:
-				selectEmployeeMenu();
-		}
+//		switch (employeeController.login(email, password)) {
+//			case 1:
+//				System.out.println("\n입력한 이메일, 비밀번호를 다시 확인해주세요.\n");
+//				break;
+//			default:
+//				selectEmployeeMenu();
+//		}
 	}
 	private void registerCustomer() {
 		System.out.println("\n***** 고객 등록 하기 *****");
@@ -102,7 +102,7 @@ public class MainViewImpl implements View{
 		String password = SimpleInput.input("비밀번호: ");
 		String gender = SimpleInput.input("성별(M/F): ");
 		String address = SimpleInput.input("주소: ");
-		String age = SimpleInput.input("나이: ");
+		int age = Integer.parseInt(SimpleInput.input("나이: "));
 		switch (employeeController.register(name, email, password, gender, address, age)) {
 			case 1:
 				System.out.println("\n이미 등록된 이메일입니다.\n");
