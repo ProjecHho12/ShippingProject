@@ -2,6 +2,7 @@ package parcel;
 
 import parcel.Tr.TrackingNumber;
 
+import java.io.*;
 import java.util.*;
 
 import static java.util.Comparator.comparing;
@@ -13,13 +14,10 @@ public class ParcelView {
     // 객체의 협력
     static ParcelRepository repository;
 
-    //TrackingNumber trackingNumber;
-
     public ParcelView() {
         // 객체의 협력을 하기 위해선 객체를 생성해줘야 한다.
         this.repository = new ParcelRepository();
     }
-
 
 
     static boolean inputParcelInformation() {
@@ -188,6 +186,9 @@ public class ParcelView {
             // 생성된 개체를 배열에 저장
             repository.addParcelInformation(newParcel);
 
+            // 택배 배열을 생성한 메모장 파일에 집어넣기
+            repository.saveParcelArrayFile(newParcel);
+
             return true;
         } else if (selectExit.toUpperCase().contains("F")) {
             return false;
@@ -199,12 +200,36 @@ public class ParcelView {
 
     // 2. 접수된 모든 택배 조회
     static void showParcelArray() {
+
         System.out.printf("현재 접수된 택배 목록입니다. (총%d개)\n", repository.getParcelArray().length);
         // 단축키 iter
         for (Parcel parcel : repository.getParcelArray()) {
             System.out.println(parcel);
         }
-        System.out.println("안녕");
+
+    }
+
+    // 2-1. 메모장에 저장한 배열 불러오기
+    static void openFile(){
+        // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
+        String ROOT_PATH = "D://ShippingProject";
+
+        // 저장된 파일 로딩하기
+        try (FileInputStream fis = new FileInputStream(ROOT_PATH + "/ParcelRepository/parcelrepository.txt")) {
+            //객체를 로딩할 보조 스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Object obj = ois.readObject();
+            ois.close();
+            fis.close();
+            repository.addParcelInformation((Parcel) obj);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("저장된 파일을 찾을 수 없습니다.");
+        } catch (IOException e) {
+            System.out.println("파일을 읽어오다가 오류가 발견되었습니다.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("해당 객체를 찾을 수 없습니다.");
+        }
     }
 
     // 4. 프로그램 종료 메서드
@@ -226,7 +251,8 @@ public class ParcelView {
         System.out.println(" ===== 택배 등록 =====");
         System.out.println("1. 택배 등록");
         System.out.println("2. 택배 조회");
-        System.out.println("3. 프로그램 종료");
+        System.out.println("3. 택배 운송");
+        System.out.println("4. 프로그램 종료");
 
         System.out.println("이용하실 메뉴번호를 입력해주세요!");
         return sc.nextLine();
@@ -234,6 +260,13 @@ public class ParcelView {
 
     // 0-1. 메뉴 선택에 따른 메서드 연결
     public static void pacelrun() {
+        // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
+        String ROOT_PATH = "D://ShippingProject";
+
+        // 택배 배열 넣을 폴더 & 파일 생성
+        repository.makeSaveFile();
+        repository.ParcelArrayFile ();
+
         while (true) {
             String selectNumber = showMenu();
 
