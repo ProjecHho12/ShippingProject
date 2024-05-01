@@ -259,7 +259,7 @@ public class ParcelView {
     }
 
     // 0-1. 메뉴 선택에 따른 메서드 연결
-    static void pacelrun() {
+    public static void pacelrun() {
         // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
         String ROOT_PATH = "D://ShippingProject";
 

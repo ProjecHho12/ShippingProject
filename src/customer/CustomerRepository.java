@@ -8,11 +8,12 @@ import loop.CustomerRepositoryInter;
 import loop.Repository;
 
 public class CustomerRepository implements CustomerRepositoryInter, Serializable {
+    private static final String PATH = "./customer.txt";
 
-    private static List<Customer> customers;
+    private List<Customer> customers;
 
     public CustomerRepository() {
-        this.customers = new ArrayList<>();
+        loadCustomers();
     }
 
     public List<Customer> getCustomers() {
@@ -28,7 +29,7 @@ public class CustomerRepository implements CustomerRepositoryInter, Serializable
     }
 
     public void saveCustomers() {
-        try (FileOutputStream fos = new FileOutputStream("E://ShippingProject//customer.txt")) {
+        try (FileOutputStream fos = new FileOutputStream(PATH)) {
             // 객체를 통쨰로 저장할 수 있는 보조 스트림
             // serialize: 직렬화 - 데이터를 일렬로 늘여뜨려 놓는 것
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -39,12 +40,12 @@ public class CustomerRepository implements CustomerRepositoryInter, Serializable
     }
 
     public List<Customer> loadCustomers() {
-        try (FileInputStream fis = new FileInputStream("E://ShippingProject//customer.txt")) {
+        try (FileInputStream fis = new FileInputStream(PATH)) {
             // 객체를 로딩할 보조 스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
             List<Customer> customersList = (List<Customer>) ois.readObject();
             System.out.println("customersList = " + customersList);
-            return customersList;
+            this.customers = customersList;
         } catch (Exception e) {
             e.printStackTrace();
         }

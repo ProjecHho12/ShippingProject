@@ -10,7 +10,7 @@ public class Main {
 
         ParcelView parcelView = new ParcelView();
 
-        parcelView.pacelrun();
+        ParcelView.pacelrun();
 
     }
 }

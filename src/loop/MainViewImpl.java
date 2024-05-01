@@ -1,37 +1,36 @@
 package loop;
 
-import customer.Customer;
-import customer.CustomerControllerImpl;
-import customer.Gender;
-import customer.LoginStatus;
 import util.SimpleInput;
 
-import static customer.LoginStatus.IDFAIL;
+public class MainViewImpl {
 
-public class MainViewImpl implements View{
-	private final CustomerControllerImpl customerController;
-	private final Controller employeeController;
-	public MainViewImpl(CustomerControllerImpl customerController, Controller employeeController) {
-		this.customerController = customerController;
-		this.employeeController = employeeController;
+	private final EmployeeVewImpl employeeView;
+	private final CustomerViewImpl customerView;
+
+	public MainViewImpl(CustomerViewImpl customerView,
+						EmployeeVewImpl employeeView) {
+		this.employeeView = employeeView;
+		this.customerView = customerView;
 	}
-	@Override
+
 	public void run() {
 		while (true) {
-			if (selectMenu() == 0)
-				break ;
+			if (selectMenu() == 0) {
+				break;
+			}
 		}
 	}
+
 	private int selectMenu() {
 		switch (mainMenu()) {
 			case "1":
 				login();
 				break;
 			case "2":
-				registerCustomer();
+				customerView.registerCustomer();
 				break;
 			case "3":
-				registerEmployee();
+				employeeView.registerEmployee();
 				break;
 			case "9":
 				System.out.println("프로그램을 종료합니다.");
@@ -45,140 +44,23 @@ public class MainViewImpl implements View{
 
 	private String mainMenu() {
 		System.out.println("\n***** 택배 서비스에 오신 것을 환영합니다 *****\n" +
-				"# 1. 로그인\n" +
-				"# 2. 회원 등록\n" +
-				"# 3. 직원 등록\n" +
-				"# 9. 프로그램종료\n" +
-				"========================");
+			"# 1. 로그인\n" +
+			"# 2. 회원 등록\n" +
+			"# 3. 직원 등록\n" +
+			"# 9. 프로그램종료\n" +
+			"========================");
 		return SimpleInput.input(">> ");
 	}
+
 	private void login() {
 		System.out.println("\n***** 로그인 *****");
+		String menu = SimpleInput.input(("1. 고객 2. 직원 \n번호를 선택해주세요: "));
 		String email = SimpleInput.input("이메일: ");
 		String password = SimpleInput.input("비밀번호: ");
-		Customer target = customerController.login(email, password);
-		if (target != null) {
-			System.out.println("로그인 성공");
-			selectCustomerMenu();
-		} else {
-			System.out.println("입력값을 확인해주세요");
+		if (menu.equals("1")) {
+			customerView.customerLogin(email, password);
+		} else if (menu.equals("2")) {
+			employeeView.employeeLogin(email, password);
 		}
-//		switch () {
-//			case null:
-//				System.out.println("아이디를 확인해주세요");
-//				break;
-//			case null:
-//				System.out.println("비밀번호를 확인해주세요");
-//				break;
-//			default:
-//		}
-//		switch (employeeController.login(email, password)) {
-//			case 1:
-//				System.out.println("\n입력한 이메일, 비밀번호를 다시 확인해주세요.\n");
-//				break;
-//			default:
-//				selectEmployeeMenu();
-//		}
-	}
-	private void registerCustomer() {
-		System.out.println("\n***** 고객 등록 하기 *****");
-		String name = SimpleInput.input("이름: ");
-		String email = SimpleInput.input("이메일: ");
-		String password = SimpleInput.input("비밀번호: ");
-		String gender = SimpleInput.input("성별(M/F): ");
-		String address = SimpleInput.input("주소: ");
-		int age;
-		while (true) {
-			try {
-				age = Integer.parseInt(SimpleInput.input("나이: "));
-				break;
-			} catch (Exception e){
-				System.out.println("나이는 숫자로만 입력해주세요");
-			}
-		}
-		switch (customerController.register(name, email, password, gender, address, age)) {
-			case 1:
-				System.out.println("\n등록에 실패했습니다.\n");
-				break;
-			default:
-				System.out.println("\n등록에 성공했습니다.\n");
-		}
-	}
-	private void registerEmployee() {
-		System.out.println("\n***** 직원 등록 하기 *****");
-		String name = SimpleInput.input("이름: ");
-		String email = SimpleInput.input("이메일: ");
-		String password = SimpleInput.input("비밀번호: ");
-		String gender = SimpleInput.input("성별(M/F): ");
-		String address = SimpleInput.input("주소: ");
-		int age = Integer.parseInt(SimpleInput.input("나이: "));
-		switch (employeeController.register(name, email, password, gender, address, age)) {
-			case 1:
-				System.out.println("\n이미 등록된 이메일입니다.\n");
-				break;
-			default:
-				System.out.println("\n등록에 성공했습니다.\n");
-		}
-	}
-	private void selectCustomerMenu() {
-		while (true) {
-			switch (customerMenu()) {
-				case "1":
-					postParcelByCustomer();
-					break;
-				case "2":
-					selectParcelByCustomer();
-					break;
-				case "9":
-					System.out.println("프로그램을 종료합니다.");
-					System.exit(0);
-				default:
-					System.out.println("입력한 메뉴 번호를 확인해주세요.!");
-					break;
-			}
-		}
-	}
-	private String customerMenu() {
-		System.out.println("\n***** 환영합니다! 어떤 메뉴를 선택하시겠습니까? *****\n" +
-				"# 1. 택배 보내기\n" +
-				"# 2. 택배 조회\n" +
-				"# 9. 프로그램종료\n" +
-				"========================");
-		return SimpleInput.input(">> ");
-	}
-	private void postParcelByCustomer() {
-	}
-	private void selectParcelByCustomer() {
-	}
-	private void selectEmployeeMenu() {
-		while (true) {
-			switch (employeeMenu()) {
-				case "1":
-					selectParcelByEmployee();
-					break;
-				case "2":
-					selectAllParcelByEmployee();
-					break;
-				case "9":
-					System.out.println("프로그램을 종료합니다.");
-					System.exit(0);
-				default:
-					System.out.println("입력한 메뉴 번호를 확인해주세요.!");
-					break;
-			}
-			System.exit(0);
-		}
-	}
-	private String employeeMenu() {
-		System.out.println("\n***** 환영합니다! 어떤 메뉴를 선택하시겠습니까? *****\n" +
-				"# 1. 입고된 택배 조회\n" +
-				"# 2. 전체 택배 조회\n" +
-				"# 9. 프로그램종료\n" +
-				"========================");
-		return SimpleInput.input(">> ");
-	}
-	private void selectParcelByEmployee() {
-	}
-	private void selectAllParcelByEmployee() {
 	}
 }
