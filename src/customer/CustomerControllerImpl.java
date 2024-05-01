@@ -51,17 +51,21 @@ public class CustomerControllerImpl implements Controller {
 
     @Override
     public boolean isValidEmail(String email) {
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+
+        if (!cr.getCustomers().stream()
+                .anyMatch(customer -> customer.getEmail().equals(email))) {
+            Matcher matcher = pattern.matcher(email);
+            return matcher.matches();
+        }
+        return false;
+
     }
 
-    public String isValidGender(String gender){
+    public Gender isValidGender(String gender) {
         if (gender.equals("M")) {
-            gender = String.valueOf(Gender.MALE);
-            return gender;
-        } else if(gender.equals("F")) {
-            gender = String.valueOf(Gender.FEMALE);
-            return gender;
+          return Gender.MALE;
+        } else if (gender.equals("F")) {
+            return Gender.FEMALE;
         }
         return null;
     }

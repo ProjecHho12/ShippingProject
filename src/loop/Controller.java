@@ -1,6 +1,7 @@
 package loop;
 
 import customer.Customer;
+import customer.Gender;
 
 public interface Controller {
 
@@ -11,5 +12,5 @@ public interface Controller {
 
     boolean isValidEmail(String email);
 
-    String isValidGender(String gender);
+    Gender isValidGender(String gender);
 }

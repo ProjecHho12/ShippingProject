@@ -25,7 +25,7 @@ public class CustomerController implements Controller {
     }
 
     @Override
-    public String isValidGender(String gender) {
+    public Gender isValidGender(String gender) {
         return null;
     }
 
