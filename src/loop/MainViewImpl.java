@@ -2,7 +2,7 @@ package loop;
 
 import util.SimpleInput;
 
-public class MainViewImpl implements View {
+public class MainViewImpl {
 
 	private final EmployeeVewImpl employeeView;
 	private final CustomerViewImpl customerView;
@@ -13,7 +13,6 @@ public class MainViewImpl implements View {
 		this.customerView = customerView;
 	}
 
-	@Override
 	public void run() {
 		while (true) {
 			if (selectMenu() == 0) {

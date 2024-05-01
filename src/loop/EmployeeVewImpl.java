@@ -44,14 +44,14 @@ public class EmployeeVewImpl {
         if (select.equals("1")) {
             job = Job.OUTCOMING;
         }
-        switch (employeeController.register(name, email, password, gender, address, age, phone,
-                job)) {
-            case 1:
-                System.out.println("\n이미 등록된 이메일입니다.\n");
-                break;
-            default:
-                System.out.println("\n등록에 성공했습니다.\n");
-        }
+//        switch (employeeController.register(name, email, password, gender, address, age, phone,
+//                job)) {
+//            case 1:
+//                System.out.println("\n이미 등록된 이메일입니다.\n");
+//                break;
+//            default:
+//                System.out.println("\n등록에 성공했습니다.\n");
+//        }
     }
 
     void employeeLogin(String email, String password) {

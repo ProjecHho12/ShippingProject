@@ -7,7 +7,7 @@ import employee.EmployeeRepository;
 import parcel.ParcelRepository;
 
 public class AppConfig {
-	public View view() {
+	public MainViewImpl view() {
 		return new MainViewImpl(customerView(), employeeView());
 	}
 
