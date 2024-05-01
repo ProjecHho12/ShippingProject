@@ -7,9 +7,13 @@ import java.util.stream.Collectors;
 
 public class EmployeeControllerImpl{
 
-     private final EmployeeRepository repository = new EmployeeRepository();
+     private final EmployeeRepository repository;
 
-//
+    public EmployeeControllerImpl(EmployeeRepository repository) {
+        this.repository = repository;
+    }
+
+    //
 //
     public void register(String name, String email, String password, String gender, String address, int age, int employeePhone, Job job) {
         Employee newEmployee = new Employee(name, email, password, gender, address, age, employeePhone, job);

@@ -47,7 +47,7 @@ public class Main {
 
 
 
-        parcelView.pacelrun();
+        ParcelView.pacelrun();
 
     }
 }

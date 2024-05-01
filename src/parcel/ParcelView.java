@@ -233,7 +233,7 @@ public class ParcelView {
     }
 
     // 0-1. 메뉴 선택에 따른 메서드 연결
-    static void pacelrun() {
+    public static void pacelrun() {
         while (true) {
             String selectNumber = showMenu();
 
