@@ -3,6 +3,7 @@ package parcel;
 import parcel.Tr.TrackingNumber;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 import static java.util.Comparator.comparing;
@@ -20,7 +21,7 @@ public class ParcelView {
     }
 
 
-    static boolean inputParcelInformation() {
+    static Sender inputSenderInfo() {
 
         // 보내는 분 정보 입력
         System.out.println("보내는 분 - 보내시는 고객님의 정보를 정확히 입력해 주세요.");
@@ -36,25 +37,26 @@ public class ParcelView {
         }
 
         System.out.println("주소 - 보내시는 고객님의 주소를 정확히 입력해 주세요.");
-        TrackingNumber locals = null;
+        TrackingNumber senderLocal = null;
         TrackingNumber SenderAddressStateProvinceRegion;
+
         while (true) {
             System.out.println("광역시/도 를 입력해주세요 ex) 서울, Seoul");
             String local = sc.next();
 
             try {
-                for (TrackingNumber m : TrackingNumber.values()) {
-                    if (m.getNames().contains(local.toUpperCase())) {
-                        locals = m;
+                for (TrackingNumber t : TrackingNumber.values()) {
+                    if (t.getNames().contains(local.toUpperCase())) {
+                        senderLocal = t;
                     }
                 }
-                TrackingNumber v1 = TrackingNumber.valueOf(String.valueOf(locals));
+                TrackingNumber placeName = TrackingNumber.valueOf(String.valueOf(senderLocal));
 
-                if (v1 == locals) {
-                    // System.out.println("1번 " + locals); // SEOUL
-                    //System.out.println("2번 " + locals.getCode()); // 002
-                    SenderAddressStateProvinceRegion = locals;
-                    String SenderLocalNumber = locals.getCode();
+                if (placeName == senderLocal) {
+                    // System.out.println("1번 " + senderLocal); // SEOUL
+                    //System.out.println("2번 " + senderLocal.getCode()); // 002
+                    SenderAddressStateProvinceRegion = senderLocal;
+                    String SenderLocalNumber = senderLocal.getCode();
                     break;
                 } else {
                     System.out.println("정확한 지역명을 입력해주세요!");
@@ -74,8 +76,19 @@ public class ParcelView {
         String SenderNumber = sc.next();
 
 
-        // 받는 분 정보 입력
-        System.out.println("받는 분 - 받으시는 고객님의 정보를 정확히 입력해 주세요.");
+        // 반환 값 : 보내는 분 (이름, 주소, 전화번호)
+        SenderAddress newsenderaddress = new SenderAddress(SenderAddressStateProvinceRegion, SenderAddressCity, SenderAddressStreetAddress, SenderAddressZipPostalCode);
+
+        Sender newsender = new Sender(SenderName, newsenderaddress, SenderNumber); // 최종
+
+        return newsender;
+    }
+
+
+    static Recipient inputRecipientInfo() {
+
+        // 보내는 분 정보 입력
+        System.out.println("보내는 분 - 보내시는 고객님의 정보를 정확히 입력해 주세요.");
         String RecipientName;
         while (true) {
             System.out.println("이름을 입력해주세요. (10자 이하)");
@@ -88,25 +101,26 @@ public class ParcelView {
         }
 
         System.out.println("주소 - 보내시는 고객님의 주소를 정확히 입력해 주세요.");
-        TrackingNumber locals1 = null;
+        TrackingNumber RecipientLocal = null;
         TrackingNumber RecipientAddressStateProvinceRegion;
+
         while (true) {
             System.out.println("광역시/도 를 입력해주세요 ex) 서울, Seoul");
-            String local1 = sc.next();
+            String local = sc.next();
 
             try {
-                for (TrackingNumber m : TrackingNumber.values()) {
-                    if (m.getNames().contains(local1.toUpperCase())) {
-                        locals1 = m;
+                for (TrackingNumber t : TrackingNumber.values()) {
+                    if (t.getNames().contains(local.toUpperCase())) {
+                        RecipientLocal = t;
                     }
                 }
-                TrackingNumber v2 = TrackingNumber.valueOf(String.valueOf(locals1));
+                TrackingNumber placeName = TrackingNumber.valueOf(String.valueOf(RecipientLocal));
 
-                if (v2 == locals1) {
-                    // System.out.println("1번 " + locals); // SEOUL
-                    //System.out.println("2번 " + locals.getCode()); // 002
-                    RecipientAddressStateProvinceRegion = locals1;
-                    String RecipientLocalNumber = locals1.getCode();
+                if (placeName == RecipientLocal) {
+                    // System.out.println("1번 " + RecipientLocal); // SEOUL
+                    //System.out.println("2번 " + RecipientLocal.getCode()); // 002
+                    RecipientAddressStateProvinceRegion = RecipientLocal;
+                    String RecipientLocalNumber = RecipientLocal.getCode();
                     break;
                 } else {
                     System.out.println("정확한 지역명을 입력해주세요!");
@@ -126,77 +140,149 @@ public class ParcelView {
         String RecipientNumber = sc.next();
 
 
+        // 반환 값 : 받는 분 (이름, 주소, 전화번호)
+        RecipientAddress newrecipientAddress = new RecipientAddress(RecipientAddressStateProvinceRegion, RecipientAddressCity, RecipientAddressStreetAddress, RecipientAddressZipPostalCode);
+
+        Recipient newrecipient = new Recipient(RecipientName, newrecipientAddress, RecipientNumber); // 최종
+
+        return newrecipient;
+    }
+
+
+    private static String makeTrackingNumber(Sender newsender, Recipient newrecipient){
+
+        // 보내는 분, 받는 분 정보 기반으로 운송장 번호 만들기
+        // (10자리, 보내는 분 지역번호 3자리 / 받는 분 지역번호 3자리 / 택배배열 길이+1 4자리)
+
+        // 보내는 분 지역번호 3자리
+        String senderLocalNumber = newsender.getSenderAddress().getSenderAddressStateProvinceRegion().getCode();
+
+        // 받는 분 지역번호 3자리
+        String recipientLocalNumber = newrecipient.getRecipientAddress().getRecipientAddressStateProvinceRegion().getCode();
+
+        // 남은 뒷자리 4자리는 배열에 남은 택배길이
+        String lastNumber = String.format("%04d", repository.getParcelArray().length + 1);
+
+        // 최종 운송장 번호
+        String newTrackingNumber = senderLocalNumber.concat(recipientLocalNumber).concat(lastNumber);
+
+        return newTrackingNumber;
+    }
+
+
+    static ProductInfo inputProductInfo() {
+
         // 보내는 상품 정보 입력
         System.out.println("상품 정보 - 상품 정보를 정확히 입력해 주세요.");
-        System.out.println("상품명 입력해주세요.");
+        System.out.println("상품 명 입력해주세요.");
         String productName = sc.next();
-        System.out.println("상품가격을 입력해주세요");
+        System.out.println("상품 가격을 입력해주세요");
         int productValue = Integer.parseInt(sc.next());
         System.out.println("상품 크기를 입력해주세요.");
         String productSize = sc.next();
 
-        System.out.println("입력하신 정보가 맞는지 확인해주세요.");
+        // 반환 값 : 보내는 상품 정보 (상품 명, 상품 가격, 상품 크기)
+        ProductInfo newproductinfo = new ProductInfo(productName, productValue, productSize); // 최종
+
+        return newproductinfo;
+    }
+
+
+    static Boolean checkSenderInfo(Sender newsender) {
+
+        // 보내는 분 정보 확인
+        System.out.println();
+        System.out.println("입력하신 보내는 분 정보 확인해주세요.");
         System.out.println("보내는 분 -");
         System.out.printf("%s\n%s %s %s %s\n%s\n",
-                SenderName,
-                SenderAddressStateProvinceRegion, SenderAddressCity, SenderAddressStreetAddress, SenderAddressZipPostalCode,
-                SenderNumber);
+                newsender.getSenderName(), // 이름
+                newsender.getSenderAddress().getSenderAddressStateProvinceRegion(), // 광역시/도
+                newsender.getSenderAddress().getSenderAddressCity(), // 시/군/구
+                newsender.getSenderAddress().getSenderAddressStreetAddress(), // 나머지주소
+                newsender.getSenderAddress().getSenderAddressZipPostalCode(), // 우편번호
+                newsender.getSenderNumber()); // 전화번호
 
+        System.out.println("입력하신 정보가 맞습니까? True / False");
+        Boolean checkSender = sc.nextBoolean();
+
+        return checkSender;
+    }
+
+
+    static boolean checkRecipientInfo(Recipient newrecipient) {
+
+        // 받는 분 정보 확인
+        System.out.println("입력하신 받는 분 정보 확인해주세요.");
         System.out.println("받는 분 -");
         System.out.printf("%s\n%s %s %s %s\n%s\n",
-                RecipientName,
-                RecipientAddressStateProvinceRegion, RecipientAddressCity, RecipientAddressStreetAddress, RecipientAddressZipPostalCode,
-                RecipientNumber);
+                newrecipient.getRecipientName(), // 이름
+                newrecipient.getRecipientAddress().getRecipientAddressStateProvinceRegion(), // 광역시/도
+                newrecipient.getRecipientAddress().getRecipientAddressCity(), // 시/군/구
+                newrecipient.getRecipientAddress().getRecipientAddressStreetAddress(), // 나머지주소
+                newrecipient.getRecipientAddress().getRecipientAddressZipPostalCode(), // 우편번호
+                newrecipient.getRecipientNumber()); // 전화번호
 
+        System.out.println("입력하신 정보가 맞습니까? True / False");
+        Boolean checkRecipient = sc.nextBoolean();
+
+        return checkRecipient;
+    }
+
+
+    static Boolean checkProductInfo(ProductInfo newproductinfo) {
+
+        // 보내는 상품 정보 확인
+        System.out.println("입력하신 보내는 상품 정보 확인해주세요.");
         System.out.println("상품 정보 -");
-        System.out.printf("%s | %s | %s\n", productName, productValue, productSize);
+        System.out.printf("%s | %s | %s\n", newproductinfo.getProductName(), // 상품 명
+                newproductinfo.getProductValue(), // 상품 가격
+                newproductinfo.getProductSize()); // 상품 크기
 
-        System.out.println("입력하신 정보대로 택배를 접수하시겠습니까? True / False");
+        System.out.println("입력하신 정보가 맞습니까? True / False");
 
-        String selectExit = sc.next();
+        Boolean checkProduct  = sc.nextBoolean();
 
+        return checkProduct;
+    }
 
-        if (selectExit.toUpperCase().contains("T")) {
-            System.out.println("택배가 접수되었습니다.");
-            // 보내는 분
-            SenderAddress newsenderaddress = new SenderAddress(SenderAddressStateProvinceRegion, SenderAddressCity, SenderAddressStreetAddress, SenderAddressZipPostalCode);
-            Sender newsender = new Sender(SenderName, newsenderaddress, SenderNumber);
+    static Parcel saveParcel (String newTrackingNumber, Sender newsender, Recipient newrecipient, ProductInfo newproductinfo){
 
-            // 받는 분
-            RecipientAddress newrecipientAddress = new RecipientAddress(RecipientAddressStateProvinceRegion, RecipientAddressCity, RecipientAddressStreetAddress, RecipientAddressZipPostalCode);
-            Recipient newrecipient = new Recipient(RecipientName, newrecipientAddress, RecipientNumber);
-
-            // 상품 정보
-            ProductInfo newproductinfo = new ProductInfo(productName, productValue, productSize);
-
-            // 운송장번호
-            // 보내는 분 지역번호 3자리
-            String SenderLocalNumber = locals.getCode();
-            // 받는 분 지역번호 3자리
-            String RecipientLocalNumber = locals1.getCode();
-            // 남은 뒷자리 4자리는 배열에 남은 택배길이
-            String lastNumber = String.format("%04d", repository.getParcelArray().length + 1);
-
-            // 최종 운송장 번호
-            String Number = SenderLocalNumber.concat(RecipientLocalNumber).concat(lastNumber);
+        // 입력된 데이터 기반으로 하나의 객체 생성
+        Parcel newParcel = new Parcel(newTrackingNumber, newsender, newrecipient, newproductinfo, "접수완료", 1000);
+        return newParcel;
+    }
 
 
-            // 입력된 데이터 기반으로 하나의 객체 생성
-            Parcel newParcel = new Parcel(Number, newsender, newrecipient, newproductinfo, "접수완료", 1000);
+    static void receiptParcel(boolean checkSender, boolean checkRecipient, boolean checkProduct, Parcel newParcel) {
+
+        // 택배 접수하기
+
+        if (checkSender && checkRecipient && checkProduct) {
+
             // 생성된 개체를 배열에 저장
             repository.addParcelInformation(newParcel);
 
             // 택배 배열을 생성한 메모장 파일에 집어넣기
             repository.saveParcelArrayFile(newParcel);
 
-            return true;
-        } else if (selectExit.toUpperCase().contains("F")) {
-            return false;
-        } else {
-            return false;
+            System.out.println("택배가 접수되었습니다.");
         }
-
     }
+
+
+    static void startInputParcel(){
+
+        inputSenderInfo();
+        inputRecipientInfo();
+        String makeT = makeTrackingNumber(inputSenderInfo(), inputRecipientInfo());
+        inputProductInfo();
+        Boolean checkS = checkSenderInfo(inputSenderInfo());
+        boolean checkR = checkRecipientInfo(inputRecipientInfo());
+        Boolean checkP = checkProductInfo(inputProductInfo());
+        Parcel saveP = saveParcel(makeT, inputSenderInfo(), inputRecipientInfo(), inputProductInfo());
+        receiptParcel(checkS, checkR, checkP,saveP);
+    }
+
 
     // 2. 접수된 모든 택배 조회
     static void showParcelArray() {
@@ -210,12 +296,12 @@ public class ParcelView {
     }
 
     // 2-1. 메모장에 저장한 배열 불러오기
-    static void openFile(){
+    static void openFile() {
         // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
         String ROOT_PATH = "D://ShippingProject";
 
         // 저장된 파일 로딩하기
-        try (FileInputStream fis = new FileInputStream(ROOT_PATH + "/ParcelRepository/parcelrepository.txt")) {
+        try (FileInputStream fis = new FileInputStream(ROOT_PATH + "/parcel.txt")) {
             //객체를 로딩할 보조 스트림
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object obj = ois.readObject();
@@ -259,20 +345,20 @@ public class ParcelView {
     }
 
     // 0-1. 메뉴 선택에 따른 메서드 연결
-    public static void pacelrun() {
+    static void pacelrun() {
         // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
         String ROOT_PATH = "D://ShippingProject";
 
         // 택배 배열 넣을 폴더 & 파일 생성
         repository.makeSaveFile();
-        repository.ParcelArrayFile ();
+        repository.ParcelArrayFile();
 
         while (true) {
             String selectNumber = showMenu();
 
             switch (selectNumber) {
                 case "1": // 택배 등록
-                    inputParcelInformation();
+                    startInputParcel();
                     break;
                 case "2": // 택배 조회
                     showParcelArray();
