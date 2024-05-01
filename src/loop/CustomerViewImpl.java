@@ -74,7 +74,7 @@ public class CustomerViewImpl {
                     selectParcelByCustomer();
                     break;
                 case "3":
-                    selectMypageByCustomer(tar);
+                    selectMyPageByCustomer(tar);
                     break;
                 case "9":
                     System.out.println("프로그램을 종료합니다.");
@@ -96,29 +96,29 @@ public class CustomerViewImpl {
         return SimpleInput.input(">> ");
     }
 
-    private void selectMypageByCustomer(Customer tar) {
+    private void selectMyPageByCustomer(Customer tar) {
         System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n" +
-                "1.이름: " + tar.getCustomerName() +
-                "\n2.이메일: " + tar.getEmail() +
-                "\n3.주소: " + tar.getAddress() +
-                "\n4.성별: " + tar.getGender() +
-                "\n5.나이: " + tar.getAge() +
-                "\n6.가입일자: " + tar.getRegDate() +
+                "이름: " + tar.getCustomerName() +
+                "\n이메일: " + tar.getEmail() +
+                "\n주소: " + tar.getAddress() +
+                "\n성별: " + tar.getGender() +
+                "\n나이: " + tar.getAge() +
+                "\n가입일자: " + tar.getRegDate() +
                 "\n========================\n" +
                 "# 1. 개인 정보 수정\n" +
                 "# 2. 뒤로 가기\n" +
                 "# 9. 프로그램종료\n" +
                 "========================");
         String menuNum = SimpleInput.input(">> ");
-        selectModiInfo(menuNum);
+        selectModiInfo(menuNum, tar);
     }
 
-    private void selectModiInfo(String menuNum) {
+    private void selectModiInfo(String menuNum, Customer tar) {
 
         while (true) {
             switch (menuNum) {
                 case "1":
-                    modiInfoCustomer();
+                    modiInfoCustomer(tar);
                     break;
                 case "2":
                     return;
@@ -133,7 +133,48 @@ public class CustomerViewImpl {
 
     }
 
-    private void modiInfoCustomer() {
+    private void modiInfoCustomer(Customer tar) {
+        System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n" +
+                "# 1. 비밀번호 변경\n" +
+                "# 2. 주소 변경\n" +
+                "# 3. 뒤로 가기\n" +
+                "# 9. 프로그램종료\n" +
+                "========================");
+        String menuNum = SimpleInput.input(">> ");
+        selectModiPwOrAddr(menuNum, tar);
+    }
+
+    private void selectModiPwOrAddr(String menuNum, Customer tar) {
+
+        while (true) {
+            switch (menuNum) {
+                case "1":
+                    modiPwCustomer(tar);
+                    break;
+                case "2":
+                    modiAddrCustomer(tar);
+                    break;
+                case "3":
+                    return;
+                case "9":
+                    System.out.println("프로그램을 종료합니다.");
+                    System.exit(0);
+                default:
+                    System.out.println("입력한 메뉴 번호를 확인해주세요.!");
+                    break;
+            }
+        }
+
+    }
+
+
+    private void modiPwCustomer(Customer tar) {
+        // 비밀번호 변경
+    }
+
+    private void modiAddrCustomer(Customer tar) {
+        // 주소 변경
+        System.out.println("주소변경");
     }
 
     private void selectParcelByCustomer() {
