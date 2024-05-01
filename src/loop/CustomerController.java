@@ -1,9 +1,7 @@
 package loop;
 
 import customer.Customer;
-import customer.LoginStatus;
-
-import java.util.List;
+import customer.Gender;
 
 public class CustomerController implements Controller {
     private Repository customerRepository;
@@ -20,4 +18,15 @@ public class CustomerController implements Controller {
     public Customer login(String email, String password) {
         return null;
     }
+
+    @Override
+    public boolean isValidEmail(String email) {
+        return false;
+    }
+
+    @Override
+    public String isValidGender(String gender) {
+        return null;
+    }
+
 }

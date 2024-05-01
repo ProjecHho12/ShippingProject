@@ -18,9 +18,25 @@ public class CustomerViewImpl {
     void registerCustomer() {
         System.out.println("\n***** 고객 등록 하기 *****");
         String name = SimpleInput.input("이름: ");
-        String email = SimpleInput.input("이메일: ");
+        String email;
+        while (true) {
+            email = SimpleInput.input("이메일: ");
+            if (customerController.isValidEmail(email)) {
+                break;
+            } else {
+                System.out.println("유효하지 않은 이메일 형식입니다. 다시 입력해주세요.");
+            }
+        }
         String password = SimpleInput.input("비밀번호: ");
-        String gender = SimpleInput.input("성별(M/F): ");
+        String gender;
+        while (true) {
+            gender = SimpleInput.input("성별(M/F): ").toUpperCase();
+            if(customerController.isValidGender(gender) != null) {
+                break;
+            } else {
+                System.out.println("성별을 (M/F) 둘 중 하나로 입력해주세요.");
+            }
+        }
         String address = SimpleInput.input("주소: ");
         int age;
         while (true) {

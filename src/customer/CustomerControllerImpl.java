@@ -2,13 +2,18 @@ package customer;
 
 import loop.Controller;
 import loop.CustomerRepositoryInter;
-import loop.Repository;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.util.stream.Collectors;
 
 public class CustomerControllerImpl implements Controller {
 
     private final CustomerRepositoryInter cr;
+
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    private static final Pattern pattern = Pattern.compile(EMAIL_REGEX);
 
     public CustomerControllerImpl(CustomerRepositoryInter customerRepository) {
         this.cr = customerRepository;
@@ -43,4 +48,22 @@ public class CustomerControllerImpl implements Controller {
         }
         return null;
     }
+
+    @Override
+    public boolean isValidEmail(String email) {
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public String isValidGender(String gender){
+        if (gender.equals("M")) {
+            gender = String.valueOf(Gender.MALE);
+            return gender;
+        } else if(gender.equals("F")) {
+            gender = String.valueOf(Gender.FEMALE);
+            return gender;
+        }
+        return null;
+    }
+
 }
