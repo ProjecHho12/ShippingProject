@@ -253,7 +253,7 @@ public class ParcelView {
     // 1-9. 택배 접수하기
     static void receiptParcel(boolean checkSender, boolean checkRecipient, boolean checkProduct, Parcel saveParcel) {
 
-        if (checkSender && checkRecipient && checkProduct) {
+        if (true) {
 
             // 생성된 개체를 배열에 저장
             repository.addParcelInformation(saveParcel);
