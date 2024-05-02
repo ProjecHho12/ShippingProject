@@ -2,13 +2,18 @@ package customer;
 
 import loop.Controller;
 import loop.CustomerRepositoryInter;
-import loop.Repository;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import java.util.stream.Collectors;
 
 public class CustomerControllerImpl implements Controller {
 
     private final CustomerRepositoryInter cr;
+
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    private static final Pattern pattern = Pattern.compile(EMAIL_REGEX);
 
     public CustomerControllerImpl(CustomerRepositoryInter customerRepository) {
         this.cr = customerRepository;
@@ -43,4 +48,45 @@ public class CustomerControllerImpl implements Controller {
         }
         return null;
     }
+
+    @Override
+    public boolean isValidEmail(String email) {
+
+        if (!cr.getCustomers().stream()
+                .anyMatch(customer -> customer.getEmail().equals(email))) {
+            Matcher matcher = pattern.matcher(email);
+            return matcher.matches();
+        }
+        return false;
+
+    }
+
+    @Override
+    public Gender isValidGender(String gender) {
+        if (gender.equals("M")) {
+          return Gender.MALE;
+        } else if (gender.equals("F")) {
+            return Gender.FEMALE;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean modiPassword(String checkPassword,Customer tar) {
+      return (tar.getPassword().equals(checkPassword));
+    }
+
+    @Override
+    public Customer newPasswordByCustomer(String newPassword, Customer tar) {
+        tar.setPassword(newPassword);
+        cr.saveCustomers();
+        return tar;
+    }
+
+    @Override
+    public void newAddrByCustomer(String newAddress, Customer tar) {
+        tar.setAddress(newAddress);
+        cr.saveCustomers();
+    }
+
 }

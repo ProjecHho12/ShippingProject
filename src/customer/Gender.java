@@ -1,6 +1,16 @@
 package customer;
 
 public enum Gender {
-    MALE,
-    FEMALE
+    MALE {
+        @Override
+        public String toString() {
+            return "남성";
+        }
+    },
+    FEMALE {
+        @Override
+        public String toString() {
+            return "여성";
+        }
+    }
 }

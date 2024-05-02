@@ -1,8 +1,7 @@
 package loop;
 
 import customer.Customer;
-
-import java.util.List;
+import customer.Gender;
 
 public interface Controller {
 
@@ -10,4 +9,14 @@ public interface Controller {
                  int age);
 
     Customer login(String email, String password);
+
+    boolean isValidEmail(String email);
+
+    Gender isValidGender(String gender);
+
+    boolean modiPassword(String checkPassword, Customer tar);
+
+    Customer newPasswordByCustomer(String checkPassword, Customer tar);
+
+    void newAddrByCustomer(String newAddress, Customer tar);
 }
