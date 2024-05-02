@@ -13,6 +13,7 @@ public class CustomerRepository implements CustomerRepositoryInter, Serializable
     private List<Customer> customers;
 
     public CustomerRepository() {
+        this.customers = new ArrayList<>();
         loadCustomers();
     }
 
@@ -40,14 +41,27 @@ public class CustomerRepository implements CustomerRepositoryInter, Serializable
     }
 
     public List<Customer> loadCustomers() {
-        try (FileInputStream fis = new FileInputStream(PATH)) {
-            // 객체를 로딩할 보조 스트림
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            List<Customer> customersList = (List<Customer>) ois.readObject();
-            System.out.println("customersList = " + customersList);
-            this.customers = customersList;
-        } catch (Exception e) {
-            e.printStackTrace();
+        File file = new File(PATH);
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(PATH)) {
+                // 객체를 로딩할 보조 스트림
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                List<Customer> customersList = (List<Customer>) ois.readObject();
+                System.out.println("customersList = " + customersList);
+                this.customers = customersList;
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                System.out.println("customer에 입력된 텍스트가 없음");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return null;
     }
