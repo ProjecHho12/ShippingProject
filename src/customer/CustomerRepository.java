@@ -7,7 +7,7 @@ import java.util.List;
 import loop.CustomerRepositoryInter;
 import loop.Repository;
 
-public class CustomerRepository implements CustomerRepositoryInter, Serializable {
+public class CustomerRepository implements CustomerRepositoryInter {
     private static final String PATH = "./customer.txt";
 
     private List<Customer> customers;
