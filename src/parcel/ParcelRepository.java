@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class ParcelRepository {
     // 회원정보를 입력받아서 회원 배열에 저장
     private Parcel[] parcelArray;
+    private final static String ROOT_PATH = ".";
 
 
     public ParcelRepository() {
@@ -52,7 +53,7 @@ public class ParcelRepository {
     // 택배 배열 저장할 폴더 & 파일 생성하기
 
     // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
-    String ROOT_PATH = "D://ShippingProject";
+
 
     // 택배 배열 넣을 폴더 & 파일 생성
     void makeSaveFile () {

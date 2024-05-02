@@ -3,7 +3,6 @@ package loop;
 import customer.Customer;
 import customer.CustomerControllerImpl;
 import parcel.*;
-import parcel.Tr.TrackingNumber;
 import util.SimpleInput;
 
 public class CustomerViewImpl {
