@@ -1,8 +1,6 @@
-package parcel.Tr;
+package parcel.parcelElement;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public enum TrackingNumber {
     // 운송장 번호 열거형

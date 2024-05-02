@@ -1,4 +1,4 @@
-package parcel;
+package parcel.parcelElement;
 
 // Parcel 필드 1. Sender(보내는 분)에 들어가는 내용
 public class Sender {
@@ -6,7 +6,7 @@ public class Sender {
     private SenderAddress SenderAddress; // 보내는 분 주소
     private String SenderNumber; // 보내는 분 번호
 
-    public Sender(String senderName, parcel.SenderAddress senderAddress, String senderNumber) {
+    public Sender(String senderName, parcel.parcelElement.SenderAddress senderAddress, String senderNumber) {
         SenderName = senderName;
         SenderAddress = senderAddress;
         SenderNumber = senderNumber;
@@ -16,7 +16,7 @@ public class Sender {
         return SenderName;
     }
 
-    public parcel.SenderAddress getSenderAddress() {
+    public parcel.parcelElement.SenderAddress getSenderAddress() {
         return SenderAddress;
     }
 
