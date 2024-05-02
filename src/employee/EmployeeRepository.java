@@ -71,7 +71,6 @@ public class EmployeeRepository implements Repository {
 
     public void resister(Employee newEmployee) {
         employeeList.add(newEmployee);
-        System.out.println("newEmployee = " + newEmployee);
         saveFile();
     }
 
