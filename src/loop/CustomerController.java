@@ -1,12 +1,11 @@
 package loop;
 
 import customer.Customer;
-import customer.LoginStatus;
-
-import java.util.List;
+import customer.Gender;
 
 public class CustomerController implements Controller {
     private Repository customerRepository;
+
     public CustomerController(Repository customerRepository) {
         this.customerRepository = customerRepository;
     }
@@ -19,5 +18,30 @@ public class CustomerController implements Controller {
     @Override
     public Customer login(String email, String password) {
         return null;
+    }
+
+    @Override
+    public boolean isValidEmail(String email) {
+        return false;
+    }
+
+    @Override
+    public Gender isValidGender(String gender) {
+        return null;
+    }
+
+    @Override
+    public boolean modiPassword(String checkPassword, Customer tar) {
+        return false;
+    }
+
+    @Override
+    public Customer newPasswordByCustomer(String checkPassword, Customer tar) {
+        return tar;
+    }
+
+    @Override
+    public void newAddrByCustomer(String newAddress, Customer tar) {
+
     }
 }
