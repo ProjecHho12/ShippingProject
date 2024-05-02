@@ -28,7 +28,7 @@ public class EmployeeRepository implements Repository {
         if (file.exists()) {
             try (FileInputStream fis = new FileInputStream(targetPath)) {
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                List<Employee> employeeList = (List<Employee>) ois.readObject();
+                this.employeeList = (List<Employee>) ois.readObject();
                 System.out.println("employeeList = " + employeeList);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
@@ -49,7 +49,7 @@ public class EmployeeRepository implements Repository {
     public void saveFile() {
         try (FileOutputStream fos = new FileOutputStream(targetPath)) {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(employeeList);
+            oos.writeObject(this.employeeList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,6 +73,7 @@ public class EmployeeRepository implements Repository {
         employeeList.add(newEmployee);
         saveFile();
     }
+
 
 
     public void printEmployee() {
@@ -123,5 +124,6 @@ public class EmployeeRepository implements Repository {
         Journal newJournal = new Journal(parcel.getTrackingNumber(), parcel.getStatus(), employee.getEmployeeName());
         employee.addJournal(newJournal);
     }
+
 
 }
