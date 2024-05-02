@@ -114,8 +114,6 @@ public class CustomerViewImpl {
     }
 
     private void selectModiInfo(String menuNum, Customer tar) {
-
-//        while (true) {
         switch (menuNum) {
             case "1":
                 modiInfoCustomer(tar);
@@ -129,8 +127,6 @@ public class CustomerViewImpl {
                 System.out.println("입력한 메뉴 번호를 확인해주세요.!");
                 break;
         }
-//        }
-
     }
 
     private void modiInfoCustomer(Customer tar) {
@@ -145,8 +141,6 @@ public class CustomerViewImpl {
     }
 
     private void selectModiPwOrAddr(String menuNum, Customer tar) {
-
-//        modi:while (true) {
         switch (menuNum) {
             case "1":
                 modiPwCustomer(tar);
@@ -163,10 +157,7 @@ public class CustomerViewImpl {
                 System.out.println("입력한 메뉴 번호를 확인해주세요.!");
                 break;
         }
-//        }
-
     }
-
 
     private void modiPwCustomer(Customer tar) {
         // 비밀번호 변경

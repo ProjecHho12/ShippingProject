@@ -82,9 +82,11 @@ public class CustomerControllerImpl implements Controller {
         cr.saveCustomers();
         return tar;
     }
+
     @Override
     public void newAddrByCustomer(String newAddress, Customer tar) {
         tar.setAddress(newAddress);
         cr.saveCustomers();
     }
+
 }
