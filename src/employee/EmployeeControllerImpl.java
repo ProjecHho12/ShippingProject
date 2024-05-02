@@ -15,11 +15,13 @@ public class EmployeeControllerImpl{
 
     //
 //
-    public void register(String name, String email, String password, String gender, String address, int age, int employeePhone, Job job) {
+    public int register(String name, String email, String password, String gender, String address, int age, int employeePhone, Job job) {
         Employee newEmployee = new Employee(name, email, password, gender, address, age, employeePhone, job);
         if (!repository.isContains(newEmployee)){
             repository.resister(newEmployee);
+            return 0;
         }
+        return 1;
     }
 
     public Employee login(String email, String password){
