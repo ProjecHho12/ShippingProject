@@ -1,4 +1,4 @@
-package parcel;
+package parcel.parcelElement;
 
 // Parcel 필드 3. ProductInfo(상품 정보)에 들어가는 내용
 public class ProductInfo {
