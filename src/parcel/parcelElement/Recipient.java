@@ -1,4 +1,4 @@
-package parcel;
+package parcel.parcelElement;
 
 // Parcel 필드 2. Recipient(받는 분)에 들어가는 내용
 public class Recipient {
@@ -6,7 +6,7 @@ public class Recipient {
     private RecipientAddress RecipientAddress; // 받는 분 주소
     private String RecipientNumber; // 받는 분 번호
 
-    public Recipient(String recipientName, parcel.RecipientAddress recipientAddress, String recipientNumber) {
+    public Recipient(String recipientName, parcel.parcelElement.RecipientAddress recipientAddress, String recipientNumber) {
         RecipientName = recipientName;
         RecipientAddress = recipientAddress;
         RecipientNumber = recipientNumber;
@@ -16,7 +16,7 @@ public class Recipient {
         return RecipientName;
     }
 
-    public parcel.RecipientAddress getRecipientAddress() {
+    public parcel.parcelElement.RecipientAddress getRecipientAddress() {
         return RecipientAddress;
     }
 

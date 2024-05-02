@@ -1,11 +1,11 @@
 package parcel;
 
-import parcel.Tr.TrackingNumber;
+import loop.Repository;
+import parcel.parcelElement.*;
 
 import java.io.*;
-import java.util.Arrays;
 
-public class ParcelRepository {
+public class ParcelRepository implements Repository {
     // 회원정보를 입력받아서 회원 배열에 저장
     private Parcel[] parcelArray;
 

@@ -1,6 +1,4 @@
-package parcel;
-
-import parcel.Tr.TrackingNumber;
+package parcel.parcelElement;
 
 public class RecipientAddress {
     private TrackingNumber RecipientAddressStateProvinceRegion; // 광역시,도

@@ -1,12 +1,17 @@
 package parcel;
 
+import parcel.parcelElement.ProductInfo;
+import parcel.parcelElement.Recipient;
+import parcel.parcelElement.Sender;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * packageName    : parcel fileName       : Parcel author         : hoho date           : 4/25/24
  * description    :
  */
-public class Parcel {
+public class Parcel implements Serializable {
     // 택배 1개에 들어가야 하는 정보
     private String TrackingNumber; // 운송장번호
     private Sender Sender; // 보내는 분 (이름, 연락처, 주소)
@@ -16,7 +21,7 @@ public class Parcel {
     private LocalDate regDate; // 접수일자
     private int ShippingFee; // 배송비
 
-    public Parcel(String trackingNumber, parcel.Sender sender, parcel.Recipient recipient, parcel.ProductInfo productInfo, String status, int shippingFee) {
+    public Parcel(String trackingNumber, parcel.parcelElement.Sender sender, parcel.parcelElement.Recipient recipient, parcel.parcelElement.ProductInfo productInfo, String status, int shippingFee) {
         TrackingNumber = trackingNumber;
         Sender = sender;
         Recipient = recipient;
@@ -33,15 +38,15 @@ public class Parcel {
         return TrackingNumber;
     }
 
-    public parcel.Sender getSender() {
+    public parcel.parcelElement.Sender getSender() {
         return Sender;
     }
 
-    public parcel.Recipient getRecipient() {
+    public parcel.parcelElement.Recipient getRecipient() {
         return Recipient;
     }
 
-    public parcel.ProductInfo getProductInfo() {
+    public parcel.parcelElement.ProductInfo getProductInfo() {
         return ProductInfo;
     }
 
