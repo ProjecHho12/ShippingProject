@@ -267,7 +267,7 @@ public class ParcelView {
 
 
     // 1-10. 택배 등록 최종 메소드
-    static void startInputParcel(){
+    public static void startInputParcel(){
 
         Sender finalSender = inputSenderInfo();
         Recipient finalRecipient = inputRecipientInfo();
@@ -283,7 +283,7 @@ public class ParcelView {
 
 
     // 2. 접수된 모든 택배 조회
-    static void showParcelArray() {
+    public static void showParcelArray() {
 
         System.out.printf("현재 접수된 택배 목록입니다. (총%d개)\n", repository.getParcelArray().length);
         // 단축키 iter

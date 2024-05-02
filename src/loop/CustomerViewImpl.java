@@ -51,7 +51,7 @@ public class CustomerViewImpl {
         while (true) {
             switch (customerMenu()) {
                 case "1":
-                    ParcelView.pacelrun();
+                    ParcelView.startInputParcel();
                     break;
                 case "2":
                     selectParcelByCustomer();
