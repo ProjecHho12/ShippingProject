@@ -106,9 +106,6 @@ public class Employee implements Serializable {
 
     }
 
-    public void printJournal(){
-
-    }
 
     @Override
     public String toString() {

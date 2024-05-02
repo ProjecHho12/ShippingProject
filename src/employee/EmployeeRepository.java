@@ -10,49 +10,35 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-public class EmployeeRepository implements Repository {
+public class EmployeeRepository implements Repository, Serializable {
+
     public List<Employee> employeeList;
 
-    String targetPath = "./employees.sav";
+    String targetPath = "/Users/jieun/Desktop/teamProject/javaProject/Shipping/src/employee/employees.sav";
 
     public EmployeeRepository() {
+
         this.employeeList = new ArrayList<>();
-        loadFile();
-    }
 
-    private void loadFile() {
+
         File file = new File(targetPath);
-        if (file.exists()) {
-            try (FileInputStream fis = new FileInputStream(targetPath)) {
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                List<Employee> employeeList = (List<Employee>) ois.readObject();
-                System.out.println("employeeList = " + employeeList);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                System.out.println("입력된 텍스트가 없음");
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+        if (!file.exists()) return;
 
-    public void saveFile() {
-        try (FileOutputStream fos = new FileOutputStream(targetPath)) {
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(employeeList);
+        // 세이브 파일 로딩하기
+        try (FileInputStream fis = new FileInputStream(targetPath)) {
+
+            // 객체를 로딩할 보조 스트림
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            List<Employee> employeeList = (List<Employee>) ois.readObject();
+
+            System.out.println("employeeList = " + employeeList);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -70,8 +56,16 @@ public class EmployeeRepository implements Repository {
      */
 
     public void resister(Employee newEmployee) {
-        employeeList.add(newEmployee);
-        saveFile();
+
+        try (FileOutputStream fos = new FileOutputStream(targetPath)) {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            employeeList.add(newEmployee);
+            oos.writeObject(employeeList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -84,12 +78,12 @@ public class EmployeeRepository implements Repository {
 
         if (matechedEmployee.getEmployeePW().equals(password)) return matechedEmployee;
 
+
         return null;
     }
 
     /**
      * 비밀 번호로 본인 확인
-     *
      * @param employee - 사용자
      * @param password - 사용자가 입력할 비밀번호 값
      * @return 일치하면 true
