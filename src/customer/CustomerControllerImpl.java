@@ -61,6 +61,7 @@ public class CustomerControllerImpl implements Controller {
 
     }
 
+    @Override
     public Gender isValidGender(String gender) {
         if (gender.equals("M")) {
           return Gender.MALE;
@@ -70,4 +71,20 @@ public class CustomerControllerImpl implements Controller {
         return null;
     }
 
+    @Override
+    public boolean modiPassword(String checkPassword,Customer tar) {
+      return (tar.getPassword().equals(checkPassword));
+    }
+
+    @Override
+    public Customer newPasswordByCustomer(String newPassword, Customer tar) {
+        tar.setPassword(newPassword);
+        cr.saveCustomers();
+        return tar;
+    }
+    @Override
+    public void newAddrByCustomer(String newAddress, Customer tar) {
+        tar.setAddress(newAddress);
+        cr.saveCustomers();
+    }
 }

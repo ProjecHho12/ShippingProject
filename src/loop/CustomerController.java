@@ -5,6 +5,7 @@ import customer.Gender;
 
 public class CustomerController implements Controller {
     private Repository customerRepository;
+
     public CustomerController(Repository customerRepository) {
         this.customerRepository = customerRepository;
     }
@@ -29,4 +30,18 @@ public class CustomerController implements Controller {
         return null;
     }
 
+    @Override
+    public boolean modiPassword(String checkPassword, Customer tar) {
+        return false;
+    }
+
+    @Override
+    public Customer newPasswordByCustomer(String checkPassword, Customer tar) {
+        return tar;
+    }
+
+    @Override
+    public void newAddrByCustomer(String newAddress, Customer tar) {
+
+    }
 }

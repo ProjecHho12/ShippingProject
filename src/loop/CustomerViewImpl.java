@@ -106,7 +106,7 @@ public class CustomerViewImpl {
                 "\n가입일자: " + tar.getRegDate() +
                 "\n========================\n" +
                 "# 1. 개인 정보 수정\n" +
-                "# 2. 뒤로 가기\n" +
+                "# 8. 뒤로 가기\n" +
                 "# 9. 프로그램종료\n" +
                 "========================");
         String menuNum = SimpleInput.input(">> ");
@@ -115,21 +115,21 @@ public class CustomerViewImpl {
 
     private void selectModiInfo(String menuNum, Customer tar) {
 
-        while (true) {
-            switch (menuNum) {
-                case "1":
-                    modiInfoCustomer(tar);
-                    break;
-                case "2":
-                    return;
-                case "9":
-                    System.out.println("프로그램을 종료합니다.");
-                    System.exit(0);
-                default:
-                    System.out.println("입력한 메뉴 번호를 확인해주세요.!");
-                    break;
-            }
+//        while (true) {
+        switch (menuNum) {
+            case "1":
+                modiInfoCustomer(tar);
+                return;
+            case "8":
+                return;
+            case "9":
+                System.out.println("프로그램을 종료합니다.");
+                System.exit(0);
+            default:
+                System.out.println("입력한 메뉴 번호를 확인해주세요.!");
+                break;
         }
+//        }
 
     }
 
@@ -137,7 +137,7 @@ public class CustomerViewImpl {
         System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n" +
                 "# 1. 비밀번호 변경\n" +
                 "# 2. 주소 변경\n" +
-                "# 3. 뒤로 가기\n" +
+                "# 8. 뒤로 가기\n" +
                 "# 9. 프로그램종료\n" +
                 "========================");
         String menuNum = SimpleInput.input(">> ");
@@ -146,37 +146,60 @@ public class CustomerViewImpl {
 
     private void selectModiPwOrAddr(String menuNum, Customer tar) {
 
-        while (true) {
-            switch (menuNum) {
-                case "1":
-                    modiPwCustomer(tar);
-                    break;
-                case "2":
-                    modiAddrCustomer(tar);
-                    break;
-                case "3":
-                    return;
-                case "9":
-                    System.out.println("프로그램을 종료합니다.");
-                    System.exit(0);
-                default:
-                    System.out.println("입력한 메뉴 번호를 확인해주세요.!");
-                    break;
-            }
+//        modi:while (true) {
+        switch (menuNum) {
+            case "1":
+                modiPwCustomer(tar);
+                return;
+            case "2":
+                modiAddrCustomer(tar);
+                return;
+            case "8":
+                return;
+            case "9":
+                System.out.println("프로그램을 종료합니다.");
+                System.exit(0);
+            default:
+                System.out.println("입력한 메뉴 번호를 확인해주세요.!");
+                break;
         }
+//        }
 
     }
 
 
     private void modiPwCustomer(Customer tar) {
         // 비밀번호 변경
+        // 맞지 않을 때 루프 추가
+        System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n");
+        while (true) {
+            String checkPassword = SimpleInput.input("현재 비밀번호: ");
+            if (customerController.modiPassword(checkPassword, tar)) {
+                String newPassword = SimpleInput.input("변경하실 비밀번호: ");
+                customerController.newPasswordByCustomer(newPassword, tar);
+                System.out.println(tar.getCustomerName() + "님의 비밀번호가 변경되었습니다.");
+                break;
+            } else {
+                System.out.println("비밀번호가 맞지 않습니다.");
+            }
+        }
     }
 
     private void modiAddrCustomer(Customer tar) {
         // 주소 변경
-        System.out.println("주소변경");
+        System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
+                + "현재 주소: " + tar.getAddress()
+                + "\n========================\n");
+        String newAddress = SimpleInput.input("변경하실 주소: ");
+        customerController.newAddrByCustomer(newAddress, tar);
+        System.out.println(tar.getCustomerName() + "님의 주소가 변경되었습니다.");
     }
 
     private void selectParcelByCustomer() {
     }
 }
+
+
+
+
+
