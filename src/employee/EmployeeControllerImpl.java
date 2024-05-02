@@ -25,19 +25,28 @@ public class EmployeeControllerImpl {
     }
 
     public Employee login(String email, String password){
-
-        if (er.employeeList.size()>0){
-            Employee matechedEmployee = er.employeeList
+        Employee matechedEmployee;
+        try {
+            matechedEmployee = er.employeeList
                     .stream()
                     .filter(e -> e.getEmployeeEmail()
                             .equals(email))
                     .collect(Collectors.toList()).get(0);
+        } catch (IndexOutOfBoundsException e){
+            e.getStackTrace();
+            matechedEmployee = null;
+        }
+
 
             if (matechedEmployee != null) {
-                return er.login(matechedEmployee ,password);
+                return er.login(matechedEmployee , password);
+            } else {
+                return null;
             }
-        }
-        return null;
+
+
+
+
     }
 
     public void modifyPw(Employee employee, String oldPassword, String newPassword) {
