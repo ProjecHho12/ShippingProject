@@ -3,6 +3,8 @@ package loop;
 import employee.Employee;
 import employee.EmployeeControllerImpl;
 import employee.Job;
+import java.util.List;
+import parcel.Parcel;
 import parcel.ParcelView;
 import util.SimpleInput;
 
@@ -69,7 +71,7 @@ public class EmployeeVewImpl {
         while (true) {
             switch (employeeMenu()) {
                 case "1":
-                    parcelView.showParcelArray();
+                    selectParcelByEmployee();
                     break;
                 case "2":
                     selectAllParcelByEmployee();
@@ -94,8 +96,40 @@ public class EmployeeVewImpl {
     }
 
     private void selectParcelByEmployee() {
+        List<Parcel> list = employeeController.selectIncomingParcel();
+        System.out.printf("현재 접수된 택배 목록입니다. (총%d개)\n", list.size());
+        if (list.isEmpty()) return ;
+		for (int i = 0; i < list.size(); i++) {
+			Parcel parcel = list.get(i);
+            System.out.println(i + 1 + ". ==============================");
+            System.out.println(parcel);
+            System.out.println("========================================");
+		}
+        while (true) {
+            int input = -1;
+            try {
+                input = Integer.parseInt(SimpleInput.input("출고 상태로 변경할 택배를 선택해주세요\n>> "));
+                employeeController.setOutcoming(list.get(input - 1).getTrackingNumber());
+            } catch (NumberFormatException e) {
+                System.out.println("\n숫자를 입력해주세요\n");
+                continue ;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\n범위내 값을 입력해주세요\n");
+                continue ;
+            }
+            break;
+        }
     }
 
     private void selectAllParcelByEmployee() {
+        Parcel[] list = employeeController.selectAllParcel();
+        System.out.printf("현재 접수된 택배 목록입니다. (총%d개)\n", list.length);
+        if (list.length == 0) return ;
+		for (int i = 0; i < list.length; i++) {
+			Parcel parcel = list[i];
+            System.out.println(i + 1 + ". ==============================");
+            System.out.println(parcel);
+            System.out.println("========================================");
+		}
     }
 }
