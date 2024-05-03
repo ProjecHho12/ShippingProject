@@ -1,5 +1,6 @@
 package parcel;
 
+import customer.Customer;
 import parcel.parcelElement.*;
 
 import java.util.*;
@@ -19,6 +20,9 @@ public class ParcelView {
         repository = new ParcelRepository();
     }
 
+    public static ParcelRepository getRepository() {
+        return repository;
+    }
 
     // 1-1. 보내는 분 정보 입력
     static Sender inputSenderInfo() {
@@ -135,7 +139,6 @@ public class ParcelView {
                 System.out.println("True 또는 False 를 입력해 주세요!");
             }
         }
-
     }
 
 
@@ -355,7 +358,6 @@ public class ParcelView {
 
     // 1-9. 택배 접수하기
     static void receiptParcel(Parcel saveParcel) {
-
         // 생성된 개체를 배열에 저장
         repository.addParcelInformation(saveParcel);
 
@@ -370,7 +372,7 @@ public class ParcelView {
 
 
     // 1-10. 택배 등록 최종 메소드
-    public static void startInputParcel() {
+    public static void startInputParcel(Customer tar) {
 
         // 보내는 분 정보입력 & 확인 메소드 호출
         Sender finalSender = inputSenderInfo();
@@ -390,7 +392,7 @@ public class ParcelView {
 
 
     // 2. 접수된 모든 택배 조회
-    static void showParcelArray() {
+    public static void showParcelArray() {
 
         System.out.printf("현재 접수된 택배 목록입니다. (총%d개)\n", repository.getParcelArray().length);
         // 단축키 iter
@@ -428,7 +430,6 @@ public class ParcelView {
         return sc.nextLine();
     }
 }
-
 
 //    static void input2() {
 //        //System.out.printf("# %s님이 %s일 선불택배를 접수하셨습니다.",
