@@ -7,6 +7,7 @@ import loop.Repository;
 import parcel.Parcel;
 import parcel.ParcelList;
 import parcel.ParcelRepository;
+import parcel.Status;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -128,18 +129,13 @@ public class EmployeeRepository implements Repository {
     }
 
 
+    /**
+     * 택배 상태 변경 함수
+     * @param targetParcel - 출고할 택배 객체
+     */
+   public void setParcelStatus(Parcel targetParcel){
 
-    // 택배 status 수정
-   /* public  void veiwParcelByStatus(String targetTrackNum, String){
-        ParcelRepository parcelRepository = new ParcelRepository();
-        Parcel[] parcels = parcelRepository.getParcelArray();
-        Parcel targetParcel= null;
-        for (int i = 0; i < parcels.length; i++) {
-            if (parcels[i].getTrackingNumber().equals(targetTrackNum) ){
-                targetParcel = parcels[i];
-            }
-        }
-//        targetParcel.
-    }*/
+        targetParcel.setStatus(Status.OUTCOMING);
+    }
 
 }
