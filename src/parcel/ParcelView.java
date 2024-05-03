@@ -118,17 +118,24 @@ public class ParcelView {
     // 1-2. 보내는 분 정보 확인
     static void checkSenderInfo(Sender newsender) {
 
-        System.out.println();
-        System.out.println("입력하신 보내는 분 정보가 맞는지 확인해주세요.");
+        System.out.println("입력하신 정보가 맞는지 확인해주세요.");
         System.out.println("보내는 분 -");
-        System.out.printf("%s", newsender);
+        System.out.printf("%s\n", newsender);
 
-        System.out.println("이대로 진행하시겠습니까? True / False");
-        boolean checkSender = Boolean.parseBoolean(sc.nextLine());
+        while (true){
+            System.out.println("이대로 저장하시겠습니까? True / False");
+            String checkSender = sc.nextLine();
 
-        if (!checkSender) {
-            inputSenderInfo();
+            if (checkSender.toUpperCase().contains("T")) {
+                System.out.println("입력하신 내용이 저장되었습니다.");
+                break;
+            } else if (checkSender.toUpperCase().contains("F")) {
+                inputSenderInfo();
+            } else {
+                System.out.println("True 또는 False 를 입력해 주세요!");
+            }
         }
+
     }
 
 
@@ -234,11 +241,18 @@ public class ParcelView {
         System.out.println("받는 분 -");
         System.out.printf("%s", newrecipient);
 
-        System.out.println("이대로 진행하시겠습니까? True / False");
-        boolean checkRecipient = Boolean.parseBoolean(sc.nextLine());
+        while (true) {
+            System.out.println("이대로 진행하시겠습니까? True / False");
+            String checkRecipient = sc.nextLine();
 
-        if (!checkRecipient) {
-            inputRecipientInfo();
+            if (checkRecipient.toUpperCase().contains("T")) {
+                System.out.println("입력하신 내용이 저장되었습니다.");
+                break;
+            } else if (checkRecipient.toUpperCase().contains("F")) {
+                inputRecipientInfo();
+            } else {
+                System.out.println("True 또는 False 를 입력해 주세요!");
+            }
         }
     }
 
@@ -266,7 +280,7 @@ public class ParcelView {
         System.out.println("상품 정보 - 보내는 물건의 정보를 정확히 입력해 주세요.");
         String productName;
         while (true) {
-            System.out.println("상품 명 입력해주세요.");
+            System.out.println("상품명을 입력해주세요.");
             productName = sc.nextLine();
             if (productName.trim().isEmpty()) {
                 System.out.println("공백을 제외하고 입력해주세요.");
@@ -314,10 +328,17 @@ public class ParcelView {
         System.out.println("상품 정보 -");
         System.out.printf("%s", newproductinfo);
 
-        System.out.println("이대로 진행하시겠습니까? True / False");
-        boolean checkProduct = Boolean.parseBoolean(sc.nextLine());
-        if (!checkProduct) {
-            inputProductInfo();
+        while (true) {
+            System.out.println("이대로 저장하시겠습니까? True / False");
+            String checkProduct = sc.nextLine();
+            if (checkProduct.toUpperCase().contains("T")) {
+                System.out.println("입력하신 내용이 저장되었습니다.");
+                break;
+            } else if (checkProduct.toUpperCase().contains("F")) {
+                inputProductInfo();
+            } else {
+                System.out.println("True 또는 False 를 입력해 주세요!");
+            }
         }
     }
 
@@ -335,16 +356,16 @@ public class ParcelView {
     // 1-9. 택배 접수하기
     static void receiptParcel(Parcel saveParcel) {
 
-            // 생성된 개체를 배열에 저장
-            repository.addParcelInformation(saveParcel);
+        // 생성된 개체를 배열에 저장
+        repository.addParcelInformation(saveParcel);
 
-            // 택배 배열을 생성한 메모장 파일에 집어넣기
-            repository.saveParcelArrayFile(saveParcel);
+        // 택배 배열을 생성한 메모장 파일에 집어넣기
+        repository.saveParcelArrayFile(saveParcel);
 
-            System.out.println("택배가 접수되었습니다.");
+        System.out.println("택배가 접수되었습니다.");
 
-            // 접수 된 내역 보여주기
-            System.out.println(Arrays.toString(repository.getParcelArray()));
+        // 접수 된 내역 보여주기
+        System.out.println(Arrays.toString(repository.getParcelArray()));
     }
 
 
@@ -406,38 +427,7 @@ public class ParcelView {
         System.out.println("이용하실 메뉴번호를 입력해주세요!");
         return sc.nextLine();
     }
-
-
-    // 0-1. 메뉴 선택에 따른 메서드 연결
-    public static void pacelrun() {
-        // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
-        // String ROOT_PATH = "parcel.txt";
-
-        // 택배 배열 넣을 폴더 & 파일 생성
-        repository.makeSaveFile();
-        repository.readParcelArrayFile();
-
-        while (true) {
-            String selectNumber = showMenu();
-
-            switch (selectNumber) {
-                case "1": // 택배 등록
-                    startInputParcel();
-                    break;
-                case "2": // 택배 조회
-                    showParcelArray();
-                    break;
-                case "3": // 택배운송
-                    break;
-                case "4": // 프로그램 종료
-                    boolean exit = exitProgram();
-                    if (exit) return;
-                default:
-                    System.out.println("메뉴번호를 정확히 입력해 주세요.");
-
-            }
-        }
-    }
+}
 
 
 //    static void input2() {
@@ -461,6 +451,3 @@ public class ParcelView {
 //        System.out.println("고객 팥돌이가 운송장번호 1번 택배를 수령했습니다.");
 //        System.out.println("배달이 완료되었습니다.");
 //    }
-
-
-}
