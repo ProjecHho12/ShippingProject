@@ -2,6 +2,7 @@ package customer;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * packageName    : customer fileName       : Customer author         : hoho date           :
@@ -16,6 +17,7 @@ public class Customer implements Serializable {
     private String address;
     private String gender;
     private LocalDate regDate; // 회원가입일자
+    private List<String> trackingNumbers;
 
     // 사용자가 제공하는 데이터: 이메일, 패스워드, 이름, 성별, 나이
     public Customer(String customerName, String email, String password, String gender, String address, int age) {
@@ -26,6 +28,7 @@ public class Customer implements Serializable {
         this.customerName = customerName;
         this.gender = gender;
         this.age = age;
+        this.trackingNumbers = null;
     }
 
     public int getAge() {
@@ -56,6 +59,14 @@ public class Customer implements Serializable {
         return regDate;
     }
 
+    public List<String> getTrackingNumbers() {
+        return trackingNumbers;
+    }
+
+    public void addTrackingNumbers(String trackingNumber) {
+        this.trackingNumbers = trackingNumbers;
+        trackingNumbers.add(trackingNumber);
+    }
 
     public void setAge(int age) {
         this.age = age;

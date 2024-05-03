@@ -1,5 +1,6 @@
 package parcel;
 
+import customer.Customer;
 import parcel.parcelElement.*;
 
 import java.io.*;
@@ -251,7 +252,8 @@ public class ParcelView {
 
 
     // 1-9. 택배 접수하기
-    static void receiptParcel(boolean checkSender, boolean checkRecipient, boolean checkProduct, Parcel saveParcel) {
+    static void receiptParcel(boolean checkSender, boolean checkRecipient, boolean checkProduct, Parcel saveParcel, Customer tar) {
+
 
         if (true) {
 
@@ -262,12 +264,16 @@ public class ParcelView {
             repository.saveParcelArrayFile(saveParcel);
 
             System.out.println("택배가 접수되었습니다.");
+
+            tar.addTrackingNumbers(saveParcel.getTrackingNumber());
+
         }
+
     }
 
 
     // 1-10. 택배 등록 최종 메소드
-    public static void startInputParcel(){
+    public static void startInputParcel(Customer tar){
 
         Sender finalSender = inputSenderInfo();
         Recipient finalRecipient = inputRecipientInfo();
@@ -278,7 +284,8 @@ public class ParcelView {
         boolean checkProductInfo = checkProductInfo(finalProductInfo);
         Parcel finalParcel = saveParcel(finalTrackingNumber, finalSender, finalRecipient, finalProductInfo);
 
-        receiptParcel(checkSender, checkRecipient, checkProductInfo, finalParcel);
+        receiptParcel(checkSender, checkRecipient, checkProductInfo, finalParcel, tar);
+        // 타겟에게 운송장 정보 전송
     }
 
 
@@ -343,35 +350,35 @@ public class ParcelView {
     }
 
     // 0-1. 메뉴 선택에 따른 메서드 연결
-    public static void pacelrun() {
-        // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
-        String ROOT_PATH = "D://ShippingProject";
-
-        // 택배 배열 넣을 폴더 & 파일 생성
-        repository.makeSaveFile();
-        repository.ParcelArrayFile();
-
-        while (true) {
-            String selectNumber = showMenu();
-
-            switch (selectNumber) {
-                case "1": // 택배 등록
-                    startInputParcel();
-                    break;
-                case "2": // 택배 조회
-                    showParcelArray();
-                    break;
-                case "3": // 택배운송
-                    break;
-                case "4": // 프로그램 종료
-                    boolean exit = exitProgram();
-                    if (exit) return;
-                default:
-                    System.out.println("메뉴번호를 정확히 입력해 주세요.");
-
-            }
-        }
-    }
+//    public static void pacelrun() {
+//        // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
+//        String ROOT_PATH = "D://ShippingProject";
+//
+//        // 택배 배열 넣을 폴더 & 파일 생성
+//        repository.makeSaveFile();
+//        repository.ParcelArrayFile();
+//
+//        while (true) {
+//            String selectNumber = showMenu();
+//
+//            switch (selectNumber) {
+//                case "1": // 택배 등록
+//                    startInputParcel();
+//                    break;
+//                case "2": // 택배 조회
+//                    showParcelArray();
+//                    break;
+//                case "3": // 택배운송
+//                    break;
+//                case "4": // 프로그램 종료
+//                    boolean exit = exitProgram();
+//                    if (exit) return;
+//                default:
+//                    System.out.println("메뉴번호를 정확히 입력해 주세요.");
+//
+//            }
+//        }
+//    }
 
 
 //    static void input2() {
