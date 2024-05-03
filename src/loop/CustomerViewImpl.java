@@ -8,10 +8,11 @@ import util.SimpleInput;
 public class CustomerViewImpl {
     private final CustomerControllerImpl customerController;
     private final ParcelControllerImpl parcelController;
-
+    private final ParcelView parcelView;
     public CustomerViewImpl(CustomerControllerImpl customerController, ParcelControllerImpl parcelController) {
         this.customerController = customerController;
         this.parcelController = parcelController;
+        this.parcelView = new ParcelView();
     }
 
     void registerCustomer() {
@@ -68,7 +69,7 @@ public class CustomerViewImpl {
         while (true) {
             switch (customerMenu()) {
                 case "1":
-                    ParcelView.startInputParcel(tar);
+                    parcelView.startInputParcel(tar);
                     break;
                 case "2":
                     selectParcelByCustomer(tar);
@@ -199,8 +200,7 @@ public class CustomerViewImpl {
     private String getParcelByCustomer(Customer tar) {
         // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
         tar.getTrackingNumbers().stream().forEach(t -> t.equals());
-
-
+        return "";
     }
 }
 

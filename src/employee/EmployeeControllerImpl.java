@@ -1,7 +1,6 @@
 package employee;
 
 import loop.Controller;
-import loop.EmployeeRepositoryImpl;
 import loop.Repository;
 
 import javax.swing.*;

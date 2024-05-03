@@ -20,6 +20,9 @@ public class ParcelView {
         repository = new ParcelRepository();
     }
 
+    public static ParcelRepository getRepository() {
+        return repository;
+    }
 
     // 1-1. 보내는 분 정보 입력
     static Sender inputSenderInfo() {
