@@ -22,11 +22,14 @@ public class CustomerControllerImpl implements Controller {
     @Override
     public int register(String name, String email, String password, String gender, String address,
                         int age) {
+        if(cr.getCustomers() == null) {
+            cr.addNewCustomer(new Customer(name, email, password, gender, address, age));
+            cr.saveCustomers();
+        }
         if (!cr.getCustomers().stream()
                 .anyMatch(customer -> customer.getEmail().equals(email))) {
             cr.addNewCustomer(new Customer(name, email, password, gender, address, age));
             cr.saveCustomers();
-            cr.loadCustomers();
             return 0;
         } else {
             return 1;
@@ -52,41 +55,47 @@ public class CustomerControllerImpl implements Controller {
     @Override
     public boolean isValidEmail(String email) {
 
+        if (cr.getCustomers() == null) {
+            Matcher matcher = pattern.matcher(email);
+            return matcher.matches();
+        }
+
         if (!cr.getCustomers().stream()
                 .anyMatch(customer -> customer.getEmail().equals(email))) {
             Matcher matcher = pattern.matcher(email);
             return matcher.matches();
         }
         return false;
-
     }
 
-    @Override
-    public Gender isValidGender(String gender) {
-        if (gender.equals("M")) {
-          return Gender.MALE;
-        } else if (gender.equals("F")) {
-            return Gender.FEMALE;
-        }
-        return null;
-    }
 
-    @Override
-    public boolean modiPassword(String checkPassword,Customer tar) {
-      return (tar.getPassword().equals(checkPassword));
-    }
 
-    @Override
-    public Customer newPasswordByCustomer(String newPassword, Customer tar) {
-        tar.setPassword(newPassword);
-        cr.saveCustomers();
-        return tar;
+@Override
+public Gender isValidGender(String gender) {
+    if (gender.equals("M")) {
+        return Gender.MALE;
+    } else if (gender.equals("F")) {
+        return Gender.FEMALE;
     }
+    return null;
+}
 
-    @Override
-    public void newAddrByCustomer(String newAddress, Customer tar) {
-        tar.setAddress(newAddress);
-        cr.saveCustomers();
-    }
+@Override
+public boolean modiPassword(String checkPassword, Customer tar) {
+    return (tar.getPassword().equals(checkPassword));
+}
+
+@Override
+public Customer newPasswordByCustomer(String newPassword, Customer tar) {
+    tar.setPassword(newPassword);
+    cr.saveCustomers();
+    return tar;
+}
+
+@Override
+public void newAddrByCustomer(String newAddress, Customer tar) {
+    tar.setAddress(newAddress);
+    cr.saveCustomers();
+}
 
 }
