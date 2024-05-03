@@ -1,4 +1,4 @@
-package loop;
+package customer;
 
 import customer.Customer;
 
