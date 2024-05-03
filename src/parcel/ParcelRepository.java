@@ -1,11 +1,10 @@
 package parcel;
 
-import loop.Repository;
 import parcel.parcelElement.*;
 
 import java.io.*;
 
-public class ParcelRepository implements Repository {
+public class ParcelRepository {
     // 회원정보를 입력받아서 회원 배열에 저장
     private Parcel[] parcelArray;
 

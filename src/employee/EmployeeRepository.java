@@ -1,22 +1,14 @@
 package employee;
 
 
-import customer.Gender;
-
-import loop.Repository;
 import parcel.Parcel;
-import parcel.ParcelList;
-import parcel.ParcelRepository;
 import parcel.Status;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-public class EmployeeRepository implements Repository {
+public class EmployeeRepository {
     public List<Employee> employeeList;
 
     String targetPath = "./employees.sav";
@@ -36,7 +28,7 @@ public class EmployeeRepository implements Repository {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
-                System.out.println("입력된 텍스트가 없음");
+//                System.out.println("입력된 텍스트가 없음");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }

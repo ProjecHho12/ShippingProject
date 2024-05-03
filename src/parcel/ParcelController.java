@@ -24,7 +24,7 @@ public class ParcelController {
 
             switch (selectNumber) {
                 case "1": // 택배 등록
-                    view.startInputParcel();
+//                    view.startInputParcel();
                     break;
                 case "2": // 택배 조회
                     view.showParcelArray();
