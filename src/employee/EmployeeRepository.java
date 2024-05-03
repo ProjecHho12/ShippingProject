@@ -5,6 +5,8 @@ import customer.Gender;
 
 import loop.Repository;
 import parcel.Parcel;
+import parcel.ParcelList;
+import parcel.ParcelRepository;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -125,5 +127,19 @@ public class EmployeeRepository implements Repository {
         employee.addJournal(newJournal);
     }
 
+
+
+    // 택배 status 수정
+   /* public  void veiwParcelByStatus(String targetTrackNum, String){
+        ParcelRepository parcelRepository = new ParcelRepository();
+        Parcel[] parcels = parcelRepository.getParcelArray();
+        Parcel targetParcel= null;
+        for (int i = 0; i < parcels.length; i++) {
+            if (parcels[i].getTrackingNumber().equals(targetTrackNum) ){
+                targetParcel = parcels[i];
+            }
+        }
+//        targetParcel.
+    }*/
 
 }
