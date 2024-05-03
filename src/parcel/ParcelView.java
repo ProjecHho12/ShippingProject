@@ -357,7 +357,7 @@ public class ParcelView {
 
 
     // 1-9. 택배 접수하기
-    static void receiptParcel(Parcel saveParcel) {
+    static void receiptParcel(Parcel saveParcel, Customer tar) {
         // 생성된 개체를 배열에 저장
         repository.addParcelInformation(saveParcel);
 
@@ -365,14 +365,16 @@ public class ParcelView {
         repository.saveParcelArrayFile(saveParcel);
 
         System.out.println("택배가 접수되었습니다.");
-
+        if (tar != null) {
+            tar.addTrackingNumbers(saveParcel.getTrackingNumber());
+        }
         // 접수 된 내역 보여주기
         System.out.println(Arrays.toString(repository.getParcelArray()));
     }
 
 
     // 1-10. 택배 등록 최종 메소드
-    public static void startInputParcel(Customer tar) {
+    public static void startInputParcel(Customer tar){
 
         // 보내는 분 정보입력 & 확인 메소드 호출
         Sender finalSender = inputSenderInfo();
@@ -387,7 +389,7 @@ public class ParcelView {
         // 입력된 정보를 바탕으로 객체 생성 메소드 호출
         Parcel finalParcel = saveParcel(finalTrackingNumber, finalSender, finalRecipient, finalProductInfo);
         // 접수완료 및 외부저장소 저장 메소드 호출
-        receiptParcel(finalParcel);
+        receiptParcel(finalParcel, null);
     }
 
 
