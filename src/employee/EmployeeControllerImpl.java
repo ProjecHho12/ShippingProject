@@ -3,6 +3,10 @@ package employee;
 import loop.Controller;
 import loop.EmployeeRepositoryImpl;
 import loop.Repository;
+import parcel.Parcel;
+import parcel.ParcelRepository;
+import parcel.Status;
+import parcel.parcelElement.TrackingNumber;
 
 import javax.swing.*;
 import java.util.stream.Collectors;
@@ -53,5 +57,26 @@ public class EmployeeControllerImpl {
         if (er.identificationByPw(employee, oldPassword)) {
             employee.setEmployeePW(newPassword);
         }
+    }
+
+    /**
+     * 택배 출고시키는 함수
+     * @param trackingNumber - 타겟 운송장 번호
+     * @return - 일치하는 운송장 번호가 없으면 -1 반환
+     */
+    public int setOutcoming(String trackingNumber){
+        ParcelRepository parcelRepository = new ParcelRepository();
+        Parcel[] parcels = parcelRepository.getParcelArray();
+        Parcel targetParcel = null;
+        for (int i = 0; i < parcels.length; i++) {
+            if (parcels[i].getTrackingNumber().equals(trackingNumber) ){
+                targetParcel = parcels[i];
+            }
+        }
+        if (targetParcel != null && targetParcel.getStatus().equals("입고") ){
+            er.setParcelStatus(targetParcel);
+            return 1;
+        }
+        return  -1;
     }
 }
