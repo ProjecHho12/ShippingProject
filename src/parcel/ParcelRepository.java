@@ -10,7 +10,6 @@ public class ParcelRepository implements Repository {
     private Parcel[] parcelArray;
     private final static String ROOT_PATH = ".";
 
-
     public ParcelRepository() {
         // 필드 parcelArray 초기화 (객체 1개짜리 배열로 시작!)
         parcelArray = new Parcel[1];

@@ -68,10 +68,10 @@ public class CustomerViewImpl {
         while (true) {
             switch (customerMenu()) {
                 case "1":
-                    ParcelView.startInputParcel();
+                    ParcelView.startInputParcel(tar);
                     break;
                 case "2":
-                    selectParcelByCustomer();
+                    selectParcelByCustomer(tar);
                     break;
                 case "3":
                     selectMyPageByCustomer(tar);
@@ -104,6 +104,7 @@ public class CustomerViewImpl {
                 "\n성별: " + tar.getGender() +
                 "\n나이: " + tar.getAge() +
                 "\n가입일자: " + tar.getRegDate() +
+                "\n운송장: " + tar.getTrackingNumbers() +
                 "\n========================\n" +
                 "# 1. 개인 정보 수정\n" +
                 "# 8. 뒤로 가기\n" +
@@ -186,7 +187,19 @@ public class CustomerViewImpl {
         System.out.println(tar.getCustomerName() + "님의 주소가 변경되었습니다.");
     }
 
-    private void selectParcelByCustomer() {
+    private void selectParcelByCustomer(Customer tar) {
+
+        // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
+        System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
+                + "======== 배송 리스트 ========"
+                + getParcelByCustomer(tar) +
+                "\n========================\n");
+    }
+
+    private String getParcelByCustomer(Customer tar) {
+        // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
+        tar.getTrackingNumbers().stream().forEach(t -> t.equals());
+        return "";
     }
 }
 
