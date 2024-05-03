@@ -197,7 +197,7 @@ public class CustomerViewImpl {
         System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
                 + "======== 배송 리스트 ========");
         for (Parcel parcel : parcelList) {
-            System.out.println("parcel = " + parcel);
+            System.out.println(parcel);
         }
         System.out.println("\n===========================\n");
     }

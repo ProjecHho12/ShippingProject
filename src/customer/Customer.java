@@ -2,6 +2,7 @@ package customer;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +29,7 @@ public class Customer implements Serializable {
         this.customerName = customerName;
         this.gender = gender;
         this.age = age;
-        this.trackingNumbers = null;
+        this.trackingNumbers = new ArrayList<>();
     }
 
     public int getAge() {

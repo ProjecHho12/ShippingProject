@@ -389,7 +389,7 @@ public class ParcelView {
         // 입력된 정보를 바탕으로 객체 생성 메소드 호출
         Parcel finalParcel = saveParcel(finalTrackingNumber, finalSender, finalRecipient, finalProductInfo);
         // 접수완료 및 외부저장소 저장 메소드 호출
-        receiptParcel(finalParcel, null);
+        receiptParcel(finalParcel, tar);
     }
 
 
