@@ -1,8 +1,4 @@
-package parcel;
-
-import parcel.parcelElement.ProductInfo;
-import parcel.parcelElement.Recipient;
-import parcel.parcelElement.Sender;
+package parcel.parcelElement;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,11 +13,11 @@ public class Parcel implements Serializable {
     private Sender Sender; // 보내는 분 (이름, 연락처, 주소)
     private Recipient Recipient; // 받는 분 (이름, 연락처, 주소)
     private ProductInfo ProductInfo; // 상품 정보 (상품명, 상품가격, 크기)
-    private Status Status; // 배송상태 (접수완료, 배송중, 배송완료)
+    private String Status; // 배송상태 (접수완료, 배송중, 배송완료)
     private LocalDate regDate; // 접수일자
     private int ShippingFee; // 배송비
 
-    public Parcel(String trackingNumber, parcel.parcelElement.Sender sender, parcel.parcelElement.Recipient recipient, parcel.parcelElement.ProductInfo productInfo, Status status, int shippingFee) {
+    public Parcel(String trackingNumber, parcel.parcelElement.Sender sender, parcel.parcelElement.Recipient recipient, parcel.parcelElement.ProductInfo productInfo, String status, int shippingFee) {
         TrackingNumber = trackingNumber;
         Sender = sender;
         Recipient = recipient;
@@ -51,9 +47,8 @@ public class Parcel implements Serializable {
     }
 
     public String getStatus() {
-        return this.Status.getDescription();
+        return Status;
     }
-
 
     public LocalDate getRegDate() {
         return regDate;
@@ -61,10 +56,6 @@ public class Parcel implements Serializable {
 
     public int getShippingFee() {
         return ShippingFee;
-    }
-
-    public void setStatus(Status status){
-        this.Status = status;
     }
 
     @Override

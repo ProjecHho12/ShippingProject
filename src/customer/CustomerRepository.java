@@ -4,11 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import loop.CustomerRepositoryInter;
-import loop.Repository;
-
-public class CustomerRepository implements CustomerRepositoryInter, Serializable {
-    private static final String PATH = "./customer.txt";
+public class CustomerRepository implements CustomerRepositoryInter {
+    private static final String PATH = "./customer.sav";
 
     private List<Customer> customers;
 
@@ -52,7 +49,7 @@ public class CustomerRepository implements CustomerRepositoryInter, Serializable
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
-                System.out.println("customer에 입력된 텍스트가 없음");
+//                System.out.println("customer에 입력된 텍스트가 없음");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }

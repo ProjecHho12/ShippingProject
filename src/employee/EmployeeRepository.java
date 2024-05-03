@@ -1,19 +1,14 @@
 package employee;
 
 
-import customer.Gender;
-
-import loop.Repository;
 import parcel.Parcel;
+import parcel.Status;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-public class EmployeeRepository implements Repository {
+public class EmployeeRepository {
     public List<Employee> employeeList;
 
     String targetPath = "./employees.sav";
@@ -28,12 +23,12 @@ public class EmployeeRepository implements Repository {
         if (file.exists()) {
             try (FileInputStream fis = new FileInputStream(targetPath)) {
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                List<Employee> employeeList = (List<Employee>) ois.readObject();
+                this.employeeList = (List<Employee>) ois.readObject();
                 System.out.println("employeeList = " + employeeList);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
-                System.out.println("입력된 텍스트가 없음");
+//                System.out.println("입력된 텍스트가 없음");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -49,7 +44,7 @@ public class EmployeeRepository implements Repository {
     public void saveFile() {
         try (FileOutputStream fos = new FileOutputStream(targetPath)) {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(employeeList);
+            oos.writeObject(this.employeeList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,6 +68,7 @@ public class EmployeeRepository implements Repository {
         employeeList.add(newEmployee);
         saveFile();
     }
+
 
 
     public void printEmployee() {
@@ -122,6 +118,16 @@ public class EmployeeRepository implements Repository {
     public void addJournal(Employee employee, Parcel parcel) {
         Journal newJournal = new Journal(parcel.getTrackingNumber(), parcel.getStatus(), employee.getEmployeeName());
         employee.addJournal(newJournal);
+    }
+
+
+    /**
+     * 택배 상태 변경 함수
+     * @param targetParcel - 출고할 택배 객체
+     */
+   public void setParcelStatus(Parcel targetParcel){
+
+        targetParcel.setStatus(Status.OUTCOMING);
     }
 
 }

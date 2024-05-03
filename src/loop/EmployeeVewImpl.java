@@ -3,15 +3,18 @@ package loop;
 import employee.Employee;
 import employee.EmployeeControllerImpl;
 import employee.Job;
+import parcel.ParcelView;
 import util.SimpleInput;
 
 public class EmployeeVewImpl {
     private final EmployeeControllerImpl employeeController;
     private final ParcelControllerImpl parcelController;
+    private final ParcelView parcelView;
 
     public EmployeeVewImpl(EmployeeControllerImpl employeeController, ParcelControllerImpl parcelController) {
         this.employeeController = employeeController;
         this.parcelController = parcelController;
+        this.parcelView = new ParcelView();
     }
 
     void registerEmployee() {
@@ -66,7 +69,7 @@ public class EmployeeVewImpl {
         while (true) {
             switch (employeeMenu()) {
                 case "1":
-                    selectParcelByEmployee();
+                    parcelView.showParcelArray();
                     break;
                 case "2":
                     selectAllParcelByEmployee();
@@ -78,7 +81,6 @@ public class EmployeeVewImpl {
                     System.out.println("입력한 메뉴 번호를 확인해주세요.!");
                     break;
             }
-            System.exit(0);
         }
     }
 

@@ -5,13 +5,17 @@ import customer.CustomerControllerImpl;
 import parcel.*;
 import util.SimpleInput;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerViewImpl {
     private final CustomerControllerImpl customerController;
     private final ParcelControllerImpl parcelController;
-
+    private final ParcelView parcelView;
     public CustomerViewImpl(CustomerControllerImpl customerController, ParcelControllerImpl parcelController) {
         this.customerController = customerController;
         this.parcelController = parcelController;
+        this.parcelView = new ParcelView();
     }
 
     void registerCustomer() {
@@ -68,7 +72,7 @@ public class CustomerViewImpl {
         while (true) {
             switch (customerMenu()) {
                 case "1":
-                    ParcelView.startInputParcel(tar);
+                    parcelView.startInputParcel(tar);
                     break;
                 case "2":
                     selectParcelByCustomer(tar);
@@ -188,20 +192,33 @@ public class CustomerViewImpl {
     }
 
     private void selectParcelByCustomer(Customer tar) {
-
         // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
+        List<Parcel> parcelList = getParcelByCustomer(tar);
         System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
-                + "======== 배송 리스트 ========"
-                + getParcelByCustomer(tar) +
-                "\n========================\n");
+                + "======== 배송 리스트 ========");
+        for (Parcel parcel : parcelList) {
+            System.out.println("parcel = " + parcel);
+        }
+        System.out.println("\n===========================\n");
     }
 
-    private String getParcelByCustomer(Customer tar) {
+    private List<Parcel> getParcelByCustomer(Customer tar) {
         // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
-        tar.getTrackingNumbers().stream().forEach(t -> t.equals());
+        Parcel[] customerParcelList = ParcelView.getRepository().getParcelArray(); // 택배리스트
+        List<String> trackingNumbers = tar.getTrackingNumbers(); // 고객의 운송장번호 리스트
+        List<Parcel> foundParcelList = new ArrayList<>();
 
-
+        for (Parcel parcel : customerParcelList) {
+            String trackingNumber = parcel.getTrackingNumber(); // 택배의 운송장번호
+            for (String number : trackingNumbers) {
+                if (trackingNumber.equals(number)) {
+                    foundParcelList.add(parcel);
+                }
+            }
+        }
+        return foundParcelList;
     }
+
 }
 
 

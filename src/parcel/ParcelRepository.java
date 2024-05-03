@@ -1,17 +1,19 @@
 package parcel;
 
-import loop.Repository;
 import parcel.parcelElement.*;
 
 import java.io.*;
 
-public class ParcelRepository implements Repository {
+public class ParcelRepository {
     // 회원정보를 입력받아서 회원 배열에 저장
     private Parcel[] parcelArray;
-    private final static String ROOT_PATH = ".";
 
+    // 택배 배열 저장할 텍스트 파일 저장 경로
+    private static final String ROOT_PATH = "parcel.txt"; // 파일의 경로
+
+
+    // 필드 parcelArray 초기화 (객체 1개짜리 배열로 시작!)
     public ParcelRepository() {
-        // 필드 parcelArray 초기화 (객체 1개짜리 배열로 시작!)
         parcelArray = new Parcel[1];
 
         // 기본적으로 넣어 줄 객체 1개
@@ -22,18 +24,21 @@ public class ParcelRepository implements Repository {
         RecipientAddress onerecipientaddress = new RecipientAddress(TrackingNumber.CHUNGBUK, "청주시", "흥덕동", "24856");
         Recipient onerecipient = new Recipient("풀돌이", onerecipientaddress, "01048596812");
         // 상품 정보
-        ProductInfo oneproductinfo = new ProductInfo("풀죽", 1000, "소형");
+        ProductInfo oneproductinfo = new ProductInfo("풀죽", "1000", ProductSize.SMALL);
 
         //종합
-        parcelArray[0] = new Parcel("0020430001", onesender, onerecipient, oneproductinfo, "접수완료", 10000);
+        parcelArray[0] = new Parcel("0020430001", onesender, onerecipient, oneproductinfo, Status.INCOMING, 10000);
     }
 
+
+    //getter
     public Parcel[] getParcelArray() {
         return parcelArray;
     }
 
+
     //메소드
-    // 택배 정보 객체 배열에 담기
+    // 입력받은 택배 정보가 담긴 객체 배열에 담기
     void addParcelInformation(Parcel newParcel) {
         // 배열에 데이터를 추가
         // 임시배열은 원래 배열보다 하나 크고
@@ -49,75 +54,55 @@ public class ParcelRepository implements Repository {
         parcelArray = temp;
     }
 
-    // 택배 배열 저장할 폴더 & 파일 생성하기
 
-    // 파일을 저장할 기본 경로 (실존하는 경로로 작성하기)
-
-
-    // 택배 배열 넣을 폴더 & 파일 생성
-    void makeSaveFile () {
+    // 택배 배열 넣을 텍스트 파일 생성
+    void makeSaveFile() {
 
         // 파일 생성 (ParcelRepository 폴더 안에 parcelrepository.txt 생성)
-        File newfile = new File(ROOT_PATH + "/parcel.txt");
+        File newfile = new File(ROOT_PATH);
         // 만약 파일 newfile 이 존재하지 않는다면 폴더를 만들기
         if (!newfile.exists()) {
-            try { // alt + enter
+            try {
                 if (newfile.createNewFile())
-                    System.out.println("파일 생성에 실패했습니다.");// 예외사항 처리해주기
+                    System.out.println("파일이 생성되었습니다.");
             } catch (IOException e) {
-                System.out.println("오류가 발생했습니다.");
+                System.out.println("파일 생성 중 오류가 발생했습니다.");
             }
-        }
-
-//        // 폴더 생성 명령
-//        // 파일 정보 객체 생성 (ParcelRepository 라는 폴더 생성)
-//        File directory = new File(ROOT_PATH + "/ParcelRepository");
-//        // 만약 폴더 directory 가 존재하지 않는다면 폴더를 만들기
-//        if (!directory.exists()) {
-//            if (!directory.mkdirs()) {
-//                System.out.println("폴더 생성에 실패했습니다.");
-//                return;
-//            }
-//        }
-    }
-
-    void saveParcelArrayFile(Parcel newParcel) {
-        try (FileWriter  fw = new FileWriter(ROOT_PATH + "/parcel.txt", true)) {
-
-            String newParcelArrayInfo = String.format("%s,%s,%s,%s,%s,%s", newParcel.getTrackingNumber(),newParcel.getSender(),newParcel.getRecipient(),newParcel.getProductInfo(),newParcel.getStatus(),newParcel.getShippingFee());
-            fw.write(newParcelArrayInfo);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    void ParcelArrayFile (){
-        String targetPath = ROOT_PATH + "/parcel.txt";
 
-        try(FileReader fr = new FileReader(targetPath)) {
+    // 텍스트 파일에 택배 배열 넣기
+    public void saveParcelArrayFile(Parcel saveParcel) {
 
-            BufferedReader br = new BufferedReader(fr);
-
-            while (true) {
-                String s = br.readLine();
-                if (s == null) break;
-                String[] split = s.split(",");
-
-                Parcel parcel = new Parcel(
-                        split[0],
-                        split[1],
-                        split[2],
-                        split[3],
-                        split[4],
-                        split[5]
-                );
-                addParcelInformation(parcel);
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ROOT_PATH))) {
+            // Parcel 배열을 파일에 쓰기
+            oos.writeObject(parcelArray);
+            System.out.println("Parcel 배열이 파일에 저장되었습니다.");
+        } catch (IOException e) {
+            System.err.println("파일 저장 중 오류가 발생했습니다: " + e.getMessage());
         }
+    }
+
+
+    // 택배 조회할 때 텍스트 파일에서 객체 읽어오기
+    public void readParcelArrayFile() {
+
+        Parcel[] loadedParcelArray = null;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ROOT_PATH))) {
+            // 파일에서 Parcel 배열 읽기
+
+            loadedParcelArray = (Parcel[]) ois.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            loadedParcelArray = parcelArray;
+            //System.err.println("파일 로드 중 오류가 발생했습니다: " + e.getMessage());
+        }
+
+        Parcel[] tempArray = parcelArray;
+        parcelArray = loadedParcelArray;
     }
 }
+
 
 
