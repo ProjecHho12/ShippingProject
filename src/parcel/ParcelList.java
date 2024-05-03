@@ -1,6 +1,6 @@
 package parcel;
 
-import java.util.List;
+import parcel.parcelElement.Parcel;
 
 public class ParcelList {
 
