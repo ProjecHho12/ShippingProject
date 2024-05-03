@@ -8,10 +8,11 @@ import util.SimpleInput;
 public class CustomerViewImpl {
     private final CustomerControllerImpl customerController;
     private final ParcelControllerImpl parcelController;
-
+    private final ParcelView parcelView;
     public CustomerViewImpl(CustomerControllerImpl customerController, ParcelControllerImpl parcelController) {
         this.customerController = customerController;
         this.parcelController = parcelController;
+        this.parcelView = new ParcelView();
     }
 
     void registerCustomer() {
@@ -68,7 +69,7 @@ public class CustomerViewImpl {
         while (true) {
             switch (customerMenu()) {
                 case "1":
-                    ParcelView.startInputParcel(tar);
+                    parcelView.startInputParcel(tar);
                     break;
                 case "2":
                     selectParcelByCustomer(tar);
