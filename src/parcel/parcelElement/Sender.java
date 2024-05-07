@@ -1,34 +1,75 @@
 package parcel.parcelElement;
 
+import parcel.StringInput;
+
 import java.io.Serializable;
 
-// Parcel 필드 1. Sender(보내는 분)에 들어가는 내용
-public class Sender implements Serializable {
-    private String SenderName; // 보내는 분 이름
-    private SenderAddress SenderAddress; // 보내는 분 주소
-    private String SenderNumber; // 보내는 분 번호
+public class Sender extends PersonInfo implements InformationCheck<PersonInfo>, Serializable {
+    private static final long serialVersionUID = 1L;
 
-    public Sender(String senderName, parcel.parcelElement.SenderAddress senderAddress, String senderNumber) {
-        SenderName = senderName;
-        SenderAddress = senderAddress;
-        SenderNumber = senderNumber;
+    StringInput si;
+
+    public Sender(String name, String number, Address address) {
+        super(name, number, address);
     }
 
-    public String getSenderName() {
-        return SenderName;
+    public Sender(StringInput si) {
+        super();
+        this.si = new StringInput();
     }
 
-    public parcel.parcelElement.SenderAddress getSenderAddress() {
-        return SenderAddress;
-    }
 
-    public String getSenderNumber() {
-        return SenderNumber;
+
+    @Override
+    public String getName() {
+        return super.getName();
     }
 
     @Override
-    public String toString() {
-        return String.format("이름: %s\n주소 - %s | 전화번호: %s",
-                this.SenderName, this.SenderAddress, this.SenderNumber);
+    public String getNumber() {
+        return super.getNumber();
+    }
+
+    @Override
+    public Address getAddress() {
+        return super.getAddress();
+    }
+
+    @Override
+    public void setAddress(Address address) {
+        super.setAddress(address);
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
+    @Override
+    public void setNumber(String number) {
+        super.setNumber(number);
+    }
+
+    @Override
+    public PersonInfo executeInputMethods(StringInput si) {
+        super.executeInputMethods(si);
+        getAddress().setState(getAddress().getState());
+        getAddress().setCity(getAddress().getCity());
+        getAddress().setStreetAddress(getAddress().getStreetAddress());
+        getAddress().setZipPostalCode(getAddress().getZipPostalCode());
+        return this;
+    }
+
+    @Override
+    public PersonInfo CheckTarget() {
+        // 보내는 사람 정보
+        System.out.println("* 보내는 분 - 보내시는 고객님의 정보를 정확히 입력해 주세요.");
+        return executeInputMethods(si);
+    }
+
+    @Override
+    public PersonInfo checkInfo() {
+        InformationCheck.super.checkInfo();
+        return this;
     }
 }

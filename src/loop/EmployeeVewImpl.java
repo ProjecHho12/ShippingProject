@@ -3,9 +3,11 @@ package loop;
 import employee.Employee;
 import employee.EmployeeControllerImpl;
 import employee.Job;
+
+import java.util.ArrayList;
 import java.util.List;
-import parcel.Parcel;
 import parcel.ParcelView;
+import parcel.parcelElement.Parcel;
 import util.SimpleInput;
 
 public class EmployeeVewImpl {
@@ -122,11 +124,11 @@ public class EmployeeVewImpl {
     }
 
     private void selectAllParcelByEmployee() {
-        Parcel[] list = employeeController.selectAllParcel();
-        System.out.printf("현재 접수된 택배 목록입니다. (총%d개)\n", list.length);
-        if (list.length == 0) return ;
-		for (int i = 0; i < list.length; i++) {
-			Parcel parcel = list[i];
+        ArrayList<Parcel> list = employeeController.selectAllParcel();
+        System.out.printf("현재 접수된 택배 목록입니다. (총%d개)\n", list.size());
+        if (list.size() == 0) return ;
+		for (int i = 0; i < list.size(); i++) {
+			Parcel parcel = list.get(i);
             System.out.println(i + 1 + ". ==============================");
             System.out.println(parcel);
             System.out.println("========================================");

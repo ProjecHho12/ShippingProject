@@ -1,108 +1,101 @@
 package parcel;
 
-import parcel.parcelElement.*;
+import parcel.parcelElement.Parcel;
 
 import java.io.*;
+import java.util.ArrayList;
 
-public class ParcelRepository {
-    // 회원정보를 입력받아서 회원 배열에 저장
-    private Parcel[] parcelArray;
+public class ParcelRepository implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    // 택배 배열 저장할 텍스트 파일 저장 경로
-    private static final String ROOT_PATH = "parcel.txt"; // 파일의 경로
+    private static ParcelRepository instance;
+    private ArrayList<Parcel> parcelArrayList;
 
-
-    // 필드 parcelArray 초기화 (객체 1개짜리 배열로 시작!)
-    public ParcelRepository() {
-        parcelArray = new Parcel[1];
-
-        // 기본적으로 넣어 줄 객체 1개
-        // 보내는 분
-        SenderAddress onesenderaddress = new SenderAddress(TrackingNumber.CHUNGBUK, "청주시", "흥덕동", "24856");
-        Sender onesender = new Sender("풀순이", onesenderaddress, "01048596812");
-        // 받는 분
-        RecipientAddress onerecipientaddress = new RecipientAddress(TrackingNumber.CHUNGBUK, "청주시", "흥덕동", "24856");
-        Recipient onerecipient = new Recipient("풀돌이", onerecipientaddress, "01048596812");
-        // 상품 정보
-        ProductInfo oneproductinfo = new ProductInfo("풀죽", "1000", ProductSize.SMALL);
-
-        //종합
-        parcelArray[0] = new Parcel("0020430001", onesender, onerecipient, oneproductinfo, Status.INCOMING, 10000);
+    private ParcelRepository() {
+        parcelArrayList = new ArrayList<>();
     }
 
-
-    //getter
-    public Parcel[] getParcelArray() {
-        return parcelArray;
-    }
-
-
-    //메소드
-    // 입력받은 택배 정보가 담긴 객체 배열에 담기
-    void addParcelInformation(Parcel newParcel) {
-        // 배열에 데이터를 추가
-        // 임시배열은 원래 배열보다 하나 크고
-        Parcel[] temp = new Parcel[parcelArray.length + 1];
-        // 원래 배열크기만큼 for loop 돌려서
-        for (int i = 0; i < parcelArray.length; i++) {
-            // 임시배열에 원래배열 인덱스 맞춰서 넣어주고
-            temp[i] = parcelArray[i];
+    public static ParcelRepository getInstance() {
+        if (instance == null) {
+            instance = new ParcelRepository ();
         }
-        // 추가된 내용만 임시배열의 맨 끝에 넣어준다.
-        temp[temp.length - 1] = newParcel;
-        // 원래배열에 임시배열 대입
-        parcelArray = temp;
+        return instance;
     }
 
-
-    // 택배 배열 넣을 텍스트 파일 생성
-    void makeSaveFile() {
-
-        // 파일 생성 (ParcelRepository 폴더 안에 parcelrepository.txt 생성)
-        File newfile = new File(ROOT_PATH);
-        // 만약 파일 newfile 이 존재하지 않는다면 폴더를 만들기
-        if (!newfile.exists()) {
-            try {
-                if (newfile.createNewFile())
-                    System.out.println("파일이 생성되었습니다.");
-            } catch (IOException e) {
-                System.out.println("파일 생성 중 오류가 발생했습니다.");
-            }
-        }
+    public ArrayList<Parcel> getParcelArrayList() {
+        return parcelArrayList;
     }
 
+    public void add (Parcel parcel) {
+        parcelArrayList.add(parcel);
+    }
 
-    // 텍스트 파일에 택배 배열 넣기
-    public void saveParcelArrayFile(Parcel saveParcel) {
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ROOT_PATH))) {
-            // Parcel 배열을 파일에 쓰기
-            oos.writeObject(parcelArray);
-            System.out.println("Parcel 배열이 파일에 저장되었습니다.");
+    // 텍스트 파일에 택배리스트 추가 (객체추가)
+    public void saveParcelListInFile() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./parcel.txt"))) {
+            oos.writeObject(parcelArrayList);
+            System.out.println("택배리스트에 택배가 등록되었습니다.");
         } catch (IOException e) {
             System.err.println("파일 저장 중 오류가 발생했습니다: " + e.getMessage());
         }
     }
 
+//    public void readParcelArrayInFile() {
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./parcel.txt"))) {
+//            Object obj = ois.readObject();
+//            if (obj instanceof ArrayList) {
+//                this.parcelArrayList = (ArrayList<Parcel>) obj;
+//                System.out.println("택배 리스트를 파일에서 읽어왔습니다.");
+//            } else {
+//                System.out.println("파일에서 읽어온 데이터의 타입이 ArrayList가 아닙니다.");
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("파일이 존재하지 않습니다.");
+//        } catch (IOException | ClassNotFoundException e) {
+//            System.out.println("파일에서 오류가 발견되었습니다.");
+//        }
+//    }
 
-    // 택배 조회할 때 텍스트 파일에서 객체 읽어오기
-    public void readParcelArrayFile() {
-
-        Parcel[] loadedParcelArray = null;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ROOT_PATH))) {
-            // 파일에서 Parcel 배열 읽기
-
-            loadedParcelArray = (Parcel[]) ois.readObject();
-
+    // 텍스트 파일에 저장된 택배리스트 불러오기
+    public void readParcelArrayInFile() {
+        // 프로그램을 처음 실행할 때 parcelArrayList를 빈 리스트로 초기화
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./parcel.txt"))) {
+            this.parcelArrayList = (ArrayList<Parcel>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("\n택배 저장소가 불에 타버렸습니다. \n새로 건설하는 중입니다.\n");
         } catch (IOException | ClassNotFoundException e) {
-            loadedParcelArray = parcelArray;
-            //System.err.println("파일 로드 중 오류가 발생했습니다: " + e.getMessage());
+            System.out.println("파일 생성중 오류가 발생했습니다.");
         }
-
-        Parcel[] tempArray = parcelArray;
-        parcelArray = loadedParcelArray;
+        try {
+            File newFile = new File("./parcel.txt");
+            if (newFile.createNewFile()) {
+                System.out.println("택배저장소가 완공되었습니다.\n접수를 시작합니다.");
+            }
+        } catch (IOException e) {
+            System.out.println("파일 생성중 오류가 발생했습니다.");
+        }
     }
+
+    // 데이터를 파일에 저장하는 메서드
+    public void saveDataToFile() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./parcel.txt"))) {
+            oos.writeObject(this.parcelArrayList);
+            System.out.println("데이터를 파일에 저장했습니다.");
+        } catch (IOException e) {
+            System.err.println("파일 저장 중 오류가 발생했습니다: " + e.getMessage());
+        }
+    }
+
+    // 프로그램 종료 시 호출되는 메서드
+    public void closeProgram() {
+        saveDataToFile();
+        System.out.println("프로그램을 종료합니다.");
+        System.exit(0);
+    }
+
+
+
+
+
+
 }
-
-
-
