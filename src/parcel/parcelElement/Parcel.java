@@ -1,68 +1,134 @@
 package parcel.parcelElement;
 
+import parcel.ParcelRepository;
+import parcel.StringInput;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
-/**
- * packageName    : parcel fileName       : Parcel author         : hoho date           : 4/25/24
- * description    :
- */
 public class Parcel implements Serializable {
-    // 택배 1개에 들어가야 하는 정보
-    private String TrackingNumber; // 운송장번호
-    private Sender Sender; // 보내는 분 (이름, 연락처, 주소)
-    private Recipient Recipient; // 받는 분 (이름, 연락처, 주소)
-    private ProductInfo ProductInfo; // 상품 정보 (상품명, 상품가격, 크기)
-    private String Status; // 배송상태 (접수완료, 배송중, 배송완료)
-    private LocalDate regDate; // 접수일자
-    private int ShippingFee; // 배송비
+    private static final long serialVersionUID = 1L;
 
-    public Parcel(String trackingNumber, parcel.parcelElement.Sender sender, parcel.parcelElement.Recipient recipient, parcel.parcelElement.ProductInfo productInfo, String status, int shippingFee) {
-        TrackingNumber = trackingNumber;
-        Sender = sender;
-        Recipient = recipient;
-        ProductInfo = productInfo;
-        Status = status;
+    private String trackingNumber;
+    private PersonInfo sender;
+    private PersonInfo recipient;
+    private ProductInfo productInfo;
+    private Status status;
+    private LocalDate regDate;
+
+    private StringInput si;
+    private ParcelRepository repository;
+
+    private Parcel (String trackingNumber, PersonInfo sender, PersonInfo recipient, ProductInfo productInfo, Status status) {
+        this.trackingNumber = trackingNumber;
+        this.sender = sender;
+        this.recipient = recipient;
+        this.productInfo = productInfo;
+        this.status = status;
         this.regDate = LocalDate.now();
-        ShippingFee = shippingFee;
     }
 
-    public Parcel(String trackingNumber, String s, String s1, String s2, String status, String s3) {
+    public Parcel(StringInput si) {
+        this.si = new StringInput();
+        this.repository = ParcelRepository.getInstance();
     }
 
     public String getTrackingNumber() {
-        return TrackingNumber;
+        return trackingNumber;
     }
 
-    public parcel.parcelElement.Sender getSender() {
-        return Sender;
+    public PersonInfo getSender() {
+        return sender;
     }
 
-    public parcel.parcelElement.Recipient getRecipient() {
-        return Recipient;
+    public PersonInfo getRecipient() {
+        return recipient;
     }
 
-    public parcel.parcelElement.ProductInfo getProductInfo() {
-        return ProductInfo;
+    public ProductInfo getProductInfo() {
+        return productInfo;
     }
-
     public String getStatus() {
-        return Status;
+        return this.status.getDescription();
     }
 
     public LocalDate getRegDate() {
         return regDate;
     }
 
-    public int getShippingFee() {
-        return ShippingFee;
+    public void setSender(PersonInfo sender) {
+        this.sender = sender;
     }
 
-    @Override
-    public String toString() {
-        return String.format("운송장번호: %s\n보내는 분\n%s\n받는 분\n%s\n상품정보\n%s\n택배상태: %s | 접수일: %s | 택배가격: %d원",
-                this.TrackingNumber, this.Sender, this.Recipient, this.ProductInfo, this.Status, this.regDate, this.ShippingFee);
+    public void setRecipient(PersonInfo recipient) {
+        this.recipient = recipient;
     }
+
+    public void setProductInfo(ProductInfo productInfo) {
+        this.productInfo = productInfo;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
+
+    // Address 는 사람의 주소(보내는 사람 주소, 받는 사람 주소)에 대한 정보를 처리
+    public static Parcel createParcel (StringInput si) {
+        return new Parcel(si);
+    }
+
+
+    // Parcel 은 택배 하나에 대한 정보를 처리
+    private void createTrackingNumber (StringInput si, String a, String b) {
+        //운송장 번호
+        // (10자리, 보내는 분 지역번호 3자리 / 받는 분 지역번호 3자리 / 택배배열 길이+1 4자리)
+        // 보내는 사람 지역번호 3자리
+        //Sender makeSender = new Sender(si);
+        String senderNumber = a;
+        //System.out.println(senderNumber);
+        //System.out.println("1번");
+        // 받는 분 지역번호 3자리
+        //PersonInfo makeRecipient = new Recipient();
+        String recipientNumber = b;
+        //System.out.println(recipientNumber);
+        //System.out.println("2번");
+        // 남은 뒷자리 4자리는 배열에 남은 택배길이
+        String lastNumber = String.format("%04d", repository.getParcelArrayList().size() + 1);
+        //System.out.println("3번");
+        // 최종 운송장 번호
+        this.trackingNumber = senderNumber.concat(recipientNumber).concat(lastNumber);
+        //System.out.println("4번");
+    }
+
+    public Parcel executeInputMethods(StringInput si, String sendNum, String reciNum) {
+        createTrackingNumber(si, sendNum, reciNum);
+        return this;
+    }
+
+
+//
+//    // 입력된 정보 바탕으로 택배 1개 생성
+//    public Parcel makeParcel () {
+//        // 보내는 사람
+//        PersonInfo Sender = sender.checkInfo();
+//        // 받는 사람
+//        PersonInfo Recipient = recipient.checkInfo();
+//        //운송장번호
+//        TrackingNumber TrackingNumber = makeTrackingNumber();
+//        // 상품 정보
+//        ProductInfo productInfo = ProductInfo.checkInfo();
+//
+//        // 택배 1개 생성
+//        Parcel oneParcel = new Parcel(TrackingNumber, Sender, Recipient, productInfo, parcel.parcelElement.Status.INCOMING, "3000원");
+//
+//        return oneParcel;
+//    }
+
+
+
+
 }
-
-

@@ -3,6 +3,7 @@ package loop;
 import customer.Customer;
 import customer.CustomerControllerImpl;
 import parcel.*;
+import parcel.parcelElement.Parcel;
 import util.SimpleInput;
 
 import java.util.ArrayList;
@@ -10,11 +11,11 @@ import java.util.List;
 
 public class CustomerViewImpl {
     private final CustomerControllerImpl customerController;
-    private final ParcelControllerImpl parcelController;
     private final ParcelView parcelView;
-    public CustomerViewImpl(CustomerControllerImpl customerController, ParcelControllerImpl parcelController) {
+    private ParcelRepository repository;
+    public CustomerViewImpl(CustomerControllerImpl customerController, ParcelRepository repository) {
         this.customerController = customerController;
-        this.parcelController = parcelController;
+        this.repository = repository;
         this.parcelView = new ParcelView();
     }
 
@@ -72,7 +73,7 @@ public class CustomerViewImpl {
         while (true) {
             switch (customerMenu()) {
                 case "1":
-                    parcelView.startInputParcel(tar);
+                    parcelView.start(tar);
                     break;
                 case "2":
                     selectParcelByCustomer(tar);
@@ -194,17 +195,21 @@ public class CustomerViewImpl {
     private void selectParcelByCustomer(Customer tar) {
         // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
         List<Parcel> parcelList = getParcelByCustomer(tar);
-        System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
-                + "======== 배송 리스트 ========");
-        for (Parcel parcel : parcelList) {
-            System.out.println("parcel = " + parcel);
+        if(parcelList.isEmpty()){
+            System.out.println("등록하신 배송 정보가 없습니다.");
+        } else {
+            System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
+                    + "=========== 배송 리스트 ===========");
+            for (Parcel parcel : parcelList) {
+                System.out.println(parcel);
+            }
+            System.out.println("\n===========================\n");
         }
-        System.out.println("\n===========================\n");
     }
 
     private List<Parcel> getParcelByCustomer(Customer tar) {
         // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
-        Parcel[] customerParcelList = ParcelView.getRepository().getParcelArray(); // 택배리스트
+        ArrayList<Parcel> customerParcelList = repository.getParcelArrayList(); // 택배리스트
         List<String> trackingNumbers = tar.getTrackingNumbers(); // 고객의 운송장번호 리스트
         List<Parcel> foundParcelList = new ArrayList<>();
 

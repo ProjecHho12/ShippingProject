@@ -12,11 +12,11 @@ public class AppConfig {
 	}
 
 	private EmployeeVewImpl employeeView() {
-		return new EmployeeVewImpl(employeeController(), parcelController());
+		return new EmployeeVewImpl(employeeController());
 	}
 
 	private CustomerViewImpl customerView() {
-		return new CustomerViewImpl(customerController(), parcelController());
+		return new CustomerViewImpl(customerController(), parcelRepository());
 	}
 
 	private EmployeeControllerImpl employeeController() {
@@ -35,7 +35,7 @@ public class AppConfig {
 		return new EmployeeRepository();
 	}
 	private ParcelRepository parcelRepository() {
-		return new ParcelRepository();
+		return ParcelRepository.getInstance();
 	}
 
 }

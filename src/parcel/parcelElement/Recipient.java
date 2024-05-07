@@ -1,34 +1,54 @@
 package parcel.parcelElement;
 
+import parcel.StringInput;
+
 import java.io.Serializable;
 
-// Parcel 필드 2. Recipient(받는 분)에 들어가는 내용
-public class Recipient implements Serializable {
-    private String RecipientName; // 받는 분 이름
-    private RecipientAddress RecipientAddress; // 받는 분 주소
-    private String RecipientNumber; // 받는 분 번호
+public class Recipient extends PersonInfo implements InformationCheck<PersonInfo>, Serializable {
+    private static final long serialVersionUID = 1L;
 
-    public Recipient(String recipientName, parcel.parcelElement.RecipientAddress recipientAddress, String recipientNumber) {
-        RecipientName = recipientName;
-        RecipientAddress = recipientAddress;
-        RecipientNumber = recipientNumber;
+    StringInput si;
+
+    public Recipient(String name, String number, Address address) {
+        super(name, number, address);
     }
 
-    public String getRecipientName() {
-        return RecipientName;
-    }
-
-    public parcel.parcelElement.RecipientAddress getRecipientAddress() {
-        return RecipientAddress;
-    }
-
-    public String getRecipientNumber() {
-        return RecipientNumber;
+    public Recipient() {
+        super();
+        this.si = new StringInput();
     }
 
     @Override
-    public String toString() {
-        return String.format("이름: %s\n주소 - %s | 전화번호: %s",
-                this.RecipientName, this.RecipientAddress, this.RecipientNumber);
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public String getNumber() {
+        return super.getNumber();
+    }
+
+    @Override
+    public Address getAddress() {
+        return super.getAddress();
+    }
+
+    @Override
+    public PersonInfo executeInputMethods(StringInput si) {
+        super.executeInputMethods(si);
+        return this;
+    }
+
+    @Override
+    public PersonInfo CheckTarget() {
+        // 받는 사람 정보
+        System.out.println("\n* 받는 분 - 받으시는 고객님의 정보를 정확히 입력해 주세요.");
+        return executeInputMethods(si);
+    }
+
+    @Override
+    public PersonInfo checkInfo() {
+        InformationCheck.super.checkInfo();
+        return this;
     }
 }

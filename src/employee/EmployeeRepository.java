@@ -1,12 +1,14 @@
 package employee;
 
 
-import parcel.Parcel;
-import parcel.Status;
+
+import parcel.parcelElement.Parcel;
+import parcel.parcelElement.Status;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class EmployeeRepository {
     public List<Employee> employeeList;
@@ -24,7 +26,7 @@ public class EmployeeRepository {
             try (FileInputStream fis = new FileInputStream(targetPath)) {
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 this.employeeList = (List<Employee>) ois.readObject();
-                System.out.println("employeeList = " + employeeList);
+//                System.out.println("employeeList = " + employeeList);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
