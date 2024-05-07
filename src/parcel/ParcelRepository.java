@@ -1,6 +1,7 @@
 package parcel;
 
 import parcel.parcelElement.Parcel;
+import parcel.parcelElement.TrackingNumber;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ public class ParcelRepository implements Serializable {
 
     private ParcelRepository() {
         parcelArrayList = new ArrayList<>();
+    }
+
+    public ParcelRepository(TrackingNumber[] trackingNumbers) {
     }
 
     public static ParcelRepository getInstance() {
