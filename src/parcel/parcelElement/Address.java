@@ -128,8 +128,8 @@ public class Address implements Serializable {
         inputzipPostalCode();
 
         // 입력된 주소 정보로 주소 객체의 필드 값을 설정
-        setState(getState());
-        setCity(getCity());
+        setState(this.state);
+        setCity(this.city);
         setStreetAddress(this.streetAddress);
         setZipPostalCode(this.zipPostalCode);
 
