@@ -11,12 +11,10 @@ import java.util.List;
 
 public class CustomerViewImpl {
     private final CustomerControllerImpl customerController;
-    private final ParcelControllerImpl parcelController;
     private final ParcelView parcelView;
     private ParcelRepository repository;
-    public CustomerViewImpl(CustomerControllerImpl customerController, ParcelControllerImpl parcelController, ParcelRepository repository) {
+    public CustomerViewImpl(CustomerControllerImpl customerController, ParcelRepository repository) {
         this.customerController = customerController;
-        this.parcelController = parcelController;
         this.repository = repository;
         this.parcelView = new ParcelView();
     }

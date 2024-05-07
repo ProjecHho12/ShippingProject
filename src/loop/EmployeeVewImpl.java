@@ -12,13 +12,9 @@ import util.SimpleInput;
 
 public class EmployeeVewImpl {
     private final EmployeeControllerImpl employeeController;
-    private final ParcelControllerImpl parcelController;
-    private final ParcelView parcelView;
 
-    public EmployeeVewImpl(EmployeeControllerImpl employeeController, ParcelControllerImpl parcelController) {
+    public EmployeeVewImpl(EmployeeControllerImpl employeeController) {
         this.employeeController = employeeController;
-        this.parcelController = parcelController;
-        this.parcelView = new ParcelView();
     }
 
     void registerEmployee() {
