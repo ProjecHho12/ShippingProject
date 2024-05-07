@@ -194,12 +194,16 @@ public class CustomerViewImpl {
     private void selectParcelByCustomer(Customer tar) {
         // 고객에게 저장된 운송장 번호와 택배리스트에 있는 택배의 운송장 번호가 일치하면 해당 택배정보를 가져와라
         List<Parcel> parcelList = getParcelByCustomer(tar);
-        System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
-                + "======== 배송 리스트 ========");
-        for (Parcel parcel : parcelList) {
-            System.out.println("parcel = " + parcel);
+        if(parcelList.isEmpty()){
+            System.out.println("등록하신 배송 정보가 없습니다.");
+        } else {
+            System.out.println("\n***** " + tar.getCustomerName() + "님의 마이 페이지 *****\n"
+                    + "=========== 배송 리스트 ===========");
+            for (Parcel parcel : parcelList) {
+                System.out.println(parcel);
+            }
+            System.out.println("\n===========================\n");
         }
-        System.out.println("\n===========================\n");
     }
 
     private List<Parcel> getParcelByCustomer(Customer tar) {
