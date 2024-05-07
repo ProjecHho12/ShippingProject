@@ -1,21 +1,22 @@
 package employee;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import parcel.Parcel;
+import parcel.parcelElement.Parcel;
+
 import parcel.ParcelRepository;
 
 import java.util.stream.Collectors;
-import parcel.Status;
 
 public class EmployeeControllerImpl {
 
 	private final EmployeeRepository er;
-	private final ParcelRepository parcelRepository;
+	private final ArrayList<Parcel> parcelArr;
 
 	public EmployeeControllerImpl(EmployeeRepository employeeRepository) {
 		er = employeeRepository;
-		parcelRepository = new ParcelRepository();
+        parcelArr = ParcelRepository.getInstance().getParcelArrayList();;
 	}
 
 	//
@@ -66,26 +67,26 @@ public class EmployeeControllerImpl {
 	 * @return - 일치하는 운송장 번호가 없으면 -1 반환
 	 */
 	public int setOutcoming(String trackingNumber) {
-		Parcel[] parcels = parcelRepository.getParcelArray();
-		Parcel targetParcel = null;
-		for (int i = 0; i < parcels.length; i++) {
-			if (parcels[i].getTrackingNumber().equals(trackingNumber)) {
-				targetParcel = parcels[i];
-			}
-		}
-		if (targetParcel != null && targetParcel.getStatus().equals("입고")) {
-			er.setParcelStatus(targetParcel);
-			return 1;
-		}
-		return -1;
+        Parcel targetParcel;
+        try {
+            targetParcel = parcelArr.stream().filter(p->p.getTrackingNumber()==trackingNumber).collect(Collectors.toList()).get(0);
+            return 1;
+        } catch (IndexOutOfBoundsException e){
+            e.getStackTrace();
+            return -1;
+
+        }
+
 	}
 
-	public Parcel[] selectAllParcel() {
-		return parcelRepository.getParcelArray();
+	public ArrayList<Parcel> selectAllParcel() {
+		return parcelArr;
 	}
 
 	public List<Parcel> selectIncomingParcel() {
-		return Arrays.stream(parcelRepository.getParcelArray())
-			.filter(p -> p.getStatus().equals("입고")).collect(Collectors.toList());
+//		return Arrays.stream(parcelRepository.getParcelArray())
+//			.filter(p -> p.getStatus().equals("입고")).collect(Collectors.toList());
+
+        return parcelArr.stream().filter(p -> p.getStatus().equals("입고")).collect(Collectors.toList());
 	}
 }
