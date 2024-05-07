@@ -53,7 +53,7 @@ public class PersonInfo implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("|\uD83D\uDE4B\u200D♂\uFE0F이름    : %s \n|\uD83D\uDCDE전화번호 : %s\n┝━ \uD83C\uDFE1주소 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┑\n%s\n",
+        return String.format("|이름    : %s \n|전화번호 : %s\n|주소\n%s\n",
                 this.name, this.number, this.address);
     }
 
@@ -63,9 +63,9 @@ public class PersonInfo implements Serializable {
         //이름
         this.name = null;
         while (true) {
-            name = si.inputString("|\uD83D\uDE4B\u200D♂\uFE0F 이름을 입력해주세요. (5\uFE0F⃣글자 이하)");
+            name = si.inputString("| 이름을 입력해주세요. (5글자 이하)");
             if (name.length() >= 5) {
-                System.out.println("이름은 5\uFE0F⃣글자 이하로 적어주세요 ❗");
+                System.out.println("이름은 5글자 이하로 적어주세요 !");
             } else {
                 break;
             }
@@ -76,13 +76,13 @@ public class PersonInfo implements Serializable {
         // 핸드폰번호
         this.number = null;
         while (true) {
-            number = si.inputString("|\uD83D\uDCF1 핸드폰번호를 입력해주세요. ex)\uD83D\uDCDE010-1234-5678");
+            number = si.inputString("| 핸드폰번호를 입력해주세요. ex) 010-1234-5678");
             String pureNum = number.replaceAll("-", "");
             if (pureNum.matches("\\d{11}")) {
                 number = pureNum;
                 break;
             } else {
-                System.out.println("핸드폰번호 1\uFE0F⃣1\uFE0F⃣자리 숫자를 입력해야 합니다 ❗");
+                System.out.println("핸드폰번호 11자리 숫자를 입력해야 합니다!");
             }
         }
     }
