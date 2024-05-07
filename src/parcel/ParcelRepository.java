@@ -20,6 +20,9 @@ public class ParcelRepository implements Serializable {
     public ParcelRepository(TrackingNumber[] trackingNumbers) {
     }
 
+    public ParcelRepository(TrackingNumber[] trackingNumbers) {
+    }
+
     public static ParcelRepository getInstance() {
         if (instance == null) {
             instance = new ParcelRepository ();
