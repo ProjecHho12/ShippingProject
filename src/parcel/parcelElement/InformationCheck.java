@@ -14,17 +14,17 @@ public interface InformationCheck<T> {
     default T checkInfo() {
         // 정보 확인
         T object = CheckTarget();
-        System.out.println(" 입력하신 정보가 맞는지✅ 확인해주세요.");
+        System.out.println(" 입력하신 정보가 맞는지 확인해주세요.");
         System.out.printf("* ---------------------------------- *\n%s\n", object);
         while (true) {
-            String inputCheck = si.inputString("- 입력하신 정보가 맞으면 True⭕ 를 입력해주세요.\n- 다시 입력하시려면 False❌ 를 입력해주세요.↪\uFE0F");
+            String inputCheck = si.inputString("- 입력하신 정보가 맞으면 True 를 입력해주세요.\n- 다시 입력하시려면 False 를 입력해주세요.");
             if (inputCheck.toUpperCase().contains("T")) {
-                System.out.println("입력하신 내용이 저장되었습니다. \uD83D\uDCE9");
+                System.out.println("입력하신 내용이 저장되었습니다.");
                 break;
             } else if (inputCheck.toUpperCase().contains("F")) {
                 CheckTarget();
             } else {
-                System.out.println("True 또는 False 를 입력해 주세요 ❗");
+                System.out.println("True 또는 False 를 입력해 주세요!");
             }
         }
         return object;

@@ -27,7 +27,7 @@ public class StringInput implements Serializable {
             }
 
             if (inputString == null || inputString.trim().isEmpty()) {
-                System.out.println("공백은 입력할 수 없습니다 ❗");
+                System.out.println("공백은 입력할 수 없습니다 !");
             } else {
                 System.out.println(" \n");
                 break;
@@ -46,11 +46,11 @@ public class StringInput implements Serializable {
 //        while (sc.hasNext()) {
 //            inputInt = sc.nextLine();
 //            if (inputInt == null || inputInt.trim().isEmpty()){
-//                System.out.println("공백은 입력할 수 없습니다 ❗");
+//                System.out.println("공백은 입력할 수 없습니다 !");
 //            } else if (sc.hasNextInt()) {
 //                break;
 //            } else {
-//                System.out.println("숫자만 입력해주세요 ❗");
+//                System.out.println("숫자만 입력해주세요 !");
 //            }
 //        }
 //        return inputInt;

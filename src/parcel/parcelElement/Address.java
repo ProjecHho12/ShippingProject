@@ -59,7 +59,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("| 광역시/도 : %s | 시/군/구 : %s \n| 세부주소  : %s \n| 우편번호  : %s\n┕━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┙ ",
+        return String.format("| 광역시/도 : %s | 시/군/구 : %s \n| 세부주소  : %s \n| 우편번호  : %s\n",
                 this.state, this.city, this.streetAddress, this.zipPostalCode);
     }
 
@@ -74,7 +74,7 @@ public class Address implements Serializable {
         this.state = null;
         boolean check = false;
         while (true) {
-            String inputLocal = si.inputString("|\uD83C\uDF0F 광역시&도 를 입력해주세요. ex) 서울, 강원도, BUSAN 등");
+            String inputLocal = si.inputString("| 광역시&도 를 입력해주세요. ex) 서울, 강원도, BUSAN 등");
             for (TrackingNumber t : TrackingNumber.values()) {
                 if (t.getNames().contains(inputLocal.toUpperCase()) || t.getNames().contains(inputLocal)) {
                     this.state = t;
@@ -85,7 +85,7 @@ public class Address implements Serializable {
             if (check) {
                 break;
             } else {
-                System.out.println("광역시&도 가 아닙니다. 다시입력해주세요 ❗");
+                System.out.println("광역시&도 가 아닙니다. 다시입력해주세요.");
             }
         }
     }
@@ -94,9 +94,9 @@ public class Address implements Serializable {
         // 시.군.구
         this.city = null;
         while (true) {
-            city = si.inputString("|\uD83C\uDF03 시&군&구를 입력해주세요.");
+            city = si.inputString("| 시&군&구를 입력해주세요.");
             if (!city.matches(".*시|.*군|.*구")) {
-                System.out.println("oo시 & oo군 & oo구 로 입력해야 합니다 ❗");
+                System.out.println("oo시 & oo군 & oo구 로 입력해야 합니다.");
             } else {
                 break;
             }
@@ -105,18 +105,18 @@ public class Address implements Serializable {
 
     private void inputstreetAddress() {
         // 기타주소
-        this.streetAddress = si.inputString("|\uD83C\uDFE1 나머지 주소 를 입력해주세요.");
+        this.streetAddress = si.inputString("|나머지 주소 를 입력해주세요.");
     }
 
     private void inputzipPostalCode() {
         // 우편번호
         this.zipPostalCode = null;
         while (true) {
-            zipPostalCode = si.inputString("|\uD83D\uDCED 우편번호를 입력해주세요. (5\uFE0F⃣자리 숫자)");
+            zipPostalCode = si.inputString("|우편번호를 입력해주세요. (5자리 숫자)");
             if (zipPostalCode.length() == 5) {
                 break;
             } else {
-                System.out.println("우편번호는 5\uFE0F⃣자리 숫자로 입력해야 합니다 ❗");
+                System.out.println("우편번호는 5자리 숫자로 입력해야 합니다!");
             }
         }
     }
