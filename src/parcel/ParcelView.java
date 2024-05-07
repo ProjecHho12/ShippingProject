@@ -89,7 +89,7 @@ public class ParcelView implements Serializable {
                 System.out.println(this.parcel.getSender());
                 System.out.println(this.parcel.getRecipient());
                 System.out.println("상품 정보  : " + this.parcel.getProductInfo());
-                System.out.println("택배 상태  : " + parcel.getStatus().getDescription());
+                System.out.println("택배 상태  : " + parcel.getStatus());
             }
         }
     }
