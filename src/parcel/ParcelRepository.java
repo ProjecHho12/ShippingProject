@@ -14,6 +14,10 @@ public class ParcelRepository implements Serializable {
 
     private ParcelRepository() {
         parcelArrayList = new ArrayList<>();
+        readParcelArrayInFile();
+    }
+
+    public ParcelRepository(TrackingNumber[] trackingNumbers) {
     }
 
     public ParcelRepository(TrackingNumber[] trackingNumbers) {

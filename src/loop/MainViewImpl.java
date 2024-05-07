@@ -1,5 +1,7 @@
 package loop;
 
+import parcel.ParcelRepository;
+import parcel.ParcelView;
 import util.SimpleInput;
 
 public class MainViewImpl {
@@ -34,6 +36,7 @@ public class MainViewImpl {
 				break;
 			case "9":
 				System.out.println("프로그램을 종료합니다.");
+				ParcelRepository.getInstance().closeProgram();
 				return 0;
 			default:
 				System.out.println("입력한 메뉴 번호를 확인해주세요.!");
