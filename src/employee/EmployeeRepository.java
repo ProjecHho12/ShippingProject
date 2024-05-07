@@ -118,7 +118,7 @@ public class EmployeeRepository {
 
     //////////// 업무 일지 /////////////
     public void addJournal(Employee employee, Parcel parcel) {
-        Journal newJournal = new Journal(parcel.getTrackingNumber(), parcel.getStatus(), employee.getEmployeeName());
+        Journal newJournal = new Journal(parcel.getTrackingNumber(), parcel.getStatus().getDescription(), employee.getEmployeeName());
         employee.addJournal(newJournal);
     }
 

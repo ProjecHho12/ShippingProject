@@ -48,8 +48,8 @@ public class Parcel implements Serializable {
     public ProductInfo getProductInfo() {
         return productInfo;
     }
-    public String getStatus() {
-        return this.status.getDescription();
+    public Status getStatus() {
+        return this.status;
     }
 
     public LocalDate getRegDate() {
