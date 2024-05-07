@@ -24,7 +24,7 @@ public class EmployeeRepository {
             try (FileInputStream fis = new FileInputStream(targetPath)) {
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 this.employeeList = (List<Employee>) ois.readObject();
-                System.out.println("employeeList = " + employeeList);
+//                System.out.println("employeeList = " + employeeList);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
