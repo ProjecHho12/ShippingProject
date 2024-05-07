@@ -42,7 +42,7 @@ public class ParcelView implements Serializable {
         repository.saveParcelListInFile();
 
         // 접수된 내용 보여주기
-        System.out.println("고객님의 택배\uD83D\uDCE6 가 접수되었습니다.");
+        System.out.println("고객님의 택배 가 접수되었습니다.");
         // 여기 다른분 꺼 내용지운거 추가해야됨 ㄴㅇ모ㅗㅓㅑㅐㅅ거ㅙㅈㅅㄱ너ㅐ조거ㅐ
         // 여기도 다른분꺼 내용지운거 추가하기 리ㅑ허마ㅐ가ㅔㅗㄴ기ㅓㅛㅔㅓㅏㅐ둇아ㅓ; 기존 startInputParcel메소드
         //System.out.println(Arrays.toString(repository.getParcelArrayList().toArray())); // 이거오류
