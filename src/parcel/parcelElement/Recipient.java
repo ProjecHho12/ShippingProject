@@ -36,6 +36,11 @@ public class Recipient extends PersonInfo implements InformationCheck<PersonInfo
     @Override
     public PersonInfo executeInputMethods(StringInput si) {
         super.executeInputMethods(si);
+        this.getAddress().setState(getAddress().getState());
+        //getAddress().setState(getAddress().getState());
+        getAddress().setCity(getAddress().getCity());
+        getAddress().setStreetAddress(getAddress().getStreetAddress());
+        getAddress().setZipPostalCode(getAddress().getZipPostalCode());
         return this;
     }
 

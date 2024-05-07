@@ -19,17 +19,18 @@ public class Parcel implements Serializable {
     private StringInput si;
     private ParcelRepository repository;
 
-    private Parcel (String trackingNumber, PersonInfo sender, PersonInfo recipient, ProductInfo productInfo, Status status) {
+    public Parcel(String trackingNumber, PersonInfo sender, PersonInfo recipient, ProductInfo productInfo, Status status) {
         this.trackingNumber = trackingNumber;
         this.sender = sender;
         this.recipient = recipient;
         this.productInfo = productInfo;
-        this.status = status;
+        this.status = Status.INCOMING;
         this.regDate = LocalDate.now();
     }
 
     public Parcel(StringInput si) {
         this.si = new StringInput();
+        this.regDate = LocalDate.now();
         this.repository = ParcelRepository.getInstance();
     }
 
@@ -52,10 +53,6 @@ public class Parcel implements Serializable {
         return this.status;
     }
 
-    public LocalDate getRegDate() {
-        return regDate;
-    }
-
     public void setSender(PersonInfo sender) {
         this.sender = sender;
     }
@@ -76,6 +73,10 @@ public class Parcel implements Serializable {
         this.trackingNumber = trackingNumber;
     }
 
+    public LocalDate getRegDate() {
+        return regDate;
+    }
+
     // Address 는 사람의 주소(보내는 사람 주소, 받는 사람 주소)에 대한 정보를 처리
     public static Parcel createParcel (StringInput si) {
         return new Parcel(si);
@@ -83,16 +84,16 @@ public class Parcel implements Serializable {
 
 
     // Parcel 은 택배 하나에 대한 정보를 처리
-    private void createTrackingNumber (StringInput si, String a, String b) {
+    public void createTrackingNumber(StringInput si, String a, String b) {
         //운송장 번호
         // (10자리, 보내는 분 지역번호 3자리 / 받는 분 지역번호 3자리 / 택배배열 길이+1 4자리)
         // 보내는 사람 지역번호 3자리
-        //Sender makeSender = new Sender(si);
+//        Sender makeSender = new Sender(si);
         String senderNumber = a;
         //System.out.println(senderNumber);
         //System.out.println("1번");
         // 받는 분 지역번호 3자리
-        //PersonInfo makeRecipient = new Recipient();
+//        PersonInfo makeRecipient = new Recipient();
         String recipientNumber = b;
         //System.out.println(recipientNumber);
         //System.out.println("2번");
@@ -101,12 +102,8 @@ public class Parcel implements Serializable {
         //System.out.println("3번");
         // 최종 운송장 번호
         this.trackingNumber = senderNumber.concat(recipientNumber).concat(lastNumber);
+        setTrackingNumber(this.trackingNumber);
         //System.out.println("4번");
-    }
-
-    public Parcel executeInputMethods(StringInput si, String sendNum, String reciNum) {
-        createTrackingNumber(si, sendNum, reciNum);
-        return this;
     }
 
 

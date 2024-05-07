@@ -67,15 +67,14 @@ public class ParcelView implements Serializable {
         //String reciNum = "063";
 
         //운송장번호
-        Parcel parcel1 = new Parcel(si);
-        parcel1.executeInputMethods(si, sendNum, reciNum);
+        this.parcel.createTrackingNumber(si, sendNum, reciNum);
 
         // 상품정보
         ProductInfo productInfo = new ProductInfo(si);
         productInfo.checkInfo(); // 입력 메서드 실행 및 객체 생성
 
         //System.out.println("죄회죄화" + productInfo);
-        receiptParcel(sender, recipient, parcel1, productInfo, tar);
+        receiptParcel(sender, recipient, this.parcel, productInfo, tar);
 
 
         // 접수내용 조회
@@ -85,11 +84,11 @@ public class ParcelView implements Serializable {
         } else {
             System.out.println("파일에서 읽어온 택배 리스트:");
             for (Parcel parcel : repository.getParcelArrayList()) {
-                System.out.println("접수일자   : " + parcel.getRegDate());
-                System.out.println("운송장번호 : " + parcel.getTrackingNumber());
-//                System.out.println("parcel.getSender()");
-//                System.out.println("parcel.getRecipient()");
-                System.out.println("상품 정보  : " + parcel.getProductInfo());
+                System.out.println("접수일자   : " + this.parcel.getRegDate());
+                System.out.println("운송장번호 : " + this.parcel.getTrackingNumber());
+                System.out.println(this.parcel.getSender());
+                System.out.println(this.parcel.getRecipient());
+                System.out.println("상품 정보  : " + this.parcel.getProductInfo());
                 System.out.println("택배 상태  : " + parcel.getStatus());
             }
         }
