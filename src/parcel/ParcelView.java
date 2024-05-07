@@ -86,10 +86,10 @@ public class ParcelView implements Serializable {
             for (Parcel parcel : repository.getParcelArrayList()) {
                 System.out.println("접수일자   : " + this.parcel.getRegDate());
                 System.out.println("운송장번호 : " + this.parcel.getTrackingNumber());
-//                System.out.println("parcel.getSender()");
-//                System.out.println("parcel.getRecipient()");
+                System.out.println(this.parcel.getSender());
+                System.out.println(this.parcel.getRecipient());
                 System.out.println("상품 정보  : " + this.parcel.getProductInfo());
-                System.out.println("택배 상태  : " + this.parcel.getStatus());
+                System.out.println("택배 상태  : " + parcel.getStatus().getDescription());
             }
         }
     }

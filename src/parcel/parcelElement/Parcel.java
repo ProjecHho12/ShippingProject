@@ -24,7 +24,7 @@ public class Parcel implements Serializable {
         this.sender = sender;
         this.recipient = recipient;
         this.productInfo = productInfo;
-        this.status = status;
+        this.status = Status.INCOMING;
         this.regDate = LocalDate.now();
     }
 
