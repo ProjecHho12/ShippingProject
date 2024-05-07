@@ -16,7 +16,7 @@ public class EmployeeControllerImpl {
 
 	public EmployeeControllerImpl(EmployeeRepository employeeRepository) {
 		er = employeeRepository;
-        parcelArr = ParcelRepository.getInstance().getParcelArrayList();;
+        parcelArr = ParcelRepository.getInstance().getParcelArrayList();
 	}
 
 	//
@@ -68,8 +68,14 @@ public class EmployeeControllerImpl {
 	 */
 	public int setOutcoming(String trackingNumber) {
         Parcel targetParcel;
+
         try {
             targetParcel = parcelArr.stream().filter(p->p.getTrackingNumber()==trackingNumber).collect(Collectors.toList()).get(0);
+
+			er.setParcelStatus(targetParcel);
+
+			ParcelRepository repo = ParcelRepository.getInstance();
+			repo.saveDataToFile();
             return 1;
         } catch (IndexOutOfBoundsException e){
             e.getStackTrace();

@@ -130,6 +130,7 @@ public class EmployeeRepository {
    public void setParcelStatus(Parcel targetParcel){
 
         targetParcel.setStatus(Status.OUTCOMING);
+
     }
 
 }
