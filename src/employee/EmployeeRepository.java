@@ -1,12 +1,14 @@
 package employee;
 
 
-import parcel.Parcel;
-import parcel.Status;
+
+import parcel.parcelElement.Parcel;
+import parcel.parcelElement.Status;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class EmployeeRepository {
     public List<Employee> employeeList;
