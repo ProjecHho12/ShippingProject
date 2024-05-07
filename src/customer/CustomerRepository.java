@@ -44,7 +44,7 @@ public class CustomerRepository implements CustomerRepositoryInter {
                 // 객체를 로딩할 보조 스트림
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 List<Customer> customersList = (List<Customer>) ois.readObject();
-                System.out.println("customersList = " + customersList);
+//                System.out.println("customersList = " + customersList);
                 this.customers = customersList;
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
