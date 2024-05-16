@@ -29,7 +29,7 @@
 ### 5. 프로젝트 구조
  ```bash
     ├── src
-    │   ├── customer
+    │   ├── main.customer
     │   │   ├── Customer.java
     │   │   ├── CustomerController.java
     │   │   ├── CustomerControllerImpl.java
@@ -37,23 +37,23 @@
     │   │   ├── CustomerRepositoryInter.java
     │   │   ├── Gender.java
     │   │   └── LoginStatus.java
-    │   ├── employee
+    │   ├── main.employee
     │   │   ├── Employee.java
     │   │   ├── EmployeeControllerImpl.java
     │   │   ├── EmployeeRepository.java
     │   │   ├── Job.java
     │   │   └── Journal.java
-    │   ├── loop
+    │   ├── main.loop
     │   │   ├── AppConfig.java
     │   │   ├── CustomerViewImpl.java
     │   │   ├── EmployeeViewImpl.java
     │   │   └── MainViewImpl.java
-    │   ├── parcel
+    │   ├── main.parcel
     │   │   ├── parcelElement.java
     │   │   ├── ParcelRepository.java
     │   │   ├── ParcelView.java
     │   │   └── StringInput.java
-    │   ├── util
+    │   ├── main.util
     │   │   └── SimpleInput.java
     │   └── main.java
     ├── .gitignore
